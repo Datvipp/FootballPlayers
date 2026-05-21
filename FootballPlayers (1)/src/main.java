@@ -17,18 +17,12 @@ public class main {
         TrainingSession ts = new TrainingSession();
         Match ms = new Match();
         Scanner sc=new Scanner(System.in);
-     
+        
         pm.inputPlayers();
         pm.displayPlayer();
         ts.createTrainingSession();
         ts.displayTrainingSession();
         ms.nhapMatch();
         ms.xuatMatch();
-        Match a = new Match();
-        Match b = new Match();
-        a.nhapMatch();
-        b.nhapMatch();
-        a.xuatMatch();
-        b.xuatMatch();
     }
 }
