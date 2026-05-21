@@ -14,9 +14,12 @@ public class main {
     public static void main(String[] args) {
         
         Players pm=new Players();
+        TrainingSession ts=new TrainingSession();
         Scanner sc=new Scanner(System.in);
      
         pm.inputPlayers();
         pm.displayPlayer();
+        ts.createTrainingSession();
+        ts.displayTrainingSession();
     }
 }
