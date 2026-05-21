@@ -24,5 +24,11 @@ public class main {
         ts.displayTrainingSession();
         ms.nhapMatch();
         ms.xuatMatch();
+        Match a = new Match();
+        Match b = new Match();
+        a.nhapMatch();
+        b.nhapMatch();
+        a.xuatMatch();
+        b.xuatMatch();
     }
 }
