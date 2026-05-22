@@ -1,68 +1,169 @@
-
 import java.util.Scanner;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author manhd
- */
 public class Players {
-    int id, age, number;
-    String name, national, type, status, position;
-    double salary;
-   
-    void inputPlayers(){
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Enter player ID: ");
-        id=sc.nextInt();
-        
-        System.out.println("Enter full name: ");
-        sc=new Scanner(System.in);
-        name=sc.nextLine();
-        
-        System.out.println("Enter age: ");
-        sc=new Scanner(System.in);
-        age=sc.nextInt();
-        
-        System.out.println("Enter nationality: ");
-        sc=new Scanner(System.in);
-        national=sc.nextLine();
-        
-        System.out.println("Enter position: ");
-        sc=new Scanner(System.in);
-        position=sc.nextLine();
-        
-        System.out.println("Enter shirt number: ");
-        sc=new Scanner(System.in);
-        number=sc.nextInt();
-        
-        System.out.println("Enter base salary: ");
-        sc=new Scanner(System.in);
-        salary=sc.nextDouble();
-        
-        System.out.println("Enter player type (Regular Player|Star Player): ");
-        sc=new Scanner(System.in);
-        type=sc.nextLine();
-        
-        System.out.println("Enter status (Active|Inactive): ");
-        sc=new Scanner(System.in);
-        status=sc.nextLine();
+    // Private attributes
+    private int id;
+    private int age;
+    private int number;
+    private String name;
+    private String national;
+    private String type;
+    private String status;
+    private String position;
+    private double salary;
+    
+    // Constructor
+    public Players() {
+        this.id = 0;
+        this.age = 0;
+        this.number = 0;
+        this.name = "";
+        this.national = "";
+        this.type = "";
+        this.status = "";
+        this.position = "";
+        this.salary = 0.0;
     }
     
-    void displayPlayer(){
+    // Constructor
+    public Players(int id, int age, int number, String name, String national, 
+                   String type, String status, String position, double salary) {
+        this.id = id;
+        this.age = age;
+        this.number = number;
+        this.name = name;
+        this.national = national;
+        this.type = type;
+        this.status = status;
+        this.position = position;
+        this.salary = salary;
+    }
+    
+    // Getters
+    public int getId() {
+        return this.id;
+    }
+    
+    public int getAge() {
+        return this.age;
+    }
+    
+    public int getNumber() {
+        return this.number;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public String getNational() {
+        return this.national;
+    }
+    
+    public String getType() {
+        return this.type;
+    }
+    
+    public String getStatus() {
+        return this.status;
+    }
+    
+    public String getPosition() {
+        return this.position;
+    }
+    
+    public double getSalary() {
+        return this.salary;
+    }
+    
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public void setAge(int age) {
+        this.age = age;
+    }
+    
+    public void setNumber(int number) {
+        this.number = number;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public void setNational(String national) {
+        this.national = national;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public void setPosition(String position) {
+        this.position = position;
+    }
+    
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+    
+    // Input method
+    void inputPlayers() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter player ID: ");
+        this.id = sc.nextInt();
+        
+        System.out.println("Enter full name: ");
+        sc = new Scanner(System.in);
+        this.name = sc.nextLine();
+        
+        System.out.println("Enter age: ");
+        sc = new Scanner(System.in);
+        this.age = sc.nextInt();
+        
+        System.out.println("Enter nationality: ");
+        sc = new Scanner(System.in);
+        this.national = sc.nextLine();
+        
+        System.out.println("Enter position: ");
+        sc = new Scanner(System.in);
+        this.position = sc.nextLine();
+        
+        System.out.println("Enter shirt number: ");
+        sc = new Scanner(System.in);
+        this.number = sc.nextInt();
+        
+        System.out.println("Enter base salary: ");
+        sc = new Scanner(System.in);
+        this.salary = sc.nextDouble();
+        
+        System.out.println("Enter player type (Regular Player|Star Player): ");
+        sc = new Scanner(System.in);
+        this.type = sc.nextLine();
+        
+        System.out.println("Enter status (Active|Inactive): ");
+        sc = new Scanner(System.in);
+        this.status = sc.nextLine();
+    }
+    
+    // Display method
+    void displayPlayer() {
         System.out.println("===== PLAYER INFORMATION =====");
-        System.out.println("Player ID: " + id);
-        System.out.println("Full Name: " + name);
-        System.out.println("Age: " + age);
-        System.out.println("Nationality: " + national);
-        System.out.println("Position: " + position);
-        System.out.println("Shirt Number: " + number);
-        System.out.println("Base Salary: " + salary);
-        System.out.println("Player Type: " + type);
-        System.out.println("Status: " + status);
-    }  
+        System.out.println("Player ID: " + this.id);
+        System.out.println("Full Name: " + this.name);
+        System.out.println("Age: " + this.age);
+        System.out.println("Nationality: " + this.national);
+        System.out.println("Position: " + this.position);
+        System.out.println("Shirt Number: " + this.number);
+        System.out.println("Base Salary: " + this.salary);
+        System.out.println("Player Type: " + this.type);
+        System.out.println("Status: " + this.status);
+    }
 }

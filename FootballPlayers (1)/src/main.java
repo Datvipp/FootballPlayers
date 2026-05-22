@@ -6,10 +6,7 @@ import java.util.Scanner;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-/**
- *
- * @author manhd
- */
+
 public class main {
     public static void main(String[] args) {
         
@@ -17,7 +14,7 @@ public class main {
         TrainingSession ts = new TrainingSession();
         Match ms = new Match();
         Scanner sc=new Scanner(System.in);
-        
+     
         pm.inputPlayers();
         pm.displayPlayer();
         ts.createTrainingSession();
