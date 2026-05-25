@@ -7,7 +7,7 @@ public class SalaryManager {
     Salary [] arr = new Salary[100];
     int count = 0;
     
-    // Thêm hàm này để có thể nhập dữ liệu (giống addPlayer)
+    // Nhập DL
     public void addSalary() {
         boolean cont = false;
         Scanner sc = new Scanner(System.in);
@@ -22,11 +22,11 @@ public class SalaryManager {
         } while (cont == true && count < 100);
     }
 
-    // Chức năng 1: Calculate Monthly Salary
+    // Case 1: Calculate Monthly Salary
     public void calculateMonthlySalary() {
         Scanner sc = new Scanner(System.in);
         
-        System.out.println("Enter Player ID to calculate monthly salary:");
+        System.out.println("Enter Player ID to calculate monthly salary: ");
         int id = sc.nextInt();
         
         boolean found = false;
@@ -47,7 +47,7 @@ public class SalaryManager {
         }
     }
 
-    // Chức năng 2: Calculate Bonus
+    // Case 2: Calculate Bonus
     public void calculateBonus() {
         Scanner sc = new Scanner(System.in);
         
@@ -71,7 +71,7 @@ public class SalaryManager {
         }
     }
 
-    // Chức năng 3: Validate Rules (Kiểm tra trạng thái hợp đồng)
+    // Case 3: Validate Rules
     public void validateContractRules() {
         if (count == 0) {
             System.out.println("No records to validate!");
