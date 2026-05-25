@@ -117,39 +117,32 @@ public class Players {
     // Input method
     void inputPlayers() {
         Scanner sc = new Scanner(System.in);
+        
         System.out.println("Enter player ID: ");
         this.id = sc.nextInt();
         
         System.out.println("Enter full name: ");
-        sc = new Scanner(System.in);
         this.name = sc.nextLine();
         
         System.out.println("Enter age: ");
-        sc = new Scanner(System.in);
         this.age = sc.nextInt();
         
         System.out.println("Enter nationality: ");
-        sc = new Scanner(System.in);
         this.national = sc.nextLine();
         
         System.out.println("Enter position: ");
-        sc = new Scanner(System.in);
         this.position = sc.nextLine();
         
         System.out.println("Enter shirt number: ");
-        sc = new Scanner(System.in);
         this.number = sc.nextInt();
         
         System.out.println("Enter base salary: ");
-        sc = new Scanner(System.in);
         this.salary = sc.nextDouble();
         
         System.out.println("Enter player type (Regular Player|Star Player): ");
-        sc = new Scanner(System.in);
         this.type = sc.nextLine();
         
         System.out.println("Enter status (Active|Inactive): ");
-        sc = new Scanner(System.in);
         this.status = sc.nextLine();
     }
     
