@@ -21,10 +21,10 @@ public class Main {
             scanner.nextLine(); 
 
             switch (choice) {
-                case 1: playerMenu(); break;
-                case 2: trainingMenu(); break;
-                case 3: matchMenu(); break;
-                case 4: salaryMenu(); break;
+                case 1: playerMenu(); break; //duymanh
+                case 2: trainingMenu(); break; // Dat
+                case 3: matchMenu(); break; //Khoa
+                case 4: salaryMenu(); break; //Quan
                 case 5: reportMenu(); break;
                 case 0: System.out.println("Exiting program..."); break;
                 default: System.out.println("Invalid choice!");
