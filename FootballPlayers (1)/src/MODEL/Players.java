@@ -115,17 +115,19 @@ public class Players {
     }
     
     // Input method
-    void inputPlayers() {
+    public void inputPlayers() {
         Scanner sc = new Scanner(System.in);
         
         System.out.println("Enter player ID: ");
         this.id = sc.nextInt();
+        sc.nextLine();
         
         System.out.println("Enter full name: ");
         this.name = sc.nextLine();
         
         System.out.println("Enter age: ");
         this.age = sc.nextInt();
+        sc.nextLine();
         
         System.out.println("Enter nationality: ");
         this.national = sc.nextLine();
@@ -135,19 +137,21 @@ public class Players {
         
         System.out.println("Enter shirt number: ");
         this.number = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Enter player type (Regular player|Star player): ");
+        this.type = sc.nextLine();
         
         System.out.println("Enter base salary: ");
         this.salary = sc.nextDouble();
-        
-        System.out.println("Enter player type (Regular Player|Star Player): ");
-        this.type = sc.nextLine();
+        sc.nextLine();
         
         System.out.println("Enter status (Active|Inactive): ");
         this.status = sc.nextLine();
     }
     
     // Display method
-    void displayPlayer() {
+    public void displayPlayer() {
         System.out.println("===== PLAYER INFORMATION =====");
         System.out.println("Player ID: " + this.id);
         System.out.println("Full Name: " + this.name);
@@ -155,8 +159,8 @@ public class Players {
         System.out.println("Nationality: " + this.national);
         System.out.println("Position: " + this.position);
         System.out.println("Shirt Number: " + this.number);
-        System.out.println("Base Salary: " + this.salary);
         System.out.println("Player Type: " + this.type);
+        System.out.println("Base Salary: " + this.salary);
         System.out.println("Status: " + this.status);
     }
 }
