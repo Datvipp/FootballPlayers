@@ -12,7 +12,7 @@ public class MatchList {
     count++;
    }
    //display match list
-   public void dispalyMatchList(){
+   public void displayMatchList(){
     for(int i=0;i<count;i++){
         arr[i].xuatMatch();
     }
