@@ -1,4 +1,4 @@
-
+package SERVICES;
 import java.util.Scanner;
 
 public class ClubManager {
