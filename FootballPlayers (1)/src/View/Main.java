@@ -24,7 +24,7 @@ public class Main {
             scanner.nextLine(); 
 
             switch (choice) {
-                case 1: playerMenu(); break; //duymanh
+                case 1: clubManager(); break; //duymanh
                 case 2: trainingMenu(); break; // Dat
                 case 3: matchMenu(); break; //Khoa
                 case 4: salaryMenu(); break; //Quan
