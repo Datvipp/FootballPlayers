@@ -1,7 +1,7 @@
 
 import java.util.Scanner;
 
-public class clubManager {
+public class ClubManager {
     Players [] arr=new Players[100];
     int count=0;
     
