@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
     private static clubManager clubManager = new clubManager();
     private static TrainingManager trainingManager = new TrainingManager();
-    private static MatchList matchManager = new MatchList();
+    private static MatchList matchManager = new MatchList(100);
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
