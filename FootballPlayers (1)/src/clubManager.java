@@ -5,7 +5,7 @@ public class PlayersManager {
     Players [] arr=new Players[100];
     int count=0;
     
-    void addPlayer(){
+    public void addPlayer(){
         boolean cont= false;
         Scanner sc=new Scanner(System.in);
         do{
@@ -19,14 +19,14 @@ public class PlayersManager {
         }while (cont==true && count<100);
     }
     
-    void viewAllPlayers(){
+    public void viewAllPlayers(){
         for(int i=0; i<count; i++){
             arr[i].displayPlayer();
             System.out.println("\n");
         }
     }
 
-    void updateInfo() {
+    public void updateInfo() {
         Scanner sc=new Scanner(System.in);
         
         System.out.println("Enter Player id to update");
@@ -47,7 +47,7 @@ public class PlayersManager {
         if(!found) System.out.println("Player not found");
     } 
 
-     void deactivatePlayer(int id) {
+     public void deactivatePlayer(int id) {
         boolean found = false;
 
         for(int i = 0; i < count; i++) {
@@ -64,7 +64,7 @@ public class PlayersManager {
         }
     }
 
-    void searchPlayer(int id){
+    public void searchPlayer(int id){
         boolean found = false;
 
         for (int i=0; i<count; i++){
