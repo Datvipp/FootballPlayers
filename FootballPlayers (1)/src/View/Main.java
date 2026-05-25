@@ -194,10 +194,42 @@ public class Main {
     }
 
     private static void salaryMenu() {
-        System.out.println("\n-- CONTRACT & SALARY MANAGEMENT --");
-        System.out.println("1. Calculate Monthly Salary | 2. Calculate Bonus | 3. Validate Rules");
-    }
-    
+        int choice;
+        do {
+            System.out.println("\n-- CONTRACT & SALARY MANAGEMENT --");
+            System.out.println("1. Calculate Monthly Salary");
+            System.out.println("2. Calculate Bonus");
+            System.out.println("3. Validate Rules");
+            System.out.println("4. Exit");
+            System.out.println("Your Choice: ");
+
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch(choice)
+                {
+                    case 1:
+                        System.out.println("PlayerID: ");
+                        int salaryId = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println("Calculate monthly salary for PlayerID: " + salaryId + "...");
+                        break;
+                    case 2:
+                        System.out.println("PlayerID: ");
+                        int bonusId = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println("Calculate bonus for PlayerId: " + bonusId + "...");
+                        break;
+                    case 3:
+                        System.out.println("Validating contract rules");
+                        break;
+                    case 4:
+                        System.out.println("Exit to main menu");
+                        break;
+                    default:
+                        System.out.println("Invalid choice!");        
+                }
+    }while(choice != 0);
     private static void reportMenu() {
         System.out.println("\n-- REPORTING --");
         System.out.println("1. Salary Summary Report | 2. Top Goal Scorers Report");
