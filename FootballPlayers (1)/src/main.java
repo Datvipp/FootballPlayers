@@ -38,9 +38,36 @@ public class Main {
     }
 
     private static void trainingMenu() {
+    int choice;
+    do {
         System.out.println("\n-- TRAINING MANAGEMENT --");
-        System.out.println("1. Create Session | 2. Record Attendance | 3. View History");
-    }
+        System.out.println("1. Create Session");
+        System.out.println("2. Record Attendance");
+        System.out.println("3. View History");
+        System.out.println("0. Back");
+        System.out.print("Enter your choice: ");
+
+        choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                trainingManager.createSession();
+                break;
+            case 2:
+                trainingManager.recordAttendance();
+                break;
+            case 3:
+                trainingManager.viewHistory();
+                break;
+            case 0:
+                System.out.println("Back to main menu...");
+                break;
+            default:
+                System.out.println("Invalid choice!");
+        }
+    } while (choice != 0);
+}
 
     private static void matchMenu() {
         System.out.println("\n-- MATCH MANAGEMENT --");
