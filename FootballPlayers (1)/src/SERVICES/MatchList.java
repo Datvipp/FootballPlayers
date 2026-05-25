@@ -1,4 +1,6 @@
 package SERVICES;
+import MODEL.Match;
+import java.util.Scanner;
 
 public class MatchList {
     private Match[] arr;
