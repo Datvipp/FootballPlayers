@@ -18,7 +18,7 @@ public class MatchList {
     }
    }
    //search match by ID
-   public void searchMatchbyID(int id){
+   public void searchMatchByID(int id){
     boolean found=false;
     for(int i=0;i<count;i++){
         if(arr[i].getMatchID()==id){
