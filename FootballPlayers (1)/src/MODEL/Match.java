@@ -1,4 +1,6 @@
+package MODEL;
 import java.util.Scanner;
+
 
 
 public class Match {
