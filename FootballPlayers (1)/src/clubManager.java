@@ -69,8 +69,8 @@ public class PlayersManager {
 
         for (int i=0; i<count; i++){
             
-            if( arr[id].getId == id){
-                arr[id].displayPlayer();
+            if( arr[i].getId() == id){
+                arr[i].displayPlayer();
 
                 found = true;
                 break;
