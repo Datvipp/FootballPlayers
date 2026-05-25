@@ -1,4 +1,6 @@
 package SERVICES;
+import MODEL.Players;
+
 import java.util.Scanner;
 
 public class ClubManager {
