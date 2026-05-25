@@ -33,9 +33,60 @@ public class Main {
     }
 //SUBMENU
     private static void playerMenu() {
+    int choice;
+
+    do {
         System.out.println("\n-- PLAYER MANAGEMENT --");
-        System.out.println("1. Add Player | 2. Update Info | 3. Deactivate | 4. View All | 5. Search");
-    }
+        System.out.println("1. Add Player");
+        System.out.println("2. Update Info");
+        System.out.println("3. Deactivate");
+        System.out.println("4. View All");
+        System.out.println("5. Search");
+        System.out.println("0. Back");
+        System.out.print("Enter your choice: ");
+
+        choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                clubManager.addPlayer();
+                break;
+
+            case 2:
+                clubManager.updateInfo();
+                break;
+
+            case 3:
+                System.out.print("Enter player ID to deactivate: ");
+                int id = scanner.nextInt();
+                scanner.nextLine();
+
+                clubManager.deactivatePlayer(id);
+                break;
+
+            case 4:
+                clubManager.viewAllPlayers();
+                break;
+
+            case 5:
+                System.out.print("Enter player ID to search: ");
+                int searchId = scanner.nextInt();
+                scanner.nextLine();
+
+                clubManager.searchPlayer(searchId);
+                break;
+
+            case 0:
+                System.out.println("Back to main menu...");
+                break;
+
+            default:
+                System.out.println("Invalid choice!");
+        }
+
+    } while (choice != 0);
+}
 
     private static void trainingMenu() {
     int choice;
