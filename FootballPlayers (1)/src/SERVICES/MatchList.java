@@ -1,4 +1,4 @@
-package SERVICES
+package SERVICES;
 
 public class MatchList {
     private Match[] arr;
