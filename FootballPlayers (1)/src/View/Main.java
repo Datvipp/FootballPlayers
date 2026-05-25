@@ -4,9 +4,9 @@ import SERVICES.TrainingManager;
 import java.util.Scanner;
 
 public class Main {
-    //private static ClubManager clubManager = new ClubManager(100);
+    private static ClubManager clubManager = new ClubManager(100);
     private static TrainingManager trainingManager = new TrainingManager();
-    //private static MatchManager matchManager = new MatchManager();
+    private static MatchManager matchManager = new MatchManager();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
