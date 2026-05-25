@@ -7,7 +7,7 @@ public class SalaryManager {
     Salary [] arr = new Salary[100];
     int count = 0;
     
-    // Nhập DL
+    // Input Data
     public void addSalary() {
         boolean cont = false;
         Scanner sc = new Scanner(System.in);
