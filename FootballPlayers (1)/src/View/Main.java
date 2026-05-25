@@ -230,6 +230,7 @@ public class Main {
                         System.out.println("Invalid choice!");        
                 }
     }while(choice != 4);
+}
     private static void reportMenu() {
         System.out.println("\n-- REPORTING --");
         System.out.println("1. Salary Summary Report | 2. Top Goal Scorers Report");
