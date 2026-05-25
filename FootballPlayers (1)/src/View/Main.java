@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     private static ClubManager clubManager = new ClubManager(100);
     private static TrainingManager trainingManager = new TrainingManager();
-    private static MatchManager matchManager = new MatchManager();
+    private static MatchList matchManager = new MatchList();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -74,8 +74,70 @@ public class Main {
 }
 
     private static void matchMenu() {
-        System.out.println("\n-- MATCH MANAGEMENT --");
-        System.out.println("1. Create Match | 2. Update Performance | 3. View History");
+        int choice;
+
+        do {
+
+            System.out.println("\n-- MATCH MANAGEMENT --");
+            System.out.println("1. Create Match");
+            System.out.println("2. Update Match");
+            System.out.println("3. View History");
+            System.out.println("4. Search Match");
+            System.out.println("5. Delete Match");
+            System.out.println("0. Back");
+    
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+    
+            switch (choice) {
+    
+                case 1:
+    
+                    matchManager.addMatch();
+                    break;
+    
+                case 2:
+    
+                    System.out.print("Input Match ID to update: ");
+                    int updateID = scanner.nextInt();
+                    scanner.nextLine();
+    
+                    matchManager.updateMatch(updateID);
+                    break;
+    
+                case 3:
+    
+                    matchManager.displayMatchList();
+                    break;
+    
+                case 4:
+    
+                    System.out.print("Input Match ID to search: ");
+                    int searchID = scanner.nextInt();
+    
+                    matchManager.searchMatchByID(searchID);
+                    break;
+    
+                case 5:
+    
+                    System.out.print("Input Match ID to delete: ");
+                    int deleteID = scanner.nextInt();
+    
+                    matchManager.deleteMatch(deleteID);
+                    break;
+    
+                case 0:
+    
+                    System.out.println("Back to main menu");
+                    break;
+    
+                default:
+    
+                    System.out.println("Invalid choice!");
+            }
+    
+        } while (choice != 0);
     }
 
     private static void salaryMenu() {
