@@ -48,17 +48,12 @@ public class PlayersManager {
     } 
 
      void deactivatePlayer(int id) {
-
         boolean found = false;
 
         for(int i = 0; i < count; i++) {
-
             if(arr[i].getId() == id) {
-
                 arr[i].setStatus("Inactive");
-
                 found = true;
-
                 System.out.println("Player deactivated!");
                 break;
             }
@@ -68,5 +63,22 @@ public class PlayersManager {
             System.out.println("Player not found!");
         }
     }
+
+    void searchPlayer(int id){
+        boolean found = false;
+
+        for (int i=0; i<count; i++){
+            
+            if( arr[id].getId == id){
+                arr[id].displayPlayer();
+
+                found = true;
+                break;
+            }
+        }
+        if (found == false){
+           System.out.println("Player not found!");
+        }
+    }
 }
-}
+
