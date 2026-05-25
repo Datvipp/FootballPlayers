@@ -3,8 +3,6 @@ name: Java CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -21,4 +19,6 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Ant
-        run: ant
+        run: |
+          cd "FootballPlayers (1)"
+          ant
