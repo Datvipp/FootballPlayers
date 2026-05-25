@@ -61,7 +61,7 @@ public class Match {
     }
     
     // Input method
-    void nhapMatch() {
+    public void nhapMatch() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Input Match ID: ");
         this.matchID = sc.nextInt();
@@ -75,7 +75,7 @@ public class Match {
     }
     
     // Display method
-    void xuatMatch() {
+    public void xuatMatch() {
         System.out.println("Match ID: " + this.matchID);
         System.out.println("Date: " + this.date);
         System.out.println("Opponent Team: " + this.opponentTeam);
