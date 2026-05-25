@@ -1,12 +1,12 @@
 package View;
 
 import SERVICES.TrainingManager;
-import SERVICES.clubManager;
+import SERVICES.ClubManager;
 import SERVICES.MatchList;
 import java.util.Scanner;
 
 public class Main {
-    private static clubManager clubManager = new clubManager();
+    private static ClubManager clubManager = new ClubManager();
     private static TrainingManager trainingManager = new TrainingManager();
     private static MatchList matchManager = new MatchList(100);
     private static Scanner scanner = new Scanner(System.in);
