@@ -1,6 +1,8 @@
 package View;
 
 import SERVICES.TrainingManager;
+import SERVICES.clubManager;
+import SERVICES.MatchList;
 import java.util.Scanner;
 
 public class Main {
