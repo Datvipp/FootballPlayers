@@ -22,17 +22,15 @@ public class SalaryManager {
         } while (cont == true && count < 100);
     }
 
-    // Case 1: Calculate Monthly Salary
-    public void calculateMonthlySalary(int id) {
-        Scanner sc = new Scanner(System.in);
-        
+    // Case 2: Calculate Monthly Salary
+    public void calculateMonthlySalary(int id) 
         boolean found = false;
 
         for (int i = 0; i < count; i++) {
             if (arr[i].getPlayerID() == id) {
                 System.out.println("=== Monthly Salary Information ===");
                 arr[i].xuatSalary();
-                // Giả sử lương tháng bằng lương cơ bản (có thể cộng thêm phụ phí nếu bạn muốn)
+              
                 System.out.println("-> Total Monthly Payout: $" + arr[i].getBaseSalary());
                 
                 found = true;
@@ -44,9 +42,8 @@ public class SalaryManager {
         }
     }
 
-    // Case 2: Calculate Bonus
+    // Case 3: Calculate Bonus
     public void calculateBonus(int id) {
-        Scanner sc = new Scanner(System.in);
         
         boolean found = false;
 
@@ -65,7 +62,7 @@ public class SalaryManager {
         }
     }
 
-    // Case 3: Validate Rules
+    // Case 4: Validate Rules
     public void validateContractRules() {
         if (count == 0) {
             System.out.println("No records to validate!");
