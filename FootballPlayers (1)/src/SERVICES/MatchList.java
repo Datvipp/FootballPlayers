@@ -66,7 +66,7 @@ public class MatchList {
    }
     //constructor
         public MatchList(int size) {
-            this.arr = new Match[size];
+            this.arr = new Match[100];
             this.count = 0;
         }
     //getters
