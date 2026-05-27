@@ -202,7 +202,7 @@ public class Main {
             System.out.println("1. Calculate Monthly Salary");
             System.out.println("2. Calculate Bonus");
             System.out.println("3. Validate Rules");
-            System.out.println("4. Exit");
+            System.out.println("0. Exit");
             System.out.println("Your Choice: ");
 
             choice = scanner.nextInt();
@@ -225,13 +225,13 @@ public class Main {
                     case 3:
                         System.out.println("Validating contract rules");
                         break;
-                    case 4:
+                    case 0:
                         System.out.println("Exit to main menu");
                         break;
                     default:
                         System.out.println("Invalid choice!");        
                 }
-    }while(choice != 4);
+    }while(choice != 0);
 }
     private static void reportMenu() {
         System.out.println("\n-- REPORTING --");
