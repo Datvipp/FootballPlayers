@@ -23,7 +23,7 @@ public class SalaryManager {
     }
 
     // Case 1: Calculate Monthly Salary
-    public void calculateMonthlySalary() {
+    public void calculateMonthlySalary(int id) {
         Scanner sc = new Scanner(System.in);
         
         System.out.println("Enter Player ID to calculate monthly salary: ");
@@ -48,7 +48,7 @@ public class SalaryManager {
     }
 
     // Case 2: Calculate Bonus
-    public void calculateBonus() {
+    public void calculateBonus(int id) {
         Scanner sc = new Scanner(System.in);
         
         System.out.println("Enter Player ID to calculate bonus:");
