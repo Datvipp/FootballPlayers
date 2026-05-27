@@ -201,7 +201,7 @@ public class Main {
         int choice;
         do {
             System.out.println("\n-- CONTRACT & SALARY MANAGEMENT --");
-            System.out.println("1. Add Salary")2
+            System.out.println("1. Add Salary");
             System.out.println("2. Calculate Monthly Salary");
             System.out.println("3. Calculate Bonus");
             System.out.println("4. Validate Rules");
