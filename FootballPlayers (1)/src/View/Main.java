@@ -3,6 +3,7 @@ package View;
 import SERVICES.TrainingManager;
 import SERVICES.ClubManager;
 import SERVICES.MatchList;
+import SERVICES.SalaryManager;
 import java.util.Scanner;
 
 public class Main {
