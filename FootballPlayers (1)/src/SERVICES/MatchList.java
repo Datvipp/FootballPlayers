@@ -65,7 +65,7 @@ public class MatchList {
     System.out.println("Match not found");
    }
     //constructor
-        public MatchList(int size) {
+        public MatchList() {
             this.arr = new Match[100];
             this.count = 0;
         }
