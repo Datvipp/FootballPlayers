@@ -24,23 +24,23 @@ public class SalaryManager {
 
     // Case 2: Calculate Monthly Salary
     public void calculateMonthlySalary(int id) {
-        boolean found = false;
+    boolean found = false;
 
-        for (int i = 0; i < count; i++) {
-            if (arr[i].getPlayerID() == id) {
-                System.out.println("=== Monthly Salary Information ===");
-                arr[i].xuatSalary();
-              
-                System.out.println("-> Total Monthly Payout: $" + arr[i].getBaseSalary());
-                
-                found = true;
-                break;
-            }
-        }
-        if (found == false) {
-            System.out.println("Player salary record not found!");
+    for (int i = 0; i < count; i++) {
+        if (arr[i].getPlayerID() == id) {
+            System.out.println("=== Monthly Salary Information ===");
+            arr[i].xuatSalary();
+          
+            System.out.println("-> Total Monthly Payout: $" + arr[i].getBaseSalary());
+            
+            found = true;
+            break;
         }
     }
+    if (found == false) {
+        System.out.println("Player salary record not found!");
+    }
+}
 
     // Case 3: Calculate Bonus
     public void calculateBonus(int id) {
