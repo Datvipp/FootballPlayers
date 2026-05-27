@@ -214,15 +214,9 @@ public class Main {
                 {
                     case 1:
                         System.out.println("PlayerID: ");
-                        int salaryId = scanner.nextInt();
-                        scanner.nextLine();
-                        System.out.println("Calculate monthly salary for PlayerID: " + salaryId + "...");
                         break;
                     case 2:
                         System.out.println("PlayerID: ");
-                        int bonusId = scanner.nextInt();
-                        scanner.nextLine();
-                        System.out.println("Calculate bonus for PlayerId: " + bonusId + "...");
                         break;
                     case 3:
                         System.out.println("Validating contract rules");
