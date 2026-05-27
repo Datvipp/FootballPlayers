@@ -168,6 +168,7 @@ public class Main {
     
                     System.out.print("Input Match ID to search: ");
                     int searchID = scanner.nextInt();
+                    scanner.nextLine();
     
                     matchManager.searchMatchByID(searchID);
                     break;
@@ -176,6 +177,7 @@ public class Main {
     
                     System.out.print("Input Match ID to delete: ");
                     int deleteID = scanner.nextInt();
+                    scanner.nextLine();
     
                     matchManager.deleteMatch(deleteID);
                     break;
