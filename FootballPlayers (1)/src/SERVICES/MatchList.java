@@ -38,7 +38,7 @@ public class MatchList {
             System.out.print("Input new date: ");
             String newdate=sc.nextLine();
             arr[i].setDate(newdate);
-            System.out.print("Input new opponet team: ");
+            System.out.print("Input new opponent team: ");
             String newopponent=sc.nextLine();
             arr[i].setOpponentTeam(newopponent);
             System.out.print("Input new match type: ");
