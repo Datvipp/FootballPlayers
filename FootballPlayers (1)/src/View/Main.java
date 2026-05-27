@@ -210,24 +210,35 @@ public class Main {
             choice = scanner.nextInt();
             scanner.nextLine();
             
-            switch(choice)
-                {
-                    case 1:
-                        System.out.println("PlayerID: ");
-                        break;
-                    case 2:
-                        System.out.println("PlayerID: ");
-                        break;
-                    case 3:
-                        System.out.println("Validating contract rules");
-                        break;
-                    case 0:
-                        System.out.println("Exit to main menu");
-                        break;
-                    default:
-                        System.out.println("Invalid choice!");        
-                }
-    }while(choice != 0);
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter player ID to calculate monthly salary: ");
+                    int salaryId = scanner.nextInt();
+                    scanner.nextLine();
+                    
+                    salaryManager.calculateMonthlySalary(salaryId);
+                    break;
+                    
+                case 2:
+                    System.out.print("Enter player ID to calculate bonus: ");
+                    int bonusId = scanner.nextInt();
+                    scanner.nextLine();
+                    
+                    salaryManager.calculateBonus(bonusId);
+                    break;
+                    
+                case 3:
+                    salaryManager.validateContractRules();
+                    break;
+                    
+                case 0:
+                    System.out.println("Back to main menu");
+                    break;
+                    
+                default:
+                    System.out.println("Invalid choice!");        
+            }
+        } while(choice != 0);
 }
     private static void reportMenu() {
         System.out.println("\n-- REPORTING --");
