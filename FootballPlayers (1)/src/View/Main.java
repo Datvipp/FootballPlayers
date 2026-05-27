@@ -9,7 +9,8 @@ import java.util.Scanner;
 public class Main {
     private static ClubManager clubManager = new ClubManager();
     private static TrainingManager trainingManager = new TrainingManager();
-    private static MatchList matchManager = new MatchList(100);
+    private static MatchList matchManager = new MatchList();
+    private static SalaryManager salaryManager = new SalaryManager();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
