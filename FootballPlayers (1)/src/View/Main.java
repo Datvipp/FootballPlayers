@@ -201,9 +201,10 @@ public class Main {
         int choice;
         do {
             System.out.println("\n-- CONTRACT & SALARY MANAGEMENT --");
-            System.out.println("1. Calculate Monthly Salary");
-            System.out.println("2. Calculate Bonus");
-            System.out.println("3. Validate Rules");
+            System.out.println("1. Add Salary")2
+            System.out.println("2. Calculate Monthly Salary");
+            System.out.println("3. Calculate Bonus");
+            System.out.println("4. Validate Rules");
             System.out.println("0. Exit");
             System.out.println("Your Choice: ");
 
@@ -212,6 +213,10 @@ public class Main {
             
             switch (choice) {
                 case 1:
+                    System.out.println("\n--- Adding New Salary Record ---");
+                    salaryManager.addSalary();
+                    break;
+                case 2:
                     System.out.print("Enter player ID to calculate monthly salary: ");
                     int salaryId = scanner.nextInt();
                     scanner.nextLine();
@@ -219,7 +224,7 @@ public class Main {
                     salaryManager.calculateMonthlySalary(salaryId);
                     break;
                     
-                case 2:
+                case 3:
                     System.out.print("Enter player ID to calculate bonus: ");
                     int bonusId = scanner.nextInt();
                     scanner.nextLine();
@@ -227,7 +232,7 @@ public class Main {
                     salaryManager.calculateBonus(bonusId);
                     break;
                     
-                case 3:
+                case 4:
                     salaryManager.validateContractRules();
                     break;
                     
