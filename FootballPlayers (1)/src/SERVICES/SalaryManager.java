@@ -23,7 +23,7 @@ public class SalaryManager {
     }
 
     // Case 2: Calculate Monthly Salary
-    public void calculateMonthlySalary(int id) 
+    public void calculateMonthlySalary(int id) {
         boolean found = false;
 
         for (int i = 0; i < count; i++) {
