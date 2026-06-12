@@ -2,7 +2,7 @@ name: Java CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -18,7 +18,10 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
+      - name: Install Ant
+        run: sudo apt-get update && sudo apt-get install -y ant
+
       - name: Build with Ant
         run: |
-          cd "FootballPlayers (1)"
-          ant
+          chmod +x scripts/run-ant.sh
+          ./scripts/run-ant.sh compile
