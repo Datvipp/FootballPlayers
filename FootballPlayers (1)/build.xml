@@ -3,4 +3,12 @@
         <mkdir dir="build"/>
         <javac srcdir="." destdir="build" includeantruntime="false"/>
     </target>
+
+    <target name="run" depends="compile">
+        <java classname="View.Main" fork="true">
+            <classpath>
+                <pathelement location="build"/>
+            </classpath>
+        </java>
+    </target>
 </project>
