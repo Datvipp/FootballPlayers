@@ -11,12 +11,11 @@ public class TrainingSession {
     private String location;
     private String coachName;
 
-    private String[] attendanceList;
+    private AttendanceRecord[] attendanceList;
     private int attendanceCount;
 
     public TrainingSession() {
-        this.attendanceList = new String[50];
-        this.attendanceCount = 0;
+        this("", "", LocalDate.now(), LocalTime.now(), "", "");
     }
 
     public TrainingSession(String sessionId, String title, LocalDate date, LocalTime time, String location, String coachName) {
@@ -26,7 +25,7 @@ public class TrainingSession {
         this.time = time;
         this.location = location;
         this.coachName = coachName;
-        this.attendanceList = new String[50];
+        this.attendanceList = new AttendanceRecord[50];
         this.attendanceCount = 0;
     }
 
@@ -90,11 +89,11 @@ public class TrainingSession {
         }
     }
 
-    public String[] getAttendanceList() {
+    public AttendanceRecord[] getAttendanceList() {
         return attendanceList;
     }
 
-    public void setAttendanceList(String[] attendanceList) {
+    public void setAttendanceList(AttendanceRecord[] attendanceList) {
         if (attendanceList != null) {
             this.attendanceList = attendanceList;
         }
@@ -111,15 +110,27 @@ public class TrainingSession {
     }
 
     public boolean addAttendance(String playerName) {
+        return addAttendance(playerName, "Present", "");
+    }
+
+    public boolean addAttendance(String playerName, String status, String note) {
         if (playerName == null || playerName.trim().isEmpty()) {
             return false;
+        }
+
+        String normalizedName = playerName.trim();
+
+        for (int i = 0; i < attendanceCount; i++) {
+            if (attendanceList[i].getPlayerName().equalsIgnoreCase(normalizedName)) {
+                return false;
+            }
         }
 
         if (attendanceCount >= attendanceList.length) {
             return false;
         }
 
-        attendanceList[attendanceCount] = playerName;
+        attendanceList[attendanceCount] = new AttendanceRecord(normalizedName, status, note);
         attendanceCount++;
         return true;
     }
@@ -132,7 +143,7 @@ public class TrainingSession {
 
         System.out.println("Attendance:");
         for (int i = 0; i < attendanceCount; i++) {
-            System.out.println("- " + attendanceList[i]);
+            attendanceList[i].display();
         }
     }
 

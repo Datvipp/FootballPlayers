@@ -15,11 +15,11 @@ public class Main {
     private Scanner scanner;
 
     public Main() {
+        scanner = new Scanner(System.in);
         clubManager = new ClubManager();
-        trainingManager = new TrainingManager();
+        trainingManager = new TrainingManager(scanner);
         matchManager = new MatchList();
         salaryManager = new SalaryManager();
-        scanner = new Scanner(System.in);
     }
 
     public ClubManager getClubManager() {
@@ -81,8 +81,7 @@ public class Main {
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            choice = readIntChoice();
 
             switch (choice) {
                 case 1:
@@ -166,11 +165,11 @@ public class Main {
             System.out.println("1. Create Session");
             System.out.println("2. Record Attendance");
             System.out.println("3. View History");
+            System.out.println("4. Search Session");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            choice = readIntChoice();
 
             switch (choice) {
                 case 1:
@@ -181,6 +180,9 @@ public class Main {
                     break;
                 case 3:
                     trainingManager.viewHistory();
+                    break;
+                case 4:
+                    trainingManager.searchSession();
                     break;
                 case 0:
                     System.out.println("Back to main menu...");
@@ -286,6 +288,26 @@ public class Main {
             }
 
         } while (choice != 0);
+    }
+
+    private int readIntChoice() {
+        while (true) {
+            if (!scanner.hasNextLine()) {
+                return 0;
+            }
+
+            String input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
+
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
     }
 
     private void reportMenu() {
