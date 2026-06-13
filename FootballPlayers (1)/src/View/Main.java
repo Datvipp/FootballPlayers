@@ -212,13 +212,13 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    matchManager.addMatch();
+                    matchManager.addMatch(scanner);
                     break;
                 case 2:
                     System.out.print("Input Match ID to update: ");
                     int updateID = scanner.nextInt();
                     scanner.nextLine();
-                    matchManager.updateMatch(updateID);
+                    matchManager.updateMatch(updateID, scanner);
                     break;
                 case 3:
                     matchManager.displayMatchList();

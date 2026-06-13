@@ -1,9 +1,12 @@
 package MODEL;
 import java.util.Scanner;
+import java.util.Objects;
 
-
-
-public class Match {
+/**
+ * Match class represents a football match
+ * Inherits from Entity base class
+ */
+public class Match extends Entity {
     // Private attributes
     private int matchID;
     private String date;
@@ -61,8 +64,11 @@ public class Match {
     }
     
     // Input method
-    public void nhapMatch() {
-        Scanner sc = new Scanner(System.in);
+    @Override
+    public void input(Scanner sc) {
+        if (sc == null) {
+            sc = new Scanner(System.in);
+        }
         System.out.print("Input Match ID: ");
         this.matchID = sc.nextInt();
         sc.nextLine();
@@ -73,13 +79,57 @@ public class Match {
         System.out.print("Input match type: ");
         this.matchType = sc.nextLine();
     }
+
+    public void inputMatch() {
+        Scanner sc = new Scanner(System.in);
+        this.input(sc);
+    }
+
+    public void inputMatch(Scanner sc) {
+        this.input(sc);
+    }
     
     // Display method
-    public void xuatMatch() {
-        System.out.println("Match ID: " + this.matchID);
-        System.out.println("Date: " + this.date);
-        System.out.println("Opponent Team: " + this.opponentTeam);
-        System.out.println("Match Type: " + this.matchType);
-        System.out.println("---------------------");
+    @Override
+    public void output() {
+        System.out.println(this.toString());
+    }
+
+    public void outputMatch() {
+        this.output();
+    }
+
+    @Override
+    public int getId() {
+        return this.matchID;
+    }
+
+    @Override
+    public String toString() {
+        return "Match ID: " + this.matchID + "\n"
+                + "Date: " + this.date + "\n"
+                + "Opponent Team: " + this.opponentTeam + "\n"
+                + "Match Type: " + this.matchType + "\n"
+                + "---------------------";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Match)) {
+            return false;
+        }
+        Match other = (Match) obj;
+        return this.matchID == other.matchID
+                && Objects.equals(this.date, other.date)
+                && Objects.equals(this.opponentTeam, other.opponentTeam)
+                && Objects.equals(this.matchType, other.matchType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.matchID, this.date, this.opponentTeam, this.matchType);
     }
 }
