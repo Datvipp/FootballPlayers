@@ -60,6 +60,9 @@ public class Main {
 
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
+        if (trainingManager != null) {
+            trainingManager.setScanner(scanner);
+        }
     }
     
 
@@ -122,8 +125,7 @@ public class Main {
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            choice = readIntChoice();
 
             switch (choice) {
                 case 1:
@@ -134,8 +136,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.print("Enter player ID to deactivate: ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
+                    int id = readIntChoice();
                     clubManager.deactivatePlayer(id);
                     break;
                 case 4:
@@ -143,8 +144,7 @@ public class Main {
                     break;
                 case 5:
                     System.out.print("Enter player ID to search: ");
-                    int searchId = scanner.nextInt();
-                    scanner.nextLine();
+                    int searchId = readIntChoice();
                     clubManager.searchPlayer(searchId);
                     break;
                 case 0:
@@ -207,8 +207,7 @@ public class Main {
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            choice = readIntChoice();
 
             switch (choice) {
                 case 1:
@@ -216,23 +215,20 @@ public class Main {
                     break;
                 case 2:
                     System.out.print("Input Match ID to update: ");
-                    int updateID = scanner.nextInt();
-                    scanner.nextLine();
-                    matchManager.updateMatch(updateID, scanner);
+                    int updateID = readIntChoice();
+                    matchManager.updateMatch(updateID);
                     break;
                 case 3:
                     matchManager.displayMatchList();
                     break;
                 case 4:
                     System.out.print("Input Match ID to search: ");
-                    int searchID = scanner.nextInt();
-                    scanner.nextLine();
+                    int searchID = readIntChoice();
                     matchManager.searchMatchByID(searchID);
                     break;
                 case 5:
                     System.out.print("Input Match ID to delete: ");
-                    int deleteID = scanner.nextInt();
-                    scanner.nextLine();
+                    int deleteID = readIntChoice();
                     matchManager.deleteMatch(deleteID);
                     break;
                 case 0:
@@ -257,8 +253,7 @@ public class Main {
             System.out.println("0. Back");
             System.out.print("Your Choice: ");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            choice = readIntChoice();
 
             switch (choice) {
                 case 1:
@@ -267,14 +262,12 @@ public class Main {
                     break;
                 case 2:
                     System.out.print("Enter player ID to calculate monthly salary: ");
-                    int salaryId = scanner.nextInt();
-                    scanner.nextLine();
+                    int salaryId = readIntChoice();
                     salaryManager.calculateMonthlySalary(salaryId);
                     break;
                 case 3:
                     System.out.print("Enter player ID to calculate bonus: ");
-                    int bonusId = scanner.nextInt();
-                    scanner.nextLine();
+                    int bonusId = readIntChoice();
                     salaryManager.calculateBonus(bonusId);
                     break;
                 case 4:
