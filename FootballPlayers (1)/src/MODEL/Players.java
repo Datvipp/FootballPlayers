@@ -1,13 +1,9 @@
 package MODEL;
 
 import java.util.Scanner;
-import java.util.Objects;
 
-/**
- * Players class represents a football player
- * Inherits from Entity base class
- */
-public class Players extends Entity {
+
+public class Players {
     // Private attributes
     private int id;
     private int age;
@@ -121,11 +117,9 @@ public class Players extends Entity {
     }
     
     // Input method
-    @Override
-    public void input(Scanner sc) {
-        if (sc == null) {
-            sc = new Scanner(System.in);
-        }
+    public void inputPlayers() {
+        Scanner sc = new Scanner(System.in);
+        
         System.out.println("Enter player ID: ");
         this.id = sc.nextInt();
         sc.nextLine();
@@ -157,55 +151,18 @@ public class Players extends Entity {
         System.out.println("Enter status (Active|Inactive): ");
         this.status = sc.nextLine();
     }
-
-    public void inputPlayers() {
-        Scanner sc = new Scanner(System.in);
-        this.input(sc);
-    }
-
-    public void inputPlayers(Scanner sc) {
-        this.input(sc);
-    }
     
     // Display method
-    @Override
-    public void output() {
-        System.out.println(this.toString());
-    }
-
     public void displayPlayer() {
-        this.output();
-    }
-
-    @Override
-    public String toString() {
-        return "===== PLAYER INFORMATION =====\n"
-                + "Player ID: " + this.id + "\n"
-                + "Full Name: " + this.name + "\n"
-                + "Age: " + this.age + "\n"
-                + "Nationality: " + this.national + "\n"
-                + "Position: " + this.position + "\n"
-                + "Shirt Number: " + this.number + "\n"
-                + "Player Type: " + this.type + "\n"
-                + "Base Salary: " + this.salary + "\n"
-                + "Status: " + this.status;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Players)) {
-            return false;
-        }
-        Players other = (Players) obj;
-        return this.id == other.id
-                && Objects.equals(this.name, other.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.id, this.name);
+        System.out.println("===== PLAYER INFORMATION =====");
+        System.out.println("Player ID: " + this.id);
+        System.out.println("Full Name: " + this.name);
+        System.out.println("Age: " + this.age);
+        System.out.println("Nationality: " + this.national);
+        System.out.println("Position: " + this.position);
+        System.out.println("Shirt Number: " + this.number);
+        System.out.println("Player Type: " + this.type);
+        System.out.println("Base Salary: " + this.salary);
+        System.out.println("Status: " + this.status);
     }
 }

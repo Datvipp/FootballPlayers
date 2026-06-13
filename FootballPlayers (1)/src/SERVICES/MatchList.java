@@ -6,25 +6,13 @@ public class MatchList {
     private Match[] arr;
     private int count;
     //add match
-   public void addMatch(Scanner sc){
-    if (count >= arr.length) {
-        System.out.println("Match list is full");
-        return;
-    }
-    arr[count] = new Match();
-    arr[count].inputMatch(sc);
-    count++;
-   }
-
    public void addMatch(){
-    addMatch(new Scanner(System.in));
+    arr[count]=new Match();
+    arr[count].inputMatch();
+    count++;
    }
    //display match list
    public void displayMatchList(){
-    if (count == 0) {
-        System.out.println("No matches available");
-        return;
-    }
     for(int i=0;i<count;i++){
         arr[i].outputMatch();
     }
@@ -36,7 +24,6 @@ public class MatchList {
         if(arr[i].getMatchID()==id){
             arr[i].outputMatch();
             found=true;
-            break;
         }
     }
     if(!found){
@@ -44,10 +31,8 @@ public class MatchList {
         }
     }
    //update match
-   public void updateMatch(int id, Scanner sc){
-    if (sc == null) {
-        sc = new Scanner(System.in);
-    }
+   public void updateMatch(int id){
+    Scanner sc=new Scanner(System.in);
     for(int i=0;i<count;i++){
         if(arr[i].getMatchID()==id){
             System.out.print("Input new date: ");
@@ -65,10 +50,6 @@ public class MatchList {
     }
     System.out.println("Match not found");
    }
-
-   public void updateMatch(int id){
-    updateMatch(id, new Scanner(System.in));
-   }
    //delete match
    public void deleteMatch(int id){
     for(int i=0;i<count;i++){
@@ -76,7 +57,6 @@ public class MatchList {
             for(int j=i;j<count-1;j++){
                 arr[j]=arr[j+1];
             }
-            arr[count-1] = null;
             count--;
             System.out.println("Match deleted successfully");
             return;
