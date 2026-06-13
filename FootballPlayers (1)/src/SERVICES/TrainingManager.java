@@ -40,65 +40,86 @@ public class TrainingManager {
         }
     }
 
+    public void setScanner(Scanner scanner) {
+        this.scanner = (scanner != null) ? scanner : new Scanner(System.in);
+    }
+
     public void createSession() {
         if (sessionCount >= trainingSessions.length) {
             System.out.println("Training session list is full!");
             return;
         }
 
-        System.out.print("Enter session ID: ");
-        String sessionId = scanner.nextLine().trim();
-
-        if (sessionId.isEmpty()) {
-            System.out.println("Session ID cannot be empty!");
-            return;
+        String sessionId;
+        while (true) {
+            System.out.print("Enter session ID: ");
+            sessionId = scanner.nextLine().trim();
+            if (sessionId.isEmpty()) {
+                System.out.println("Session ID cannot be empty! Please try again.");
+                continue;
+            }
+            if (findSessionById(sessionId) != null) {
+                System.out.println("Session ID already exists! Please try again.");
+                continue;
+            }
+            break;
         }
 
-        if (findSessionById(sessionId) != null) {
-            System.out.println("Session ID already exists!");
-            return;
+        String title;
+        while (true) {
+            System.out.print("Enter training title: ");
+            title = scanner.nextLine().trim();
+            if (title.isEmpty()) {
+                System.out.println("Title cannot be empty! Please try again.");
+                continue;
+            }
+            break;
         }
 
-        System.out.print("Enter training title: ");
-        String title = scanner.nextLine().trim();
-
-        if (title.isEmpty()) {
-            System.out.println("Title cannot be empty!");
-            return;
-        }
-
-        System.out.print("Enter date (yyyy-mm-dd): ");
         LocalDate date;
-        try {
-            date = LocalDate.parse(scanner.nextLine().trim());
-        } catch (Exception e) {
-            System.out.println("Invalid date format. Please use yyyy-mm-dd.");
-            return;
+        while (true) {
+            System.out.print("Enter date (yyyy-mm-dd): ");
+            String dateInput = scanner.nextLine().trim();
+            try {
+                date = LocalDate.parse(dateInput);
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid date format. Please use yyyy-mm-dd.");
+            }
         }
 
-        System.out.print("Enter time (HH:mm): ");
         LocalTime time;
-        try {
-            time = LocalTime.parse(scanner.nextLine().trim());
-        } catch (Exception e) {
-            System.out.println("Invalid time format. Please use HH:mm.");
-            return;
+        while (true) {
+            System.out.print("Enter time (HH:mm): ");
+            String timeInput = scanner.nextLine().trim();
+            try {
+                time = LocalTime.parse(timeInput);
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid time format. Please use HH:mm.");
+            }
         }
 
-        System.out.print("Enter location: ");
-        String location = scanner.nextLine().trim();
-
-        if (location.isEmpty()) {
-            System.out.println("Location cannot be empty!");
-            return;
+        String location;
+        while (true) {
+            System.out.print("Enter location: ");
+            location = scanner.nextLine().trim();
+            if (location.isEmpty()) {
+                System.out.println("Location cannot be empty! Please try again.");
+                continue;
+            }
+            break;
         }
 
-        System.out.print("Enter coach name: ");
-        String coachName = scanner.nextLine().trim();
-
-        if (coachName.isEmpty()) {
-            System.out.println("Coach name cannot be empty!");
-            return;
+        String coachName;
+        while (true) {
+            System.out.print("Enter coach name: ");
+            coachName = scanner.nextLine().trim();
+            if (coachName.isEmpty()) {
+                System.out.println("Coach name cannot be empty! Please try again.");
+                continue;
+            }
+            break;
         }
 
         TrainingSession session = new TrainingSession(sessionId, title, date, time, location, coachName);
@@ -110,30 +131,39 @@ public class TrainingManager {
     }
 
     public void recordAttendance() {
-        System.out.print("Enter session ID: ");
-        String sessionId = scanner.nextLine();
-
-        TrainingSession session = findSessionById(sessionId);
-
-        if (session == null) {
-            System.out.println("Session not found!");
-            return;
+        String sessionId;
+        TrainingSession session = null;
+        while (true) {
+            System.out.print("Enter session ID: ");
+            sessionId = scanner.nextLine().trim();
+            session = findSessionById(sessionId);
+            if (session == null) {
+                System.out.println("Session not found! Please try again.");
+                continue;
+            }
+            break;
         }
 
-        System.out.print("Enter player name: ");
-        String playerName = scanner.nextLine().trim();
-
-        if (playerName.isEmpty()) {
-            System.out.println("Player name cannot be empty!");
-            return;
+        String playerName;
+        while (true) {
+            System.out.print("Enter player name: ");
+            playerName = scanner.nextLine().trim();
+            if (playerName.isEmpty()) {
+                System.out.println("Player name cannot be empty! Please try again.");
+                continue;
+            }
+            break;
         }
 
-        System.out.print("Enter status (Present/Absent/Late): ");
-        String status = scanner.nextLine().trim();
-
-        if (!isValidStatus(status)) {
-            System.out.println("Invalid status. Allowed values: Present, Absent, Late.");
-            return;
+        String status;
+        while (true) {
+            System.out.print("Enter status (Present/Absent/Late): ");
+            status = scanner.nextLine().trim();
+            if (!isValidStatus(status)) {
+                System.out.println("Invalid status. Allowed values: Present, Absent, Late.");
+                continue;
+            }
+            break;
         }
 
         System.out.print("Enter note: ");
@@ -149,17 +179,18 @@ public class TrainingManager {
     }
 
     public void searchSession() {
-        System.out.print("Enter session ID to search: ");
-        String sessionId = scanner.nextLine();
-
-        TrainingSession session = findSessionById(sessionId);
-
-        if (session == null) {
-            System.out.println("Session not found!");
-            return;
+        String sessionId;
+        while (true) {
+            System.out.print("Enter session ID to search: ");
+            sessionId = scanner.nextLine().trim();
+            TrainingSession session = findSessionById(sessionId);
+            if (session == null) {
+                System.out.println("Session not found! Please try again.");
+                continue;
+            }
+            session.displayInfo();
+            break;
         }
-
-        session.displayInfo();
     }
 
     public void viewHistory() {
