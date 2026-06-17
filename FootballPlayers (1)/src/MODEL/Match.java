@@ -9,7 +9,7 @@ public class Match {
     private String date;
     private String opponentTeam;
     private String matchType;
-    
+
     // Constructor
     public Match() {
         this.matchID = 0;
@@ -38,15 +38,12 @@ public class Match {
     public String getOpponentTeam() {
         return this.opponentTeam;
     }
-    
+
     public String getMatchType() {
         return this.matchType;
     }
     
     // Setters
-    public void setMatchID(int matchID) {
-        this.matchID = matchID;
-    }
     
     public void setDate(String date) {
         this.date = date;
@@ -55,7 +52,7 @@ public class Match {
     public void setOpponentTeam(String opponentTeam) {
         this.opponentTeam = opponentTeam;
     }
-    
+
     public void setMatchType(String matchType) {
         this.matchType = matchType;
     }
@@ -70,8 +67,6 @@ public class Match {
         this.date = sc.nextLine();
         System.out.print("Input opponent team: ");
         this.opponentTeam = sc.nextLine();
-        System.out.print("Input match type: ");
-        this.matchType = sc.nextLine();
     }
     
     // Display method
@@ -79,7 +74,5 @@ public class Match {
         System.out.println("Match ID: " + this.matchID);
         System.out.println("Date: " + this.date);
         System.out.println("Opponent Team: " + this.opponentTeam);
-        System.out.println("Match Type: " + this.matchType);
-        System.out.println("---------------------");
     }
 }

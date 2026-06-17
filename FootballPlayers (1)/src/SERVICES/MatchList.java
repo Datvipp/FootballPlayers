@@ -1,24 +1,68 @@
 package SERVICES;
 import MODEL.Match;
+import MODEL.FriendlyMatch;
+import MODEL.LeagueMatch;
+import MODEL.CupMatch;
 import java.util.Scanner;
 
 public class MatchList {
     private Match[] arr;
     private int count;
+    private final Scanner sc = new Scanner(System.in);
     //add match
    public void addMatch(){
-    arr[count]=new Match();
-    arr[count].inputMatch();
+    if(count>=100){
+        System.out.println("Match list is full");
+        return;
+    }
+    System.out.println("Select match type:");
+    System.out.println("1. Friendly Match");
+    System.out.println("2. League Match");
+    System.out.println("3. Cup Match");
+    System.out.print("Enter your choice: ");
+    int choice=sc.nextInt();
+    sc.nextLine();
+
+    Match match = null;
+    switch(choice){
+        case 1:
+            match = new FriendlyMatch();
+            match.setMatchType("Friendly");
+            break;
+        case 2:
+            match = new LeagueMatch();
+            match.setMatchType("League");
+            break;
+        case 3:
+            match = new CupMatch();
+            match.setMatchType("Cup");
+            break;
+        default:
+            System.out.println("Invalid choice");
+            return;
+    }
+
+    match.inputMatch();
+    arr[count] = match;
     count++;
+    System.out.println("Match added successfully");
    }
    //display match list
    public void displayMatchList(){
+    if(count==0){
+        System.out.println("Match list is empty");
+        return;
+    }
     for(int i=0;i<count;i++){
         arr[i].outputMatch();
     }
    }
    //search match by ID
    public void searchMatchByID(int id){
+    if(count==0){
+        System.out.println("Match list is empty");
+        return;
+    }
     boolean found=false;
     for(int i=0;i<count;i++){
         if(arr[i].getMatchID()==id){
@@ -32,26 +76,47 @@ public class MatchList {
     }
    //update match
    public void updateMatch(int id){
-    Scanner sc=new Scanner(System.in);
-    for(int i=0;i<count;i++){
-        if(arr[i].getMatchID()==id){
-            System.out.print("Input new date: ");
-            String newdate=sc.nextLine();
-            arr[i].setDate(newdate);
-            System.out.print("Input new opponent team: ");
-            String newopponent=sc.nextLine();
-            arr[i].setOpponentTeam(newopponent);
-            System.out.print("Input new match type: ");
-            String newmatchtype=sc.nextLine();
-            arr[i].setMatchType(newmatchtype);
-            System.out.println("Match updated successfully");
-            return;
-        }
+    if(count==0){
+        System.out.println("Match list is empty");
+        return;
     }
-    System.out.println("Match not found");
-   }
+        for (int i = 0; i < count; i++) {
+            if (arr[i].getMatchID() == id) {
+                System.out.print("Input new date: ");
+                arr[i].setDate(sc.nextLine());
+                System.out.print("Input new opponent team: ");
+                arr[i].setOpponentTeam(sc.nextLine());
+
+                // Đa hình — update thuộc tính riêng theo loại
+                if (arr[i] instanceof FriendlyMatch) {
+                    FriendlyMatch fm = (FriendlyMatch) arr[i];
+                    System.out.print("Input new friendly reason: ");
+                    fm.setFriendlyReason(sc.nextLine());
+
+                } else if (arr[i] instanceof LeagueMatch) {
+                    LeagueMatch lm = (LeagueMatch) arr[i];
+                    System.out.print("Input new league name: ");
+                    lm.setLeagueName(sc.nextLine());
+
+                } else if (arr[i] instanceof CupMatch) {
+                    CupMatch cm = (CupMatch) arr[i];
+                    System.out.print("Input new cup name: ");
+                    cm.setCupName(sc.nextLine());
+                }
+
+                System.out.println("Match updated successfully!");
+                return;
+            }
+        }
+        System.out.println("Match with ID " + id + " not found!");
+    }
+   
    //delete match
    public void deleteMatch(int id){
+    if(count==0){
+        System.out.println("Match list is empty");
+        return;
+    }
     for(int i=0;i<count;i++){
         if(arr[i].getMatchID()==id){
             for(int j=i;j<count-1;j++){
@@ -80,8 +145,11 @@ public class MatchList {
     //setters
         public void setArr(Match[] arr) {
             this.arr = arr;
+            this.count = arr == null ? 0 : arr.length;
         }
         public void setCount(int count) {
-            this.count = count;
+            if (count >= 0 && count <= this.arr.length) {
+                this.count = count;
+            }
         }
 }
