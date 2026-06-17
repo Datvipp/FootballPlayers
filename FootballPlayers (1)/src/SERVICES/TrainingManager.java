@@ -1,8 +1,12 @@
 package SERVICES;
 
+import MODEL.FitnessTrainingSession;
+import MODEL.RecoveryTrainingSession;
+import MODEL.TacticalTrainingSession;
 import MODEL.TrainingSession;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class TrainingManager {
@@ -50,79 +54,38 @@ public class TrainingManager {
             return;
         }
 
-        String sessionId;
-        while (true) {
-            System.out.print("Enter session ID: ");
-            sessionId = scanner.nextLine().trim();
-            if (sessionId.isEmpty()) {
-                System.out.println("Session ID cannot be empty! Please try again.");
-                continue;
-            }
-            if (findSessionById(sessionId) != null) {
-                System.out.println("Session ID already exists! Please try again.");
-                continue;
-            }
-            break;
+        int typeChoice = readSessionTypeChoice();
+        if (typeChoice == -1) {
+            return;
         }
 
-        String title;
-        while (true) {
-            System.out.print("Enter training title: ");
-            title = scanner.nextLine().trim();
-            if (title.isEmpty()) {
-                System.out.println("Title cannot be empty! Please try again.");
-                continue;
-            }
-            break;
-        }
+        String sessionId = readSessionId();
+        String title = readRequiredText("Enter training title: ", "Title cannot be empty!");
+        LocalDate date = readDateInput();
+        LocalTime time = readTimeInput();
+        String location = readRequiredText("Enter location: ", "Location cannot be empty!");
+        String coachName = readRequiredText("Enter coach name: ", "Coach name cannot be empty!");
 
-        LocalDate date;
-        while (true) {
-            System.out.print("Enter date (yyyy-mm-dd): ");
-            String dateInput = scanner.nextLine().trim();
-            try {
-                date = LocalDate.parse(dateInput);
-                break;
-            } catch (Exception e) {
-                System.out.println("Invalid date format. Please use yyyy-mm-dd.");
-            }
-        }
+        TrainingSession session;
 
-        LocalTime time;
-        while (true) {
-            System.out.print("Enter time (HH:mm): ");
-            String timeInput = scanner.nextLine().trim();
-            try {
-                time = LocalTime.parse(timeInput);
-                break;
-            } catch (Exception e) {
-                System.out.println("Invalid time format. Please use HH:mm.");
-            }
+        if (typeChoice == 2) {
+            String intensityLevel = readRequiredText("Enter intensity level: ", "Intensity level cannot be empty!");
+            String fitnessGoal = readRequiredText("Enter fitness goal: ", "Fitness goal cannot be empty!");
+            session = new FitnessTrainingSession(sessionId, title, date, time, location, coachName,
+                    intensityLevel, fitnessGoal);
+        } else if (typeChoice == 3) {
+            String formation = readRequiredText("Enter formation: ", "Formation cannot be empty!");
+            String tacticFocus = readRequiredText("Enter tactic focus: ", "Tactic focus cannot be empty!");
+            session = new TacticalTrainingSession(sessionId, title, date, time, location, coachName,
+                    formation, tacticFocus);
+        } else if (typeChoice == 4) {
+            String recoveryMethod = readRequiredText("Enter recovery method: ", "Recovery method cannot be empty!");
+            int durationMinutes = readPositiveInteger("Enter duration in minutes: ");
+            session = new RecoveryTrainingSession(sessionId, title, date, time, location, coachName,
+                    recoveryMethod, durationMinutes);
+        } else {
+            session = new TrainingSession(sessionId, title, date, time, location, coachName);
         }
-
-        String location;
-        while (true) {
-            System.out.print("Enter location: ");
-            location = scanner.nextLine().trim();
-            if (location.isEmpty()) {
-                System.out.println("Location cannot be empty! Please try again.");
-                continue;
-            }
-            break;
-        }
-
-        String coachName;
-        while (true) {
-            System.out.print("Enter coach name: ");
-            coachName = scanner.nextLine().trim();
-            if (coachName.isEmpty()) {
-                System.out.println("Coach name cannot be empty! Please try again.");
-                continue;
-            }
-            break;
-        }
-
-        TrainingSession session = new TrainingSession(sessionId, title, date, time, location, coachName);
 
         trainingSessions[sessionCount] = session;
         sessionCount++;
@@ -188,6 +151,7 @@ public class TrainingManager {
                 System.out.println("Session not found! Please try again.");
                 continue;
             }
+            // Dynamic dispatch
             session.displayInfo();
             break;
         }
@@ -202,6 +166,7 @@ public class TrainingManager {
         System.out.println("\n===== TRAINING HISTORY =====");
 
         for (int i = 0; i < sessionCount; i++) {
+            // Dynamic dispatch
             trainingSessions[i].displayInfo();
             System.out.println("Attendance count: " + trainingSessions[i].getAttendanceCount());
             System.out.println("----------------------------");
@@ -220,5 +185,100 @@ public class TrainingManager {
 
     private boolean isValidStatus(String status) {
         return status != null && (status.equalsIgnoreCase("Present") || status.equalsIgnoreCase("Absent") || status.equalsIgnoreCase("Late"));
+    }
+
+    private int readSessionTypeChoice() {
+        while (true) {
+            System.out.println("Choose training session type:");
+            System.out.println("1. General Training");
+            System.out.println("2. Fitness Training");
+            System.out.println("3. Tactical Training");
+            System.out.println("4. Recovery Training");
+            System.out.print("Enter choice: ");
+
+            String input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
+                System.out.println("Invalid choice. Please enter a number.");
+                continue;
+            }
+
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice >= 1 && choice <= 4) {
+                    return choice;
+                }
+                System.out.println("Invalid choice. Please enter a number from 1 to 4.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid choice. Please enter a number.");
+            }
+        }
+    }
+
+    private String readSessionId() {
+        while (true) {
+            System.out.print("Enter session ID: ");
+            String sessionId = scanner.nextLine().trim();
+            if (sessionId.isEmpty()) {
+                System.out.println("Session ID cannot be empty! Please try again.");
+                continue;
+            }
+            if (findSessionById(sessionId) != null) {
+                System.out.println("Session ID already exists! Please try again.");
+                continue;
+            }
+            return sessionId;
+        }
+    }
+
+    private String readRequiredText(String prompt, String errorMessage) {
+        while (true) {
+            System.out.print(prompt);
+            String value = scanner.nextLine().trim();
+            if (value.isEmpty()) {
+                System.out.println(errorMessage);
+                continue;
+            }
+            return value;
+        }
+    }
+
+    private LocalDate readDateInput() {
+        while (true) {
+            System.out.print("Enter date (yyyy-mm-dd): ");
+            String dateInput = scanner.nextLine().trim();
+            try {
+                return LocalDate.parse(dateInput);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use yyyy-mm-dd.");
+            }
+        }
+    }
+
+    private LocalTime readTimeInput() {
+        while (true) {
+            System.out.print("Enter time (HH:mm): ");
+            String timeInput = scanner.nextLine().trim();
+            try {
+                return LocalTime.parse(timeInput);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid time format. Please use HH:mm.");
+            }
+        }
+    }
+
+    private int readPositiveInteger(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            try {
+                int value = Integer.parseInt(input);
+                if (value > 0) {
+                    return value;
+                }
+                System.out.println("Please enter a positive number.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number. Please enter a positive integer.");
+            }
+        }
     }
 }

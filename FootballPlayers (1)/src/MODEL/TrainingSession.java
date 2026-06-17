@@ -4,15 +4,16 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class TrainingSession {
-    private String sessionId;
-    private String title;
-    private LocalDate date;
-    private LocalTime time;
-    private String location;
-    private String coachName;
+    // Milestone 3 inheritance evidence
+    protected String sessionId;
+    protected String title;
+    protected LocalDate date;
+    protected LocalTime time;
+    protected String location;
+    protected String coachName;
 
-    private AttendanceRecord[] attendanceList;
-    private int attendanceCount;
+    protected AttendanceRecord[] attendanceList;
+    protected int attendanceCount;
 
     public TrainingSession() {
         this("", "", LocalDate.now(), LocalTime.now(), "", "");
@@ -35,7 +36,7 @@ public class TrainingSession {
 
     public void setSessionId(String sessionId) {
         if (sessionId != null && !sessionId.trim().isEmpty()) {
-            this.sessionId = sessionId;
+            this.sessionId = sessionId.trim();
         }
     }
 
@@ -45,7 +46,7 @@ public class TrainingSession {
 
     public void setTitle(String title) {
         if (title != null && !title.trim().isEmpty()) {
-            this.title = title;
+            this.title = title.trim();
         }
     }
 
@@ -75,7 +76,7 @@ public class TrainingSession {
 
     public void setLocation(String location) {
         if (location != null && !location.trim().isEmpty()) {
-            this.location = location;
+            this.location = location.trim();
         }
     }
 
@@ -85,7 +86,7 @@ public class TrainingSession {
 
     public void setCoachName(String coachName) {
         if (coachName != null && !coachName.trim().isEmpty()) {
-            this.coachName = coachName;
+            this.coachName = coachName.trim();
         }
     }
 
@@ -109,6 +110,11 @@ public class TrainingSession {
         }
     }
 
+    // Milestone 3 polymorphism evidence
+    public String getSessionType() {
+        return "General Training";
+    }
+
     public boolean addAttendance(String playerName) {
         return addAttendance(playerName, "Present", "");
     }
@@ -121,7 +127,7 @@ public class TrainingSession {
         String normalizedName = playerName.trim();
 
         for (int i = 0; i < attendanceCount; i++) {
-            if (attendanceList[i].getPlayerName().equalsIgnoreCase(normalizedName)) {
+            if (attendanceList[i] != null && attendanceList[i].getPlayerName().equalsIgnoreCase(normalizedName)) {
                 return false;
             }
         }
@@ -143,11 +149,15 @@ public class TrainingSession {
 
         System.out.println("Attendance:");
         for (int i = 0; i < attendanceCount; i++) {
-            attendanceList[i].display();
+            if (attendanceList[i] != null) {
+                attendanceList[i].display();
+            }
         }
     }
 
+    // Method overriding
     public void displayInfo() {
+        System.out.println("Session Type: " + getSessionType());
         System.out.println("Session ID: " + sessionId);
         System.out.println("Title: " + title);
         System.out.println("Date: " + date);
