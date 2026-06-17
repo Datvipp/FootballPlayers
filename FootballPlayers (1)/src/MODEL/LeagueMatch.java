@@ -16,12 +16,15 @@ public class LeagueMatch extends Match {
         this.leagueName = leagueName;
     }
 
-    @Override
-    public void inputMatch() {
-        super.inputMatch();
-        Scanner sc = new Scanner(System.in);
+    public void inputMatch(Scanner sc) {
+        super.inputMatch(sc);
         System.out.print("Input league name: ");
         this.leagueName = sc.nextLine();
+    }
+
+    @Override
+    public void inputMatch() {
+        inputMatch(new Scanner(System.in));
     }
 
     @Override

@@ -8,7 +8,17 @@ import java.util.Scanner;
 public class MatchList {
     private Match[] arr;
     private int count;
-    private final Scanner sc = new Scanner(System.in);
+    private Scanner sc;
+
+    public MatchList() {
+        this(new Scanner(System.in));
+    }
+
+    public MatchList(Scanner sc) {
+        this.arr = new Match[100];
+        this.count = 0;
+        this.sc = sc;
+    }
     //add match
    public void addMatch(){
     if(count>=100){
@@ -42,7 +52,7 @@ public class MatchList {
             return;
     }
 
-    match.inputMatch();
+    match.inputMatch(sc);
     arr[count] = match;
     count++;
     System.out.println("Match added successfully");
@@ -129,27 +139,5 @@ public class MatchList {
     }
     System.out.println("Match not found");
    }
-    //constructor
-        public MatchList() {
-            this.arr = new Match[100];
-            this.count = 0;
-        }
-    //getters
-        public Match[] getArr() {
-            return this.arr;
-        }
-        
-        public int getCount() {
-            return this.count;
-        }
-    //setters
-        public void setArr(Match[] arr) {
-            this.arr = arr;
-            this.count = arr == null ? 0 : arr.length;
-        }
-        public void setCount(int count) {
-            if (count >= 0 && count <= this.arr.length) {
-                this.count = count;
-            }
-        }
+
 }

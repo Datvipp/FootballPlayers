@@ -59,7 +59,10 @@ public class Match {
     
     // Input method
     public void inputMatch() {
-        Scanner sc = new Scanner(System.in);
+        inputMatch(new Scanner(System.in));
+    }
+
+    public void inputMatch(Scanner sc) {
         System.out.print("Input Match ID: ");
         this.matchID = sc.nextInt();
         sc.nextLine();
