@@ -1,7 +1,7 @@
 <project name="FootballPlayers" default="compile">
     <target name="compile">
         <mkdir dir="build"/>
-        <javac srcdir="." destdir="build" includeantruntime="false"/>
+        <javac srcdir="src" destdir="build" includeantruntime="false"/>
     </target>
 
     <target name="run" depends="compile">
