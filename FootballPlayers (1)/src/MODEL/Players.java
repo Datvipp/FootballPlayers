@@ -14,6 +14,7 @@ public class Players {
     private String status;
     private String position;
     private double salary;
+    private double bonus; // Q thêm 
     private int absentDays; // Thêm vào
     private int goalsScored; // Thêm vào
     
@@ -28,6 +29,7 @@ public class Players {
         this.status = "";
         this.position = "";
         this.salary = 0.0;
+        this.bonus = 0.0; // Q thêm vào đó
         this.absentDays = 0; // Thêm vào
         this.goalsScored = 0; // Thêm vào
     }
@@ -89,7 +91,9 @@ public class Players {
         return this.absentDays;
     } // Thêm vào
 
-
+    public double getBonus() { 
+        return this.bonus; 
+    } // Q thêm vào đó
     
     public int getGoalsScored() {
         return this.goalsScored;
@@ -133,7 +137,11 @@ public class Players {
         this.salary = salary;
     }
 
-        public void setAbsentDays(int absentDays) {
+    public void setBonus(double bonus) { 
+        this.bonus = bonus; 
+    } // Q thêm vào đó
+
+    public void setAbsentDays(int absentDays) {
         this.absentDays = absentDays;
     } // Thêm vào
 

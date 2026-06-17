@@ -1,106 +1,94 @@
 package SERVICES;
-import MODEL.Salary;
-import java.util.Scanner;
+import MODEL.Players; // Chỉ cần dùng Players, xóa luôn import MODEL.Salary
 
 public class SalaryManager {
-    Salary [] arr = new Salary[100];
-    int count = 0;
     
-    // Khai báo "Nhân viên Kế toán" để sử dụng các công thức
-    SalaryCalculator calculator = new SalaryCalculator(); 
-    
-    // Input Data (Giữ nguyên của bạn)
-    public void addSalary() {
-        boolean cont = false;
-        Scanner sc = new Scanner(System.in);
-        do {
-            arr[count] = new Salary();
-            arr[count].nhapSalary();
-            count++;
-            System.out.println("Add more (true|false)?: ");
-            cont = sc.nextBoolean();
-        } while (cont == true && count < 100);
+    // Khai báo Kế toán và đường kết nối sang Hành chính
+    private SalaryCalculator calculator = new SalaryCalculator();
+    private ClubManager clubManager; 
+
+    // Constructor kết nối
+    public SalaryManager(ClubManager clubManager) {
+        this.clubManager = clubManager;
     }
 
-    // Case 2: Đã tích hợp Kế Toán tính Lương
+
+
+    // Case 2: Tính lương (Tự động kéo số ngày nghỉ từ hồ sơ cầu thủ)
     public void calculateMonthlySalary(int id) {
-        boolean found = false;
-        Scanner sc = new Scanner(System.in); // Mở Scanner để nhập số ngày nghỉ
+        Players p = clubManager.getPlayerById(id); // Xin hồ sơ từ ClubManager
 
-        for (int i = 0; i < count; i++) {
-            if (arr[i].getPlayerID() == id) {
-                System.out.println("\n=== Monthly Salary Information ===");
-                arr[i].xuatSalary();
-                
-                // Yêu cầu nhập thêm dữ liệu thực tế của tháng này
-                System.out.print("Enter number of absent days this month: ");
-                int absentDays = sc.nextInt();
-                
-                // Gọi Kế toán ra tính toán
-                double finalPayout = calculator.computeFinalSalary(arr[i], absentDays);
-                
-                // In biên lai
-                System.out.println("-> Absent Penalty: -$" + (absentDays * 100.0));
-                System.out.println("-> TOTAL MONTHLY PAYOUT: $" + finalPayout);
-                
-                found = true;
-                break;
-            }
-        }
-        if (found == false) {
-            System.out.println("Player salary record not found!");
+        if (p != null) {
+            System.out.println("\n=== Monthly Salary Information ===");
+            System.out.println("Player Name: " + p.getName());
+            System.out.println("-> Base Salary: $" + p.getSalary());
+            System.out.println("-> Absent Days: " + p.getAbsentDays());
+            System.out.println("-> Absent Penalty: -$" + (p.getAbsentDays() * 500.0));
+            
+            // Đưa cho Kế toán tính
+            double finalPayout = calculator.computeFinalSalary(p);
+            System.out.println("-> FINAL MONTHLY SALARY: $" + finalPayout);
+        } else {
+            System.out.println("Player ID not found in the Club system!");
         }
     }
 
-    // Case 3: Đã tích hợp Kế Toán tính Thưởng theo Bàn thắng
+    // Case 3: Tính thưởng (Tự động kéo số bàn thắng từ hồ sơ)
     public void calculateBonus(int id) {
-        boolean found = false;
-        Scanner sc = new Scanner(System.in); // Mở Scanner để nhập số bàn thắng
+        Players p = clubManager.getPlayerById(id); 
 
-        for (int i = 0; i < count; i++) {
-            if (arr[i].getPlayerID() == id) {
-                System.out.println("\n=== Bonus Information ===");
-                System.out.println("Player ID: " + arr[i].getPlayerID());
-                
-                // Yêu cầu nhập số bàn thắng
-                System.out.print("Enter number of goals scored this month: ");
-                int goals = sc.nextInt();
-                
-                // Gọi Kế toán ra tính toán
-                double finalBonus = calculator.computeTotalBonus(arr[i], goals);
-                
-                // In biên lai
-                System.out.println("-> Base Contract Bonus: $" + arr[i].getBonus());
-                System.out.println("-> Goals Bonus (" + goals + " goals x $500): +$" + (goals * 500.0));
-                System.out.println("--------------------------------");
-                System.out.println("-> TOTAL BONUS PAYOUT: $" + finalBonus);
-                
-                found = true;
-                break;
-            }
+        if (p != null) {
+            System.out.println("\n=== Bonus Information ===");
+            System.out.println("Player Name: " + p.getName());
+            System.out.println("-> Base Contract Bonus: $" + p.getBonus());
+            System.out.println("-> Goals Scored: " + p.getGoalsScored());
+            System.out.println("-> Goals Bonus: +$" + (p.getGoalsScored() * 100.0));
+            
+            // Đưa cho Kế toán tính
+            double finalBonus = calculator.computeTotalBonus(p);
+            System.out.println("-> TOTAL BONUS PAYOUT: $" + finalBonus);
+        } else {
+            System.out.println("Player ID not found in the Club system!");
         }
-        if (found == false) {
-            System.out.println("Player salary record not found!");
+    }
+    
+    // TÍNH NĂNG MỚI: In Tổng Thu Nhập (Lương + Thưởng)
+    public void displayTotalIncome(int id) {
+        Players p = clubManager.getPlayerById(id);
+        
+        if (p != null) {
+            System.out.println("\n=== TOTAL INCOME REPORT ===");
+            System.out.println("Player Name: " + p.getName());
+            
+            // Gọi công thức tính tổng bạn vừa viết
+            double totalIncome = calculator.computeTotalPayout(p);
+            System.out.println("-> TOTAL PAYOUT (Salary + Bonus): $" + totalIncome);
+        } else {
+            System.out.println("Player ID not found!");
         }
     }
 
-    // Case 4: Validate Rules (Giữ nguyên của bạn)
+    // Case 4: Quét toàn bộ danh sách để kiểm tra hợp đồng
     public void validateContractRules() {
-        if (count == 0) {
+        int totalPlayers = clubManager.getCount(); // Hỏi ClubManager xem có bao nhiêu người
+
+        if (totalPlayers == 0) {
             System.out.println("No records to validate!");
             return;
         }
 
         System.out.println("\n=== Validating Contract Rules ===");
-        for (int i = 0; i < count; i++) {
-            System.out.print("Player ID: " + arr[i].getPlayerID() + " | Status: " + arr[i].getContractStatus());
+        for (int i = 0; i < totalPlayers; i++) {
+            Players p = clubManager.getPlayerByIndex(i); // Lấy từng người ra kiểm tra
             
-            if (arr[i].getContractStatus().equalsIgnoreCase("Expired")) {
+            System.out.print("ID: " + p.getId() + " | Name: " + p.getName() + " | Status: " + p.getStatus());
+            
+            if (p.getStatus().equalsIgnoreCase("Inactive") || p.getStatus().equalsIgnoreCase("Expired")) {
                 System.out.println(" -> WARNING: Contract needs renewal!");
-            } else if (arr[i].getContractStatus().equalsIgnoreCase("Active")) {
+            } else if (p.getStatus().equalsIgnoreCase("Active")) {
                 System.out.println(" -> Valid and Active.");
             } else {
-                System.out.println(" -> Needs Review (Pending/Unknown).");
+                System.out.println(" -> Needs Review.");
             }
         }
         System.out.println("Validation complete!");

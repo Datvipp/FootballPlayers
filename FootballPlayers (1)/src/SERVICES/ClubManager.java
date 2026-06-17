@@ -114,5 +114,15 @@ public class ClubManager {
             System.out.println("Player not found!");
         }
     }
+
+    // Lấy tổng số cầu thủ hiện có
+    public int getCount() {
+        return this.count;
+    }
+
+    // Lấy hồ sơ cầu thủ theo số thứ tự (để chạy vòng lặp)
+    public MODEL.Players getPlayerByIndex(int index) {
+        return this.arr[index];
+    }
 }
 
