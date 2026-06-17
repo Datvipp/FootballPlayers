@@ -14,6 +14,8 @@ public class Players {
     private String status;
     private String position;
     private double salary;
+    private int absentDays; // Thêm vào
+    private int goalsScored; // Thêm vào
     
     // Constructor
     public Players() {
@@ -26,6 +28,8 @@ public class Players {
         this.status = "";
         this.position = "";
         this.salary = 0.0;
+        this.absentDays = 0; // Thêm vào
+        this.goalsScored = 0; // Thêm vào
     }
     
     // Constructor
@@ -40,6 +44,8 @@ public class Players {
         this.status = status;
         this.position = position;
         this.salary = salary;
+        this.absentDays = 0; // Thêm vào
+        this.goalsScored = 0; // Thêm vào
     }
     
     // Getters
@@ -78,7 +84,18 @@ public class Players {
     public double getSalary() {
         return this.salary;
     }
+
+    public int getAbsentDays() {
+        return this.absentDays;
+    } // Thêm vào
+
+
     
+    public int getGoalsScored() {
+        return this.goalsScored;
+    } // Thêm vào
+    
+
     // Setters
     public void setId(int id) {
         this.id = id;
@@ -115,6 +132,15 @@ public class Players {
     public void setSalary(double salary) {
         this.salary = salary;
     }
+
+        public void setAbsentDays(int absentDays) {
+        this.absentDays = absentDays;
+    } // Thêm vào
+
+        public void setGoalsScored(int goalsScored) {
+        this.goalsScored = goalsScored;
+    } // Thêm vào
+
     
     // Input method
     public void inputPlayers() {
@@ -164,5 +190,7 @@ public class Players {
         System.out.println("Player Type: " + this.type);
         System.out.println("Base Salary: " + this.salary);
         System.out.println("Status: " + this.status);
+        System.out.println("Goals Scored: " + this.goalsScored); // Thêm vào
+        System.out.println("Absent Days: " + this.absentDays); // Thêm vào
     }
 }

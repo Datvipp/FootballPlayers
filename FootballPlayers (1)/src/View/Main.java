@@ -119,6 +119,7 @@ public class Main {
             System.out.println("3. Deactivate");
             System.out.println("4. View All");
             System.out.println("5. Search");
+            System.out.println("6. Update Player Stats (Goals & Absences)"); // Q thêm vào đó
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
@@ -146,6 +147,10 @@ public class Main {
                     int searchId = scanner.nextInt();
                     scanner.nextLine();
                     clubManager.searchPlayer(searchId);
+                    break;
+                case 6: // Q thêm vào đóa
+                    System.out.println("=== Update Player Stats (Goals & Absences for the month) ===");
+                    clubManager.updatePlayerStats();
                     break;
                 case 0:
                     System.out.println("Back to main menu...");
