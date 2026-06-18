@@ -1,5 +1,7 @@
 package SERVICES;
-import MODEL.Players;
+import MODEL.Player;
+import MODEL.RegularPlayer;
+import MODEL.StarPlayer;
 
 import java.util.Scanner;
 
