@@ -4,7 +4,7 @@ import MODEL.Players;
 import java.util.Scanner;
 
 public class ClubManager {
-    Players [] arr=new Players[100];
+    Player [] arr=new Player[100];
     int count=0;
     
     public void addPlayer(){
