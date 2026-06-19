@@ -2,7 +2,7 @@ package MODEL;
 
 import java.util.Scanner;
 
-public abstract class Players { // [ADD] đổi "Players" -> "Player" và thêm "abstract" để làm superclass
+public abstract class Player { // [ADD] đổi "Players" -> "Player" và thêm "abstract" để làm superclass
     // Private attributes
     private String id; // [ADD] đổi int -> String để hỗ trợ format "P01" theo đề (BR1)
     private int age;
@@ -159,8 +159,8 @@ public abstract class Players { // [ADD] đổi "Players" -> "Player" và thêm 
         Scanner sc = new Scanner(System.in);
         
         System.out.println("Enter player ID: ");
-        String inputId = sc.nextLine(); // [ADD] đổi nextInt() -> nextLine() vì id giờ là String
-        while (!isValidIdFormat(inputId)) { // [ADD] validate format ID (BR1, BR2)
+        String inputId = sc.nextLine();
+        while (!isValidIdFormat(inputId)) {
             System.out.println("Invalid ID format! ID must be like P01, P02,...");
             System.out.println("Enter player ID: ");
             inputId = sc.nextLine();
@@ -184,8 +184,10 @@ public abstract class Players { // [ADD] đổi "Players" -> "Player" và thêm 
         this.number = sc.nextInt();
         sc.nextLine();
 
-        System.out.println("Enter player type (Regular player|Star player): ");
-        this.type = sc.nextLine();
+        // [REMOVE] Bỏ 2 dòng hỏi type bằng text vì type đã được xác định
+        // từ bước chọn 1/2 ở addPlayer() và set sẵn trước khi gọi inputPlayers()
+        // System.out.println("Enter player type (Regular player|Star player): ");
+        // this.type = sc.nextLine();
         
         System.out.println("Enter base salary: ");
         this.salary = sc.nextDouble();
