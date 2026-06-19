@@ -1,5 +1,5 @@
 package SERVICES;
-import MODEL.Players; // Chỉ cần dùng Players, xóa luôn import MODEL.Salary
+import MODEL.Player;
 
 public class SalaryManager {
     
@@ -7,16 +7,28 @@ public class SalaryManager {
     private SalaryCalculator calculator = new SalaryCalculator();
     private ClubManager clubManager; 
 
-    // Constructor kết nối
+    // Constructors
     public SalaryManager(ClubManager clubManager) {
         this.clubManager = clubManager;
+    }
+
+    // Case 1: Add salary record (simple input + display)
+    public void addSalary() {
+        MODEL.Salary s = new MODEL.Salary();
+        s.nhapSalary();
+        System.out.println("\n--- New Salary Record ---");
+        s.xuatSalary();
+    }
+
+    public SalaryManager() {
+        this.clubManager = new ClubManager();
     }
 
 
 
     // Case 2: Tính lương (Tự động kéo số ngày nghỉ từ hồ sơ cầu thủ)
-    public void calculateMonthlySalary(int id) {
-        Players p = clubManager.getPlayerById(id); // Xin hồ sơ từ ClubManager
+    public void calculateMonthlySalary(String id) {
+        Player p = clubManager.getPlayerById(id); // Xin hồ sơ từ ClubManager
 
         if (p != null) {
             System.out.println("\n=== Monthly Salary Information ===");
@@ -34,8 +46,8 @@ public class SalaryManager {
     }
 
     // Case 3: Tính thưởng (Tự động kéo số bàn thắng từ hồ sơ)
-    public void calculateBonus(int id) {
-        Players p = clubManager.getPlayerById(id); 
+    public void calculateBonus(String id) {
+        Player p = clubManager.getPlayerById(id); 
 
         if (p != null) {
             System.out.println("\n=== Bonus Information ===");
@@ -53,8 +65,8 @@ public class SalaryManager {
     }
     
     // TÍNH NĂNG MỚI: In Tổng Thu Nhập (Lương + Thưởng)
-    public void displayTotalIncome(int id) {
-        Players p = clubManager.getPlayerById(id);
+    public void displayTotalIncome(String id) {
+        Player p = clubManager.getPlayerById(id);
         
         if (p != null) {
             System.out.println("\n=== TOTAL INCOME REPORT ===");
@@ -79,7 +91,7 @@ public class SalaryManager {
 
         System.out.println("\n=== Validating Contract Rules ===");
         for (int i = 0; i < totalPlayers; i++) {
-            Players p = clubManager.getPlayerByIndex(i); // Lấy từng người ra kiểm tra
+            Player p = clubManager.getPlayerByIndex(i); // Lấy từng người ra kiểm tra
             
             System.out.print("ID: " + p.getId() + " | Name: " + p.getName() + " | Status: " + p.getStatus());
             

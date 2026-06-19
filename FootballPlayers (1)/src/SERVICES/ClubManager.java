@@ -1,5 +1,5 @@
 package SERVICES;
-import MODEL.Player;
+import MODEL.Player; 
 import MODEL.RegularPlayer;
 import MODEL.StarPlayer;
 import java.util.Scanner;
@@ -30,13 +30,13 @@ public class ClubManager {
 
             if (choice == 1) {
                 arr[count] = new RegularPlayer();
-                arr[count].setType("Regular Player"); // [ADD] set type tự động, khớp với object đã tạo
+                arr[count].setType("Regular player");
             } else {
                 arr[count] = new StarPlayer();
-                arr[count].setType("Star Player"); // [ADD] set type tự động, khớp với object đã tạo
+                arr[count].setType("Star player");
             }
 
-            arr[count].inputPlayers(); // [ADD] giờ không hỏi type nữa vì đã set sẵn ở trên
+            arr[count].inputPlayers();
             count++;
             System.out.println("Add more (true|false)?: ");
            
@@ -55,10 +55,19 @@ public class ClubManager {
         Scanner sc=new Scanner(System.in);
         
         System.out.println("Enter Player id to update");
+<<<<<<< HEAD
         String idUpdate = sc.nextLine(); // [ADD] đổi nextInt() -> nextLine() vì id giờ là String
+=======
+        String idUpdate = sc.nextLine();
+
+>>>>>>> e2d362e (Refactor Player id to String; rename Players->Player; fix imports and comparisons; update Salary model; add TestRunner; UI fixes)
         boolean found = false;
         for (int i=0; i <count; i++){
+<<<<<<< HEAD
             if(arr[i].getId().equals(idUpdate)){ // [ADD] đổi "==" -> ".equals()" vì id là String
+=======
+            if(arr[i].getId().equals(idUpdate)){
+>>>>>>> e2d362e (Refactor Player id to String; rename Players->Player; fix imports and comparisons; update Salary model; add TestRunner; UI fixes)
                 System.out.println("===Enter player new information===");
                 arr[i].inputPlayers();
                 found = true;
@@ -68,10 +77,19 @@ public class ClubManager {
         }
         if(!found) System.out.println("Player not found");
     } 
+<<<<<<< HEAD
      public void deactivatePlayer(String id) { // [ADD] đổi tham số int -> String
+=======
+
+     public void deactivatePlayer(String id) {
+>>>>>>> e2d362e (Refactor Player id to String; rename Players->Player; fix imports and comparisons; update Salary model; add TestRunner; UI fixes)
         boolean found = false;
         for(int i = 0; i < count; i++) {
+<<<<<<< HEAD
             if(arr[i].getId().equals(id)) { // [ADD] đổi "==" -> ".equals()"
+=======
+            if(arr[i].getId().equals(id)) { 
+>>>>>>> e2d362e (Refactor Player id to String; rename Players->Player; fix imports and comparisons; update Salary model; add TestRunner; UI fixes)
                 arr[i].setStatus("Inactive");
                 found = true;
                 System.out.println("Player deactivated!");
@@ -82,11 +100,20 @@ public class ClubManager {
             System.out.println("Player not found!");
         }
     }
+<<<<<<< HEAD
     public void searchPlayer(String id){ // [ADD] đổi tham số int -> String
+=======
+
+    public void searchPlayer(String id){
+>>>>>>> e2d362e (Refactor Player id to String; rename Players->Player; fix imports and comparisons; update Salary model; add TestRunner; UI fixes)
         boolean found = false;
         for (int i=0; i<count; i++){
             
+<<<<<<< HEAD
             if( arr[i].getId().equals(id)){ // [ADD] đổi "==" -> ".equals()"
+=======
+            if( arr[i].getId().equals(id)){
+>>>>>>> e2d362e (Refactor Player id to String; rename Players->Player; fix imports and comparisons; update Salary model; add TestRunner; UI fixes)
                 arr[i].displayPlayer();
                 found = true;
                 break;
@@ -96,9 +123,16 @@ public class ClubManager {
            System.out.println("Player not found!");
         }
     }
+<<<<<<< HEAD
     public MODEL.Player getPlayerById(String id) { // [ADD] đổi MODEL.Players -> MODEL.Player, int -> String
         for (int i = 0; i < count; i++) {
             if (arr[i].getId().equals(id)) { // [ADD] đổi "==" -> ".equals()"
+=======
+
+    public Player getPlayerById(String id) {
+        for (int i = 0; i < count; i++) {
+            if (arr[i].getId().equals(id)) {
+>>>>>>> e2d362e (Refactor Player id to String; rename Players->Player; fix imports and comparisons; update Salary model; add TestRunner; UI fixes)
                 return arr[i]; // Trả về nguyên object Player nếu tìm thấy
             }
         }
@@ -108,8 +142,15 @@ public class ClubManager {
     public void updatePlayerStats() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter Player ID to update stats: ");
+<<<<<<< HEAD
         String searchId = sc.nextLine(); // [ADD] đổi nextInt() -> nextLine()
         MODEL.Player p = getPlayerById(searchId); // [ADD] đổi MODEL.Players -> MODEL.Player
+=======
+        String searchId = sc.nextLine();
+
+        Player p = getPlayerById(searchId);
+
+>>>>>>> e2d362e (Refactor Player id to String; rename Players->Player; fix imports and comparisons; update Salary model; add TestRunner; UI fixes)
         if (p != null) {
             System.out.println("Updating stats for player: " + p.getName());
             
@@ -129,7 +170,12 @@ public class ClubManager {
         return this.count;
     }
     // Lấy hồ sơ cầu thủ theo số thứ tự (để chạy vòng lặp)
+<<<<<<< HEAD
     public MODEL.Player getPlayerByIndex(int index) { // [ADD] đổi MODEL.Players -> MODEL.Player
         return this.arr[index];
+=======
+    public Player getPlayerByIndex(int index) {
+        return this.arr[index]; 
+>>>>>>> e2d362e (Refactor Player id to String; rename Players->Player; fix imports and comparisons; update Salary model; add TestRunner; UI fixes)
     }
 }

@@ -3,21 +3,21 @@ import java.util.Scanner;
 
 public class Salary {
     // Private attributes
-    private int playerID;
+    private String playerID;
     private double baseSalary;
     private double bonus;
     private String contractStatus;
     
     // Constructor
     public Salary() {
-        this.playerID = 0;
+        this.playerID = "";
         this.baseSalary = 0.0;
         this.bonus = 0.0;
         this.contractStatus = "";
     }
     
     // Parameterized Constructor
-    public Salary(int playerID, double baseSalary, double bonus, String contractStatus) {
+    public Salary(String playerID, double baseSalary, double bonus, String contractStatus) {
         this.playerID = playerID;
         this.baseSalary = baseSalary;
         this.bonus = bonus;
@@ -25,7 +25,7 @@ public class Salary {
     }
     
     // Getters
-    public int getPlayerID() {
+    public String getPlayerID() {
         return this.playerID;
     }
     
@@ -42,7 +42,7 @@ public class Salary {
     }
     
     // Setters
-    public void setPlayerID(int playerID) {
+    public void setPlayerID(String playerID) {
         this.playerID = playerID;
     }
     
@@ -62,7 +62,7 @@ public class Salary {
     public void nhapSalary() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Input Player ID: ");
-        this.playerID = sc.nextInt();
+        this.playerID = sc.nextLine();
         
         System.out.print("Input Base Salary: ");
         this.baseSalary = sc.nextDouble();

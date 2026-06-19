@@ -135,8 +135,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.print("Enter player ID to deactivate: ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
+                    String id = scanner.nextLine();
                     clubManager.deactivatePlayer(id);
                     break;
                 case 4:
@@ -144,8 +143,7 @@ public class Main {
                     break;
                 case 5:
                     System.out.print("Enter player ID to search: ");
-                    int searchId = scanner.nextInt();
-                    scanner.nextLine();
+                    String searchId = scanner.nextLine();
                     clubManager.searchPlayer(searchId);
                     break;
                 case 6: // Q thêm vào đóa
@@ -272,14 +270,12 @@ public class Main {
                     break;
                 case 2:
                     System.out.print("Enter player ID to calculate monthly salary: ");
-                    int salaryId = scanner.nextInt();
-                    scanner.nextLine();
+                    String salaryId = scanner.nextLine();
                     salaryManager.calculateMonthlySalary(salaryId);
                     break;
                 case 3:
                     System.out.print("Enter player ID to calculate bonus: ");
-                    int bonusId = scanner.nextInt();
-                    scanner.nextLine();
+                    String bonusId = scanner.nextLine();
                     salaryManager.calculateBonus(bonusId);
                     break;
                 case 4:
