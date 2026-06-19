@@ -252,31 +252,31 @@ public class Main {
         int choice;
 
         do {
-            System.out.println("\n-- CONTRACT & SALARY MANAGEMENT --");
-            System.out.println("1. Add Salary");
-            System.out.println("2. Calculate Monthly Salary");
-            System.out.println("3. Calculate Bonus");
+            System.out.println("\n== CONTRACT & SALARY MANAGEMENT ==");
+            System.out.println("1. Calculate Monthly Salary");
+            System.out.println("2. Calculate Bonus");
+            System.out.println("3. View Total Income (Salary + Bonus)");
             System.out.println("4. Validate Rules");
             System.out.println("0. Back");
             System.out.print("Your Choice: ");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            choice = readIntChoice(); 
 
             switch (choice) {
                 case 1:
-                    System.out.println("\n--- Adding New Salary Record ---");
-                    salaryManager.addSalary();
-                    break;
-                case 2:
                     System.out.print("Enter player ID to calculate monthly salary: ");
                     String salaryId = scanner.nextLine();
                     salaryManager.calculateMonthlySalary(salaryId);
                     break;
-                case 3:
+                case 2:
                     System.out.print("Enter player ID to calculate bonus: ");
                     String bonusId = scanner.nextLine();
                     salaryManager.calculateBonus(bonusId);
+                    break;
+                case 3:
+                    System.out.print("Enter player ID to view total income: ");
+                    String totalId = scanner.nextLine();
+                    salaryManager.displayTotalIncome(totalId);
                     break;
                 case 4:
                     salaryManager.validateContractRules();

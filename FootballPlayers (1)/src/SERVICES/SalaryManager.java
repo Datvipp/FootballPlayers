@@ -7,28 +7,14 @@ public class SalaryManager {
     private SalaryCalculator calculator = new SalaryCalculator();
     private ClubManager clubManager; 
 
-    // Constructors
+    // Constructor DUY NHẤT (Bắt buộc dùng chung kho dữ liệu)
     public SalaryManager(ClubManager clubManager) {
         this.clubManager = clubManager;
     }
 
-    // Case 1: Add salary record (simple input + display)
-    public void addSalary() {
-        MODEL.Salary s = new MODEL.Salary();
-        s.nhapSalary();
-        System.out.println("\n--- New Salary Record ---");
-        s.xuatSalary();
-    }
-
-    public SalaryManager() {
-        this.clubManager = new ClubManager();
-    }
-
-
-
     // Case 2: Tính lương (Tự động kéo số ngày nghỉ từ hồ sơ cầu thủ)
     public void calculateMonthlySalary(String id) {
-        Player p = clubManager.getPlayerById(id); // Xin hồ sơ từ ClubManager
+        Player p = clubManager.getPlayerById(id); 
 
         if (p != null) {
             System.out.println("\n=== Monthly Salary Information ===");
@@ -82,7 +68,7 @@ public class SalaryManager {
 
     // Case 4: Quét toàn bộ danh sách để kiểm tra hợp đồng
     public void validateContractRules() {
-        int totalPlayers = clubManager.getCount(); // Hỏi ClubManager xem có bao nhiêu người
+        int totalPlayers = clubManager.getCount(); 
 
         if (totalPlayers == 0) {
             System.out.println("No records to validate!");
@@ -91,7 +77,7 @@ public class SalaryManager {
 
         System.out.println("\n=== Validating Contract Rules ===");
         for (int i = 0; i < totalPlayers; i++) {
-            Player p = clubManager.getPlayerByIndex(i); // Lấy từng người ra kiểm tra
+            Player p = clubManager.getPlayerByIndex(i); 
             
             System.out.print("ID: " + p.getId() + " | Name: " + p.getName() + " | Status: " + p.getStatus());
             
