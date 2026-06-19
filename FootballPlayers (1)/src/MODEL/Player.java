@@ -148,9 +148,7 @@ public abstract class Player {
     }
 
     // Input method
-    public void inputPlayers() {
-        Scanner sc = new Scanner(System.in);
-        
+    public void inputPlayers(Scanner sc) {
         System.out.println("Enter player ID: ");
         this.id = sc.nextLine();
         

@@ -8,10 +8,18 @@ import java.util.Scanner;
 public class ClubManager {
     Player[] arr = new Player[100];
     int count = 0;
+    private Scanner sc;
+
+    public ClubManager() {
+        this.sc = new Scanner(System.in);
+    }
+
+    public ClubManager(Scanner sc) {
+        this.sc = (sc != null) ? sc : new Scanner(System.in);
+    }
 
     public void addPlayer() {
         boolean cont = false;
-        Scanner sc = new Scanner(System.in);
         do {
             int choice;
             do {
@@ -38,11 +46,12 @@ public class ClubManager {
                 arr[count].setType("Star player");
             }
 
-            arr[count].inputPlayers();
+            arr[count].inputPlayers(this.sc);
             count++;
             System.out.println("Add more (true|false)?: ");
 
-            cont = sc.nextBoolean();
+            cont = this.sc.nextBoolean();
+            this.sc.nextLine();
 
         } while (cont == true && count < 100);
     }
@@ -55,16 +64,14 @@ public class ClubManager {
     }
 
     public void updateInfo() {
-        Scanner sc = new Scanner(System.in);
-
         System.out.println("Enter Player id to update");
-        String idUpdate = sc.nextLine();
+        String idUpdate = this.sc.nextLine();
 
         boolean found = false;
         for (int i = 0; i < count; i++) {
             if (arr[i].getId().equals(idUpdate)) {
                 System.out.println("===Enter player new information===");
-                arr[i].inputPlayers();
+                arr[i].inputPlayers(this.sc);
                 found = true;
                 System.out.println("Update successful!");
                 break;
@@ -114,9 +121,8 @@ public class ClubManager {
     }
 
     public void updatePlayerStats() {
-        Scanner sc = new Scanner(System.in);
         System.out.print("Enter Player ID to update stats: ");
-        String searchId = sc.nextLine();
+        String searchId = this.sc.nextLine();
 
         Player p = getPlayerById(searchId);
 
@@ -124,10 +130,12 @@ public class ClubManager {
             System.out.println("Updating stats for player: " + p.getName());
 
             System.out.print("Input goals scored this month: ");
-            p.setGoalsScored(sc.nextInt());
+            p.setGoalsScored(this.sc.nextInt());
+            this.sc.nextLine();
 
             System.out.print("Input absent days this month: ");
-            p.setAbsentDays(sc.nextInt());
+            p.setAbsentDays(this.sc.nextInt());
+            this.sc.nextLine();
 
             System.out.println("-> Stats updated successfully!");
         } else {

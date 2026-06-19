@@ -16,10 +16,10 @@ public class Main {
 
     public Main() {
         scanner = new Scanner(System.in);
-        clubManager = new ClubManager();
+        clubManager = new ClubManager(scanner);
         trainingManager = new TrainingManager(scanner);
         matchManager = new MatchList(scanner);
-        salaryManager = new SalaryManager();
+        salaryManager = new SalaryManager(clubManager);
     }
 
     public ClubManager getClubManager() {
