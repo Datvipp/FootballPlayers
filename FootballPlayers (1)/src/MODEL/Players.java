@@ -2,10 +2,9 @@ package MODEL;
 
 import java.util.Scanner;
 
-
-public class Players {
+public abstract class Players { // [ADD] đổi "Players" -> "Player" và thêm "abstract" để làm superclass
     // Private attributes
-    private int id;
+    private String id; // [ADD] đổi int -> String để hỗ trợ format "P01" theo đề (BR1)
     private int age;
     private int number;
     private String name;
@@ -20,7 +19,7 @@ public class Players {
     
     // Constructor
     public Players() {
-        this.id = 0;
+        this.id = ""; // [ADD] sửa theo kiểu String
         this.age = 0;
         this.number = 0;
         this.name = "";
@@ -35,7 +34,7 @@ public class Players {
     }
     
     // Constructor
-    public Players(int id, int age, int number, String name, String national, 
+    public Player(String id, int age, int number, String name, String national, // [ADD] id: int -> String
                    String type, String status, String position, double salary) {
         this.id = id;
         this.age = age;
@@ -51,7 +50,7 @@ public class Players {
     }
     
     // Getters
-    public int getId() {
+    public String getId() { // [ADD] đổi kiểu trả về int -> String
         return this.id;
     }
     
@@ -101,7 +100,7 @@ public class Players {
     
 
     // Setters
-    public void setId(int id) {
+    public void setId(String id) { // [ADD] đổi kiểu int -> String
         this.id = id;
     }
     
@@ -145,18 +144,28 @@ public class Players {
         this.absentDays = absentDays;
     } // Thêm vào
 
-        public void setGoalsScored(int goalsScored) {
+    public void setGoalsScored(int goalsScored) {
         this.goalsScored = goalsScored;
     } // Thêm vào
 
-    
+    // [ADD] Hàm kiểm tra format ID theo đề: bắt đầu bằng "P" + số, ví dụ P01, P02...
+    public static boolean isValidIdFormat(String id) { // [ADD]
+        if (id == null) return false;
+        return id.matches("^P\\d{2,}$"); // P + ít nhất 2 chữ số, có thể chỉnh số chữ số tùy ý
+    }
+
     // Input method
     public void inputPlayers() {
         Scanner sc = new Scanner(System.in);
         
         System.out.println("Enter player ID: ");
-        this.id = sc.nextInt();
-        sc.nextLine();
+        String inputId = sc.nextLine(); // [ADD] đổi nextInt() -> nextLine() vì id giờ là String
+        while (!isValidIdFormat(inputId)) { // [ADD] validate format ID (BR1, BR2)
+            System.out.println("Invalid ID format! ID must be like P01, P02,...");
+            System.out.println("Enter player ID: ");
+            inputId = sc.nextLine();
+        }
+        this.id = inputId;
         
         System.out.println("Enter full name: ");
         this.name = sc.nextLine();
@@ -200,5 +209,13 @@ public class Players {
         System.out.println("Status: " + this.status);
         System.out.println("Goals Scored: " + this.goalsScored); // Thêm vào
         System.out.println("Absent Days: " + this.absentDays); // Thêm vào
+    }
+
+    // [ADD] Method trừu tượng để mỗi subclass tự tính bonus (Polymorphism - đúng yêu cầu OOP mục 5)
+    public abstract double calculateBonus(int monthlyPerformancePoints);
+
+    // [ADD] Method tính tổng lương tháng, dùng chung công thức BR27: Total = Base + Bonus
+    public double calculateMonthlySalary(int monthlyPerformancePoints) {
+        return this.salary + calculateBonus(monthlyPerformancePoints);
     }
 }
