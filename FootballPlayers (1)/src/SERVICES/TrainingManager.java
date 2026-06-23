@@ -127,6 +127,11 @@ public class TrainingManager {
             return;
         }
 
+        if (clubManager.getCount() == 0) {
+            System.out.println("No players found. Please add players before recording attendance.");
+            return;
+        }
+
         Player player;
         while (true) {
             System.out.print("Enter player ID: ");
@@ -144,6 +149,11 @@ public class TrainingManager {
 
             System.out.println("Player found: " + player.getName());
             break;
+        }
+
+        if (player.getStatus() != null && player.getStatus().equalsIgnoreCase("Inactive")) {
+            System.out.println("Cannot record attendance for an inactive player.");
+            return;
         }
 
         String status;
@@ -167,6 +177,48 @@ public class TrainingManager {
         } else {
             System.out.println("Cannot record attendance. The player may already be present, the list may be full, or the input is invalid.");
         }
+    }
+
+    public void updateSession() {
+        if (sessionCount == 0) {
+            System.out.println("No training sessions found!");
+            return;
+        }
+
+        TrainingSession session = readExistingSession("Enter session ID to update: ");
+
+        session.setTitle(readRequiredText("Enter new training title: ", "Title cannot be empty!"));
+        session.setDate(readDateInput());
+        session.setTime(readTimeInput());
+        session.setLocation(readRequiredText("Enter new location: ", "Location cannot be empty!"));
+        session.setCoachName(readRequiredText("Enter new coach name: ", "Coach name cannot be empty!"));
+        session.updateSpecificInfo(scanner);
+
+        System.out.println("Training session updated successfully!");
+    }
+
+    public void deleteSession() {
+        if (sessionCount == 0) {
+            System.out.println("No training sessions found!");
+            return;
+        }
+
+        System.out.print("Enter session ID to delete: ");
+        String sessionId = scanner.nextLine().trim();
+
+        for (int i = 0; i < sessionCount; i++) {
+            if (trainingSessions[i] != null && trainingSessions[i].getSessionId().equalsIgnoreCase(sessionId)) {
+                for (int j = i; j < sessionCount - 1; j++) {
+                    trainingSessions[j] = trainingSessions[j + 1];
+                }
+                trainingSessions[sessionCount - 1] = null;
+                sessionCount--;
+                System.out.println("Training session deleted successfully!");
+                return;
+            }
+        }
+
+        System.out.println("Session not found!");
     }
 
     public void searchSession() {
@@ -209,6 +261,19 @@ public class TrainingManager {
         }
 
         return null;
+    }
+
+    private TrainingSession readExistingSession(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String sessionId = scanner.nextLine().trim();
+            TrainingSession session = findSessionById(sessionId);
+            if (session == null) {
+                System.out.println("Session not found! Please try again.");
+                continue;
+            }
+            return session;
+        }
     }
 
     private boolean isValidStatus(String status) {

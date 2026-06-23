@@ -2,6 +2,7 @@ package MODEL;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Scanner;
 
 public class TrainingSession {
     // Milestone 3 inheritance evidence
@@ -191,6 +192,12 @@ public class TrainingSession {
                 + ", Late=" + late);
     }
 
+    protected void displaySpecificInfo() {
+    }
+
+    public void updateSpecificInfo(Scanner scanner) {
+    }
+
     // Method overriding
     public void displayInfo() {
         System.out.println("Session Type: " + getSessionType());
@@ -200,6 +207,7 @@ public class TrainingSession {
         System.out.println("Time: " + time);
         System.out.println("Location: " + location);
         System.out.println("Coach: " + coachName);
+        displaySpecificInfo();
         displayAttendance();
         displayAttendanceSummary();
     }

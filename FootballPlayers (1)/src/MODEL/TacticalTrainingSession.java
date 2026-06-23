@@ -2,6 +2,7 @@ package MODEL;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Scanner;
 
 public class TacticalTrainingSession extends TrainingSession {
     private String formation;
@@ -47,11 +48,17 @@ public class TacticalTrainingSession extends TrainingSession {
         return "Tactical Training";
     }
 
-    // Method overriding
     @Override
-    public void displayInfo() {
-        super.displayInfo();
+    protected void displaySpecificInfo() {
         System.out.println("Formation: " + formation);
         System.out.println("Tactic Focus: " + tacticFocus);
+    }
+
+    @Override
+    public void updateSpecificInfo(Scanner scanner) {
+        System.out.print("Enter new formation: ");
+        setFormation(scanner.nextLine());
+        System.out.print("Enter new tactic focus: ");
+        setTacticFocus(scanner.nextLine());
     }
 }

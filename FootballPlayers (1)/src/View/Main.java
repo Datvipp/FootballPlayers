@@ -165,6 +165,8 @@ public class Main {
             System.out.println("2. Record Attendance");
             System.out.println("3. View History");
             System.out.println("4. Search Session");
+            System.out.println("5. Update Session");
+            System.out.println("6. Delete Session");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
@@ -182,6 +184,12 @@ public class Main {
                     break;
                 case 4:
                     trainingManager.searchSession();
+                    break;
+                case 5:
+                    trainingManager.updateSession();
+                    break;
+                case 6:
+                    trainingManager.deleteSession();
                     break;
                 case 0:
                     System.out.println("Back to main menu...");

@@ -54,13 +54,18 @@ public class AttendanceRecord {
     }
 
     public void display() {
-        if (playerId.isEmpty()) {
-            System.out.println("- " + playerName + " [" + status + "]");
-        } else {
-            System.out.println("- " + playerId + " - " + playerName + " [" + status + "]");
-        }
+        System.out.println(toString());
         if (!note.isEmpty()) {
             System.out.println("  Note: " + note);
         }
+    }
+
+    @Override
+    public String toString() {
+        if (playerId.isEmpty()) {
+            return "- " + playerName + " [" + status + "]";
+        }
+
+        return "- " + playerId + " - " + playerName + " [" + status + "]";
     }
 }

@@ -2,6 +2,7 @@ package MODEL;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Scanner;
 
 public class FitnessTrainingSession extends TrainingSession {
     private String intensityLevel;
@@ -47,11 +48,17 @@ public class FitnessTrainingSession extends TrainingSession {
         return "Fitness Training";
     }
 
-    // Method overriding
     @Override
-    public void displayInfo() {
-        super.displayInfo();
+    protected void displaySpecificInfo() {
         System.out.println("Intensity Level: " + intensityLevel);
         System.out.println("Fitness Goal: " + fitnessGoal);
+    }
+
+    @Override
+    public void updateSpecificInfo(Scanner scanner) {
+        System.out.print("Enter new intensity level: ");
+        setIntensityLevel(scanner.nextLine());
+        System.out.print("Enter new fitness goal: ");
+        setFitnessGoal(scanner.nextLine());
     }
 }
