@@ -120,15 +120,27 @@ public class TrainingSession {
     }
 
     public boolean addAttendance(String playerName, String status, String note) {
+        return addAttendance("", playerName, status, note);
+    }
+
+    public boolean addAttendance(String playerId, String playerName, String status, String note) {
         if (playerName == null || playerName.trim().isEmpty()) {
             return false;
         }
 
+        String normalizedId = (playerId == null) ? "" : playerId.trim();
         String normalizedName = playerName.trim();
 
         for (int i = 0; i < attendanceCount; i++) {
-            if (attendanceList[i] != null && attendanceList[i].getPlayerName().equalsIgnoreCase(normalizedName)) {
-                return false;
+            if (attendanceList[i] != null) {
+                String recordedId = attendanceList[i].getPlayerId();
+                boolean samePlayerId = !normalizedId.isEmpty() && recordedId.equalsIgnoreCase(normalizedId);
+                boolean samePlayerName = normalizedId.isEmpty()
+                        && attendanceList[i].getPlayerName().equalsIgnoreCase(normalizedName);
+
+                if (samePlayerId || samePlayerName) {
+                    return false;
+                }
             }
         }
 
@@ -136,7 +148,7 @@ public class TrainingSession {
             return false;
         }
 
-        attendanceList[attendanceCount] = new AttendanceRecord(normalizedName, status, note);
+        attendanceList[attendanceCount] = new AttendanceRecord(normalizedId, normalizedName, status, note);
         attendanceCount++;
         return true;
     }
@@ -155,6 +167,30 @@ public class TrainingSession {
         }
     }
 
+    public void displayAttendanceSummary() {
+        int present = 0;
+        int absent = 0;
+        int late = 0;
+
+        for (int i = 0; i < attendanceCount; i++) {
+            if (attendanceList[i] != null) {
+                String status = attendanceList[i].getStatus();
+
+                if (status.equalsIgnoreCase("Present")) {
+                    present++;
+                } else if (status.equalsIgnoreCase("Absent")) {
+                    absent++;
+                } else if (status.equalsIgnoreCase("Late")) {
+                    late++;
+                }
+            }
+        }
+
+        System.out.println("Attendance Summary: Present=" + present
+                + ", Absent=" + absent
+                + ", Late=" + late);
+    }
+
     // Method overriding
     public void displayInfo() {
         System.out.println("Session Type: " + getSessionType());
@@ -165,5 +201,6 @@ public class TrainingSession {
         System.out.println("Location: " + location);
         System.out.println("Coach: " + coachName);
         displayAttendance();
+        displayAttendanceSummary();
     }
 }

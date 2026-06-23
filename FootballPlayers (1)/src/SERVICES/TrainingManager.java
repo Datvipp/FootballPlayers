@@ -1,6 +1,7 @@
 package SERVICES;
 
 import MODEL.FitnessTrainingSession;
+import MODEL.Player;
 import MODEL.RecoveryTrainingSession;
 import MODEL.TacticalTrainingSession;
 import MODEL.TrainingSession;
@@ -13,15 +14,21 @@ public class TrainingManager {
     private TrainingSession[] trainingSessions;
     private int sessionCount;
     private Scanner scanner;
+    private ClubManager clubManager;
 
     public TrainingManager() {
-        this(new Scanner(System.in));
+        this(new Scanner(System.in), null);
     }
 
     public TrainingManager(Scanner scanner) {
+        this(scanner, null);
+    }
+
+    public TrainingManager(Scanner scanner, ClubManager clubManager) {
         this.trainingSessions = new TrainingSession[100];
         this.sessionCount = 0;
         this.scanner = (scanner != null) ? scanner : new Scanner(System.in);
+        this.clubManager = clubManager;
     }
 
     public TrainingSession[] getTrainingSessions() {
@@ -46,6 +53,14 @@ public class TrainingManager {
 
     public void setScanner(Scanner scanner) {
         this.scanner = (scanner != null) ? scanner : new Scanner(System.in);
+    }
+
+    public ClubManager getClubManager() {
+        return clubManager;
+    }
+
+    public void setClubManager(ClubManager clubManager) {
+        this.clubManager = clubManager;
     }
 
     public void createSession() {
@@ -107,14 +122,27 @@ public class TrainingManager {
             break;
         }
 
-        String playerName;
+        if (clubManager == null) {
+            System.out.println("Player Management is not connected. Cannot verify player ID.");
+            return;
+        }
+
+        Player player;
         while (true) {
-            System.out.print("Enter player name: ");
-            playerName = scanner.nextLine().trim();
-            if (playerName.isEmpty()) {
-                System.out.println("Player name cannot be empty! Please try again.");
+            System.out.print("Enter player ID: ");
+            String playerId = scanner.nextLine().trim();
+            if (playerId.isEmpty()) {
+                System.out.println("Player ID cannot be empty! Please try again.");
                 continue;
             }
+
+            player = clubManager.getPlayerById(playerId);
+            if (player == null) {
+                System.out.println("Player not found! Please try again.");
+                continue;
+            }
+
+            System.out.println("Player found: " + player.getName());
             break;
         }
 
@@ -132,7 +160,7 @@ public class TrainingManager {
         System.out.print("Enter note: ");
         String note = scanner.nextLine();
 
-        boolean result = session.addAttendance(playerName, status, note);
+        boolean result = session.addAttendance(player.getId(), player.getName(), status, note);
 
         if (result) {
             System.out.println("Attendance recorded successfully!");

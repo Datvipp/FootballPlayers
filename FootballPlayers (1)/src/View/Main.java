@@ -17,7 +17,7 @@ public class Main {
     public Main() {
         scanner = new Scanner(System.in);
         clubManager = new ClubManager(scanner);
-        trainingManager = new TrainingManager(scanner);
+        trainingManager = new TrainingManager(scanner, clubManager);
         matchManager = new MatchList(scanner);
         salaryManager = new SalaryManager(clubManager);
     }
