@@ -77,7 +77,6 @@ public class Main {
             System.out.println("2. Training Management");
             System.out.println("3. Match Management");
             System.out.println("4. Contract & Salary Management");
-            System.out.println("5. Reporting");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -95,9 +94,6 @@ public class Main {
                     break;
                 case 4:
                     salaryMenu();
-                    break;
-                case 5:
-                    reportMenu();
                     break;
                 case 0:
                     System.out.println("Exiting program...");
