@@ -47,7 +47,10 @@ public class Match {
     }
     
     // Setters
-    
+    public void setMatchID(int matchID) {
+        this.matchID = matchID;
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
@@ -90,5 +93,13 @@ public class Match {
         System.out.println("Date: " + this.date);
         System.out.println("Opponent Team: " + this.opponentTeam);
         System.out.println("Stadium: " + this.stadium);
+    }
+
+    // File I/O: chuyển 1 match thành 1 dòng text để ghi file
+    // Format: matchType|matchID|date|opponentTeam|stadium
+    // Subclass sẽ override và gọi super.toFileLine() rồi nối thêm field riêng
+    public String toFileLine() {
+        return this.matchType + "|" + this.matchID + "|" + this.date + "|"
+                + this.opponentTeam + "|" + this.stadium;
     }
 }
