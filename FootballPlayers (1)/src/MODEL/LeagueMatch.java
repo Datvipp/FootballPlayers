@@ -32,4 +32,9 @@ public class LeagueMatch extends Match {
         super.outputMatch();
         System.out.println("League Name: " + this.leagueName);
     }
+
+    @Override
+    public String toFileLine() {
+        return super.toFileLine() + "|" + this.leagueName;
+    }
 }
