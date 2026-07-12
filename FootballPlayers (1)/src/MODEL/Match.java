@@ -1,12 +1,14 @@
 package MODEL;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 
 
 public class Match {
     // Private attributes
     private int matchID;
-    private String date;
+    private LocalDate date;
     private String opponentTeam;
     private String matchType;
     private String stadium;
@@ -14,14 +16,14 @@ public class Match {
     // Constructor
     public Match() {
         this.matchID = 0;
-        this.date = "";
+        this.date = LocalDate.now();
         this.opponentTeam = "";
         this.matchType = "";
         this.stadium = "";
     }
     
     // Constructor
-    public Match(int matchID, String date, String opponentTeam, String matchType, String stadium) {
+    public Match(int matchID, LocalDate date, String opponentTeam, String matchType, String stadium) {
         this.matchID = matchID;
         this.date = date;
         this.opponentTeam = opponentTeam;
@@ -34,7 +36,7 @@ public class Match {
         return this.matchID;
     }
     
-    public String getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
     
@@ -51,8 +53,10 @@ public class Match {
         this.matchID = matchID;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(LocalDate date) {
+        if (date != null) {
+            this.date = date;
+        }
     }
     
     public void setOpponentTeam(String opponentTeam) {
@@ -70,6 +74,21 @@ public class Match {
     public void setStadium(String stadium){
          this.stadium = stadium; 
     }
+
+    // doc va validate ngay thang, dung chung cho ca inputMatch() va MatchList.updateMatch()
+    // lap toi khi nhap dung dinh dang, khong cho qua ngay bay (giong pattern cua TrainingManager.readDateInput())
+    public static LocalDate readDateInput(Scanner sc) {
+        while (true) {
+            System.out.print("Input date (yyyy-MM-dd): ");
+            String input = sc.nextLine().trim();
+            try {
+                return LocalDate.parse(input);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format! Please use yyyy-MM-dd (e.g. 2026-01-31).");
+            }
+        }
+    }
+
     // Input method
     public void inputMatch() {
         inputMatch(new Scanner(System.in));
@@ -79,8 +98,7 @@ public class Match {
         System.out.print("Input Match ID: ");
         this.matchID = sc.nextInt();
         sc.nextLine();
-        System.out.print("Input date (dd/MM/yyyy): ");
-        this.date = sc.nextLine();
+        this.date = readDateInput(sc);
         System.out.print("Input opponent team: ");
         this.opponentTeam = sc.nextLine();
         System.out.print("Input stadium: ");
@@ -95,9 +113,9 @@ public class Match {
         System.out.println("Stadium: " + this.stadium);
     }
 
-    // File I/O: chuyển 1 match thành 1 dòng text để ghi file
-    // Format: matchType|matchID|date|opponentTeam|stadium
-    // Subclass sẽ override và gọi super.toFileLine() rồi nối thêm field riêng
+    // File I/O: chuyen 1 match thanh 1 dong text de ghi file
+    // Format: matchType|matchID|date(yyyy-MM-dd)|opponentTeam|stadium
+    // Subclass se override va goi super.toFileLine() roi noi them field rieng
     public String toFileLine() {
         return this.matchType + "|" + this.matchID + "|" + this.date + "|"
                 + this.opponentTeam + "|" + this.stadium;
