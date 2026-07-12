@@ -5,7 +5,7 @@ import MODEL.RegularPlayer;
 import MODEL.StarPlayer;
 import java.util.Scanner;
 
-public class ClubManager {
+public class ClubManager implements PlayerProvider {
     Player[] arr = new Player[100];
     int count = 0;
     private Scanner sc;
@@ -50,10 +50,22 @@ public class ClubManager {
             count++;
             System.out.println("Add more (true|false)?: ");
 
-            cont = this.sc.nextBoolean();
-            this.sc.nextLine();
+            cont = readBooleanInput();
 
         } while (cont == true && count < 100);
+    }
+
+    private boolean readBooleanInput() {
+        while (true) {
+            String input = this.sc.nextLine().trim().toLowerCase();
+            if (input.equals("true") || input.equals("1") || input.equals("yes")) {
+                return true;
+            } else if (input.equals("false") || input.equals("0") || input.equals("no")) {
+                return false;
+            } else {
+                System.out.println("Invalid input! Please enter 'true' or 'false' (or 'yes'/'no'):");
+            }
+        }
     }
 
     public void viewAllPlayers() {

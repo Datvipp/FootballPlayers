@@ -1,5 +1,6 @@
 package MODEL;
 
+import SERVICES.PlayerProvider;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
@@ -15,6 +16,7 @@ public class TrainingSession {
 
     protected AttendanceRecord[] attendanceList;
     protected int attendanceCount;
+    protected PlayerProvider playerProvider;
 
     public TrainingSession() {
         this("", "", LocalDate.now(), LocalTime.now(), "", "");
@@ -111,35 +113,30 @@ public class TrainingSession {
         }
     }
 
+    public PlayerProvider getPlayerProvider() {
+        return playerProvider;
+    }
+
+    public void setPlayerProvider(PlayerProvider playerProvider) {
+        this.playerProvider = playerProvider;
+    }
+
     // Milestone 3 polymorphism evidence
     public String getSessionType() {
         return "General Training";
     }
 
-    public boolean addAttendance(String playerName) {
-        return addAttendance(playerName, "Present", "");
-    }
-
-    public boolean addAttendance(String playerName, String status, String note) {
-        return addAttendance("", playerName, status, note);
-    }
-
-    public boolean addAttendance(String playerId, String playerName, String status, String note) {
-        if (playerName == null || playerName.trim().isEmpty()) {
+    public boolean addAttendance(String playerId, String status, String note) {
+        if (playerId == null || playerId.trim().isEmpty()) {
             return false;
         }
 
-        String normalizedId = (playerId == null) ? "" : playerId.trim();
-        String normalizedName = playerName.trim();
+        String normalizedId = playerId.trim();
 
         for (int i = 0; i < attendanceCount; i++) {
             if (attendanceList[i] != null) {
                 String recordedId = attendanceList[i].getPlayerId();
-                boolean samePlayerId = !normalizedId.isEmpty() && recordedId.equalsIgnoreCase(normalizedId);
-                boolean samePlayerName = normalizedId.isEmpty()
-                        && attendanceList[i].getPlayerName().equalsIgnoreCase(normalizedName);
-
-                if (samePlayerId || samePlayerName) {
+                if (recordedId.equalsIgnoreCase(normalizedId)) {
                     return false;
                 }
             }
@@ -149,7 +146,7 @@ public class TrainingSession {
             return false;
         }
 
-        attendanceList[attendanceCount] = new AttendanceRecord(normalizedId, normalizedName, status, note);
+        attendanceList[attendanceCount] = new AttendanceRecord(normalizedId, status, note);
         attendanceCount++;
         return true;
     }
@@ -163,7 +160,17 @@ public class TrainingSession {
         System.out.println("Attendance:");
         for (int i = 0; i < attendanceCount; i++) {
             if (attendanceList[i] != null) {
-                attendanceList[i].display();
+                String playerId = attendanceList[i].getPlayerId();
+                if (playerProvider != null) {
+                    MODEL.Player player = playerProvider.getPlayerById(playerId);
+                    String playerName = (player != null) ? player.getName() : "Unknown";
+                    System.out.println("- " + playerId + " - " + playerName + " [" + attendanceList[i].getStatus() + "]");
+                } else {
+                    attendanceList[i].display();
+                }
+                if (!attendanceList[i].getNote().isEmpty()) {
+                    System.out.println("  Note: " + attendanceList[i].getNote());
+                }
             }
         }
     }

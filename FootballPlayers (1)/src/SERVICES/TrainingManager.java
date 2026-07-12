@@ -102,6 +102,7 @@ public class TrainingManager {
             session = new TrainingSession(sessionId, title, date, time, location, coachName);
         }
 
+        session.setPlayerProvider(clubManager);
         trainingSessions[sessionCount] = session;
         sessionCount++;
 
@@ -170,7 +171,7 @@ public class TrainingManager {
         System.out.print("Enter note: ");
         String note = scanner.nextLine();
 
-        boolean result = session.addAttendance(player.getId(), player.getName(), status, note);
+        boolean result = session.addAttendance(player.getId(), status, note);
 
         if (result) {
             System.out.println("Attendance recorded successfully!");

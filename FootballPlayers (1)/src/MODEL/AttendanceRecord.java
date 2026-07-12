@@ -2,21 +2,15 @@ package MODEL;
 
 public class AttendanceRecord {
     private String playerId;
-    private String playerName;
     private String status;
     private String note;
 
     public AttendanceRecord() {
-        this("", "", "Present", "");
+        this("", "Present", "");
     }
 
-    public AttendanceRecord(String playerName, String status, String note) {
-        this("", playerName, status, note);
-    }
-
-    public AttendanceRecord(String playerId, String playerName, String status, String note) {
+    public AttendanceRecord(String playerId, String status, String note) {
         this.playerId = (playerId == null) ? "" : playerId.trim();
-        this.playerName = (playerName == null) ? "" : playerName.trim();
         this.status = (status == null || status.trim().isEmpty()) ? "Present" : status.trim();
         this.note = (note == null) ? "" : note.trim();
     }
@@ -27,14 +21,6 @@ public class AttendanceRecord {
 
     public void setPlayerId(String playerId) {
         this.playerId = (playerId == null) ? "" : playerId.trim();
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = (playerName == null) ? "" : playerName.trim();
     }
 
     public String getStatus() {
@@ -63,9 +49,9 @@ public class AttendanceRecord {
     @Override
     public String toString() {
         if (playerId.isEmpty()) {
-            return "- " + playerName + " [" + status + "]";
+            return "- [No ID] [" + status + "]";
         }
 
-        return "- " + playerId + " - " + playerName + " [" + status + "]";
+        return "- " + playerId + " [" + status + "]";
     }
 }

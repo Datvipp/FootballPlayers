@@ -156,8 +156,7 @@ public abstract class Player {
         this.name = sc.nextLine();
         
         System.out.println("Enter age: ");
-        this.age = sc.nextInt();
-        sc.nextLine();
+        this.age = readIntInput(sc);
         
         System.out.println("Enter nationality: ");
         this.national = sc.nextLine();
@@ -166,17 +165,45 @@ public abstract class Player {
         this.position = sc.nextLine();
         
         System.out.println("Enter shirt number: ");
-        this.number = sc.nextInt();
-        sc.nextLine();
+        this.number = readIntInput(sc);
 
         // Type is set by caller (addPlayer) so no prompt here
         
         System.out.println("Enter base salary: ");
-        this.salary = sc.nextDouble();
-        sc.nextLine();
+        this.salary = readDoubleInput(sc);
         
         System.out.println("Enter status (Active|Inactive): ");
         this.status = sc.nextLine();
+    }
+
+    private int readIntInput(Scanner sc) {
+        while (true) {
+            try {
+                String input = sc.nextLine().trim();
+                if (input.isEmpty()) {
+                    System.out.println("Input cannot be empty! Please enter a valid number.");
+                    continue;
+                }
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid number.");
+            }
+        }
+    }
+
+    private double readDoubleInput(Scanner sc) {
+        while (true) {
+            try {
+                String input = sc.nextLine().trim();
+                if (input.isEmpty()) {
+                    System.out.println("Input cannot be empty! Please enter a valid number.");
+                    continue;
+                }
+                return Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid number.");
+            }
+        }
     }
     
     // Display method
