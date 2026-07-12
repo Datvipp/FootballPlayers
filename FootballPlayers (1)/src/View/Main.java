@@ -202,9 +202,9 @@ public class Main {
     }
 
     private void matchMenu() {
-          int choice = -1;
-        
-          do {
+        int choice;
+    
+        do {
             System.out.println("\n-- MATCH MANAGEMENT --");
             System.out.println("1. Create Match");
             System.out.println("2. Update Match");
@@ -213,65 +213,40 @@ public class Main {
             System.out.println("5. Delete Match");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
-        
-            try {
-                choice = scanner.nextInt();
-                scanner.nextLine();
-            } catch (Exception e) {
-                System.out.println("Invalid input! Please enter a number.");
-                scanner.nextLine();
-                continue;
-            }
-        
+    
+            choice = readIntChoice();
+    
             switch (choice) {
                 case 1:
                     matchManager.addMatch();
                     break;
                 case 2:
-                    try {
-                        System.out.print("Input Match ID to update: ");
-                        int updateID = scanner.nextInt();
-                        scanner.nextLine();
-                        matchManager.updateMatch(updateID);
-                    } catch (Exception e) {
-                        System.out.println("Invalid ID! Please enter a valid number.");
-                        scanner.nextLine();
-                    }
+                    System.out.print("Input Match ID to update: ");
+                    int updateID = readIntChoice();
+                    matchManager.updateMatch(updateID);
                     break;
                 case 3:
                     matchManager.displayMatchList();
                     break;
                 case 4:
-                    try {
-                        System.out.print("Input Match ID to search: ");
-                        int searchID = scanner.nextInt();
-                        scanner.nextLine();
-                        matchManager.searchMatchByID(searchID);
-                    } catch (Exception e) {
-                        System.out.println("Invalid ID! Please enter a valid number.");
-                        scanner.nextLine();
-                    }
+                    System.out.print("Input Match ID to search: ");
+                    int searchID = readIntChoice();
+                    matchManager.searchMatchByID(searchID);
                     break;
                 case 5:
-                    try {
-                        System.out.print("Input Match ID to delete: ");
-                        int deleteID = scanner.nextInt();
-                        scanner.nextLine();
-                        matchManager.deleteMatch(deleteID);
-                    } catch (Exception e) {
-                        System.out.println("Invalid ID! Please enter a valid number.");
-                        scanner.nextLine();
-                    }
+                    System.out.print("Input Match ID to delete: ");
+                    int deleteID = readIntChoice();
+                    matchManager.deleteMatch(deleteID);
                     break;
                 case 0:
                     System.out.println("Back to main menu");
                     break;
                 default:
                     System.out.println("Invalid choice!");
-                }
-            } while (choice != 0);
+            }
+    
+        } while (choice != 0);
     }
-        
     private void salaryMenu() {
         int choice;
 
