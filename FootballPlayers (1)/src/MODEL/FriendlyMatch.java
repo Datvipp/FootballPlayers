@@ -32,4 +32,9 @@ public class FriendlyMatch extends Match {
         super.outputMatch();
         System.out.println("Friendly Reason: " + this.friendlyReason);
     }
+
+    @Override
+    public String toFileLine() {
+        return super.toFileLine() + "|" + this.friendlyReason;
+    }
 }
