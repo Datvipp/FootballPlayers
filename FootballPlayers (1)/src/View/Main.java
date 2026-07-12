@@ -202,7 +202,8 @@ public class Main {
     }
 
     private void matchMenu() {
-          int choice;
+          int choice = -1;
+        
           do {
             System.out.println("\n-- MATCH MANAGEMENT --");
             System.out.println("1. Create Match");
