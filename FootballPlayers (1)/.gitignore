@@ -1,0 +1,22 @@
+# Compiled Java files
+*.class
+
+# Build directories
+build/
+dist/
+out/
+bin/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data files (training sessions, matches, etc)
+data/
