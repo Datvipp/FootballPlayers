@@ -115,7 +115,8 @@ public class Main {
             System.out.println("3. Deactivate");
             System.out.println("4. View All");
             System.out.println("5. Search");
-            System.out.println("6. Update Player Stats (Goals & Absences)"); // Q thêm vào đó
+            System.out.println("6. View Player Details");
+            System.out.println("7. Update Player Stats (Goals & Absences)"); // Q thêm vào đó
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
@@ -138,11 +139,20 @@ public class Main {
                     clubManager.viewAllPlayers();
                     break;
                 case 5:
-                    System.out.print("Enter player ID to search: ");
-                    String searchId = scanner.nextLine();
-                    clubManager.searchPlayer(searchId);
+                    System.out.println("Search by: 1.Name  2.Position  3.Nationality  4.Status");
+                    System.out.print("Choose search type: ");
+                    int searchType = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter keyword: ");
+                    String keyword = scanner.nextLine();
+                    clubManager.searchPlayers(searchType, keyword);
                     break;
-                case 6: // Q thêm vào đóa
+                case 6:
+                    System.out.print("Enter player ID to view: ");
+                    String viewId = scanner.nextLine();
+                    clubManager.viewPlayerDetails(viewId);
+                    break;
+                case 7: // Q thêm vào đóa
                     System.out.println("=== Update Player Stats (Goals & Absences for the month) ===");
                     clubManager.updatePlayerStats();
                     break;
