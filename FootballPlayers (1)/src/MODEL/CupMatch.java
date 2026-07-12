@@ -32,4 +32,9 @@ public class CupMatch extends Match {
         super.outputMatch();
         System.out.println("Cup Name: " + this.cupName);
     }
+
+    @Override
+    public String toFileLine() {
+        return super.toFileLine() + "|" + this.cupName;
+    }
 }
