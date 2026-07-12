@@ -20,6 +20,9 @@ public class Main {
         trainingManager = new TrainingManager(scanner, clubManager);
         matchManager = new MatchList(scanner);
         salaryManager = new SalaryManager(clubManager);
+        
+        // Load training data on startup
+        trainingManager.loadFromFile();
     }
 
     public ClubManager getClubManager() {
@@ -97,6 +100,7 @@ public class Main {
                     break;
                 case 0:
                     System.out.println("Exiting program...");
+                    trainingManager.saveToFile();
                     break;
                 default:
                     System.out.println("Invalid choice!");
@@ -177,6 +181,9 @@ public class Main {
             System.out.println("4. Search Session");
             System.out.println("5. Update Session");
             System.out.println("6. Delete Session");
+            System.out.println("7. Save to File");
+            System.out.println("8. Load from File");
+            System.out.println("9. Delete from File");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
@@ -200,6 +207,15 @@ public class Main {
                     break;
                 case 6:
                     trainingManager.deleteSession();
+                    break;
+                case 7:
+                    trainingManager.saveToFile();
+                    break;
+                case 8:
+                    trainingManager.loadFromFile();
+                    break;
+                case 9:
+                    trainingManager.deleteFromFile();
                     break;
                 case 0:
                     System.out.println("Back to main menu...");

@@ -5,6 +5,8 @@ import MODEL.Player;
 import MODEL.RecoveryTrainingSession;
 import MODEL.TacticalTrainingSession;
 import MODEL.TrainingSession;
+import IO.TrainingSessionFileIO;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -251,6 +253,74 @@ public class TrainingManager {
             trainingSessions[i].displayInfo();
             System.out.println("Attendance count: " + trainingSessions[i].getAttendanceCount());
             System.out.println("----------------------------");
+        }
+    }
+
+    /**
+     * Saves all training sessions to file.
+     */
+    public void saveToFile() {
+        try {
+            TrainingSessionFileIO.saveTrainingSessions(trainingSessions, sessionCount);
+        } catch (IOException e) {
+            System.out.println("Error saving training sessions: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Loads training sessions from file.
+     */
+    public void loadFromFile() {
+        try {
+            TrainingSession[] loadedSessions = TrainingSessionFileIO.loadTrainingSessions();
+            int loadedCount = TrainingSessionFileIO.getLoadedSessionCount();
+
+            // Copy loaded sessions to current array
+            for (int i = 0; i < loadedCount && i < 100; i++) {
+                if (loadedSessions[i] != null) {
+                    trainingSessions[i] = loadedSessions[i];
+                    if (clubManager != null) {
+                        trainingSessions[i].setPlayerProvider(clubManager);
+                    }
+                }
+            }
+            sessionCount = loadedCount;
+        } catch (IOException e) {
+            System.out.println("Error loading training sessions: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Deletes a training session by ID from file.
+     */
+    public void deleteFromFile() {
+        System.out.print("Enter session ID to delete from file: ");
+        String sessionId = scanner.nextLine().trim();
+        
+        try {
+            boolean deleted = TrainingSessionFileIO.deleteTrainingSessionFromFile(sessionId);
+            if (deleted) {
+                // Also remove from current array if exists
+                deleteSession(sessionId);
+            }
+        } catch (IOException e) {
+            System.out.println("Error deleting training session: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Helper method to delete a session by ID from current array
+     */
+    private void deleteSession(String sessionId) {
+        for (int i = 0; i < sessionCount; i++) {
+            if (trainingSessions[i] != null && trainingSessions[i].getSessionId().equalsIgnoreCase(sessionId)) {
+                for (int j = i; j < sessionCount - 1; j++) {
+                    trainingSessions[j] = trainingSessions[j + 1];
+                }
+                trainingSessions[sessionCount - 1] = null;
+                sessionCount--;
+                return;
+            }
         }
     }
 
