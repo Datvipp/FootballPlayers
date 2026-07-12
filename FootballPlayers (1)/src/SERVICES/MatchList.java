@@ -11,7 +11,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class MatchList {
     private List<Match> arr;
@@ -159,7 +158,10 @@ public class MatchList {
    }
 
    // ================= FILE I/O =================
+   // Co che doc/ghi file va parse du lieu duoc tach rieng vao IO.MatchIO.
+   // MatchList chi con lo phan nghiep vu: check trung ID, cap nhat danh sach arr.
 
+   //ghi toan bo match list ra file text (qua MatchIO)
    public void saveToFile(String fileName){
     try {
         MatchIO.saveMatches(arr, fileName);
@@ -169,24 +171,29 @@ public class MatchList {
     }
    }
 
+   //doc match list tu file text (qua MatchIO), bo qua match trung ID thay vi crash
    public void loadFromFile(String fileName){
     arr.clear();
-    int skipped = 0;
 
+    List<Match> loaded;
     try {
-        List<Match> loadedMatches = MatchIO.loadMatches(fileName);
-        for (Match match : loadedMatches) {
-            if (isDuplicateID(match.getMatchID())) {
-                skipped++;
-                continue;
-            }
-            arr.add(match);
-        }
-        System.out.println("Loaded " + arr.size() + " match(es) from " + MatchIO.resolvePath(fileName)
-                + (skipped > 0 ? " (" + skipped + " line(s) skipped)" : ""));
+        loaded = MatchIO.loadMatches(fileName);
     } catch (IOException e) {
         System.out.println("Error reading file: " + e.getMessage());
+        return;
     }
+
+    int skipped = 0;
+    for(Match match : loaded){
+        if(isDuplicateID(match.getMatchID())){
+            System.out.println("Duplicate match ID " + match.getMatchID() + ", skipped.");
+            skipped++;
+            continue;
+        }
+        arr.add(match);
+    }
+    System.out.println("Loaded " + arr.size() + " match(es) from " + MatchIO.resolvePath(fileName)
+            + (skipped > 0 ? " (" + skipped + " duplicate(s) skipped)" : ""));
    }
 
    // ================= ALGORITHM OPTIMIZATION =================
