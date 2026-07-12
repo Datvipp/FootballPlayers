@@ -1,58 +1,104 @@
-package SERVICES;
-
+package IO;
+import MODEL.CupMatch;
+import MODEL.FriendlyMatch;
+import MODEL.LeagueMatch;
+import MODEL.Match;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
- * Helper doc/ghi file text, chi phuc vu rieng cho phan Match (MatchList).
- * Khong dung chung cho cac module khac (Player, Training...) de tranh
- * anh huong toi phan viec cua thanh vien khac trong nhom.
+ * Helper riêng cho phần MatchList, dùng để lưu/đọc dữ liệu trận đấu.
  */
-class MatchFileIOHelper {
-
-    // thu muc co dinh de luu file du lieu cua Match, nam canh noi chay chuong trinh
+public class MatchIO {
     private static final String DATA_FOLDER = "data";
-
-    private MatchFileIOHelper() {
-        // utility class, khong can khoi tao
+    private MatchIO() {
+        // utility class
     }
-
-    // ghep ten file voi thu muc data/, tu tao thu muc neu chua co
-    static String resolvePath(String fileName) {
+    public static String resolvePath(String fileName) {
         File folder = new File(DATA_FOLDER);
         if (!folder.exists()) {
             folder.mkdirs();
         }
         return DATA_FOLDER + File.separator + fileName;
     }
-
-    // ghi danh sach dong text ra file trong thu muc data/
-    static void writeLines(String fileName, List<String> lines) throws IOException {
+    public static void saveMatches(List<Match> matches, String fileName) throws IOException {
         String path = resolvePath(fileName);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-            for (String line : lines) {
-                bw.write(line);
+            for (Match match : matches) {
+                bw.write(match.toFileLine());
                 bw.newLine();
             }
         }
     }
-
-    // doc toan bo dong text tu file trong thu muc data/, tra ve danh sach dong tho (chua parse)
-    static List<String> readLines(String fileName) throws IOException {
+    public static List<Match> loadMatches(String fileName) throws IOException {
         String path = resolvePath(fileName);
-        List<String> lines = new ArrayList<>();
+        List<Match> matches = new ArrayList<>();
+        int lineNumber = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = br.readLine()) != null) {
-                lines.add(line);
+                lineNumber++;
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+                try {
+                    matches.add(parseMatchLine(line));
+                } catch (Exception e) {
+                    // NumberFormatException, DateTimeParseException, IllegalArgumentException...
+                    // chi skip dong loi, khong lam mat cac dong hop le con lai
+                    System.out.println("Line " + lineNumber + ": invalid data (" + e.getMessage() + "), skipped.");
+                }
             }
         }
-        return lines;
+        return matches;
+    }
+    private static Match parseMatchLine(String line) {
+        String[] p = line.split("\\|", -1);
+        if (p.length < 5) {
+            throw new IllegalArgumentException("not enough fields");
+        }
+        String type = p[0];
+        int id = Integer.parseInt(p[1]);
+        LocalDate date = LocalDate.parse(p[2]);
+        String opponentTeam = p[3];
+        String stadium = p[4];
+        Match match;
+        switch (type) {
+            case "Friendly":
+                FriendlyMatch fm = new FriendlyMatch();
+                if (p.length > 5) {
+                    fm.setFriendlyReason(p[5]);
+                }
+                match = fm;
+                break;
+            case "League":
+                LeagueMatch lm = new LeagueMatch();
+                if (p.length > 5) {
+                    lm.setLeagueName(p[5]);
+                }
+                match = lm;
+                break;
+            case "Cup":
+                CupMatch cm = new CupMatch();
+                if (p.length > 5) {
+                    cm.setCupName(p[5]);
+                }
+                match = cm;
+                break;
+            default:
+                throw new IllegalArgumentException("unknown match type: " + type);
+        }
+        match.setMatchType(type);
+        match.setMatchID(id);
+        match.setDate(date);
+        match.setOpponentTeam(opponentTeam);
+        match.setStadium(stadium);
+        return match;
     }
 }
