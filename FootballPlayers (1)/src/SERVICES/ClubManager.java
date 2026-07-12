@@ -9,11 +9,21 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import IO.PlayerFileManager;
 
 public class ClubManager implements PlayerProvider {
     Player[] arr = new Player[100];
     int count = 0;
     private Scanner sc;
+    private PlayerFileManager fileManager = new PlayerFileManager();
+
+    public void saveToFile(String fileName) {
+        fileManager.saveToFile(fileName, arr, count);
+    }
+
+    public void loadFromFile(String fileName) {
+        count = fileManager.loadFromFile(fileName, arr);
+    }
 
     public ClubManager() {
         this.sc = new Scanner(System.in);
@@ -251,47 +261,5 @@ public class ClubManager implements PlayerProvider {
 
     public Player getPlayerByIndex(int index) {
         return this.arr[index];
-    }
-    public void saveToFile(String fileName) {
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
-        for (int i = 0; i < count; i++) { bw.write(arr[i].toFileLine()); bw.newLine(); }
-        System.out.println("Saved " + count + " player(s) to " + fileName);
-    } catch (IOException e) {
-        System.out.println("Error writing file: " + e.getMessage());
-    }
-}
-
-public void loadFromFile(String fileName) {
-    count = 0;
-    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-        String line;
-        while ((line = br.readLine()) != null) {
-            if (line.trim().isEmpty()) continue;
-            try {
-                Player p = parsePlayerLine(line);
-                if (!isDuplicateId(p.getId(), null)) { arr[count] = p; count++; }
-            } catch (Exception e) {
-                System.out.println("Invalid line skipped: " + e.getMessage());
-            }
-        }
-        System.out.println("Loaded " + count + " player(s) from " + fileName);
-    } catch (IOException e) {
-        System.out.println("Error reading file: " + e.getMessage());
-    }
-}
-
-    private Player parsePlayerLine(String line) {
-        String[] f = line.split("\\|", -1);
-        if (f.length < 9) throw new IllegalArgumentException("not enough fields");
-        Player p;
-        if (f[0].equalsIgnoreCase("Regular player")) p = new RegularPlayer();
-        else if (f[0].equalsIgnoreCase("Star player")) p = new StarPlayer();
-        else throw new IllegalArgumentException("unknown type: " + f[0]);
-        p.setType(f[0]); p.setId(f[1]); p.setName(f[2]); p.setAge(Integer.parseInt(f[3]));
-        p.setNational(f[4]); p.setPosition(f[5]); p.setNumber(Integer.parseInt(f[6]));
-        p.setSalary(Double.parseDouble(f[7])); p.setStatus(f[8]);
-        if (f.length > 9 && !f[9].isEmpty()) p.setAbsentDays(Integer.parseInt(f[9]));
-        if (f.length > 10 && !f[10].isEmpty()) p.setGoalsScored(Integer.parseInt(f[10]));
-        return p;
     }
 }
