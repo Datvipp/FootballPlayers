@@ -13,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class MatchList {
     private List<Match> arr;
@@ -110,8 +111,7 @@ public class MatchList {
     }
         for (Match match : arr) {
             if (match.getMatchID() == id) {
-                System.out.print("Input new date: ");
-                match.setDate(sc.nextLine());
+                match.setDate(Match.readDateInput(sc));
                 System.out.print("Input new opponent team: ");
                 match.setOpponentTeam(sc.nextLine());
 
@@ -191,7 +191,7 @@ public class MatchList {
                 }
                 arr.add(match);
             } catch (Exception e) {
-                // NumberFormatException, ArrayIndexOutOfBoundsException, v.v deu roi vao day
+                // NumberFormatException, DateTimeParseException, ArrayIndexOutOfBoundsException... deu roi vao day
                 System.out.println("Line " + lineNumber + ": invalid data (" + e.getMessage() + "), skipped.");
                 skipped++;
             }
@@ -204,7 +204,7 @@ public class MatchList {
    }
 
    //parse 1 dong text thanh doi tuong Match cu the (da hinh)
-   //format: Type|matchID|date|opponentTeam|stadium|extraField
+   //format: Type|matchID|date(yyyy-MM-dd)|opponentTeam|stadium|extraField
    private Match parseMatchLine(String line){
     String[] p = line.split("\\|", -1);
     if(p.length < 5){
@@ -213,7 +213,7 @@ public class MatchList {
 
     String type = p[0];
     int id = Integer.parseInt(p[1]);
-    String date = p[2];
+    LocalDate date = LocalDate.parse(p[2]);
     String opponentTeam = p[3];
     String stadium = p[4];
 
