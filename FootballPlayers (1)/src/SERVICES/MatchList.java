@@ -3,6 +3,7 @@ import MODEL.Match;
 import MODEL.FriendlyMatch;
 import MODEL.LeagueMatch;
 import MODEL.CupMatch;
+import MODEL.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,11 +14,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
 import java.time.LocalDate;
 
 public class MatchList {
     private List<Match> arr;
     private Scanner sc;
+    private PlayerProvider playerProvider;
 
     public MatchList() {
         this(new Scanner(System.in));
@@ -26,6 +29,10 @@ public class MatchList {
     public MatchList(Scanner sc) {
         this.arr = new ArrayList<>();
         this.sc = sc;
+    }
+
+    public void setPlayerProvider(PlayerProvider playerProvider) {
+        this.playerProvider = playerProvider;
     }
     //kiem tra trung ID
    private boolean isDuplicateID(int id){
@@ -157,26 +164,40 @@ public class MatchList {
 
    // ================= FILE I/O =================
 
-   //ghi toan bo match list ra file text
+   // thu muc co dinh de luu file, nam canh noi chay chuong trinh
+   private static final String DATA_FOLDER = "data";
+
+   // ghep ten file voi thu muc data/, tu tao thu muc neu chua co
+   private String resolveDataPath(String fileName){
+    File folder = new File(DATA_FOLDER);
+    if(!folder.exists()){
+        folder.mkdirs();
+    }
+    return DATA_FOLDER + File.separator + fileName;
+   }
+
+   //ghi toan bo match list ra file text trong thu muc data/
    public void saveToFile(String fileName){
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+    String path = resolveDataPath(fileName);
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
         for(Match match : arr){
             bw.write(match.toFileLine());
             bw.newLine();
         }
-        System.out.println("Saved " + arr.size() + " match(es) to " + fileName);
+        System.out.println("Saved " + arr.size() + " match(es) to " + path);
     } catch (IOException e) {
         System.out.println("Error writing file: " + e.getMessage());
     }
    }
 
-   //doc match list tu file text, bo qua dong loi thay vi crash
+   //doc match list tu file text trong thu muc data/, bo qua dong loi thay vi crash
    public void loadFromFile(String fileName){
+    String path = resolveDataPath(fileName);
     arr.clear();
     int lineNumber = 0;
     int skipped = 0;
 
-    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
         String line;
         while ((line = br.readLine()) != null) {
             lineNumber++;
@@ -196,7 +217,7 @@ public class MatchList {
                 skipped++;
             }
         }
-        System.out.println("Loaded " + arr.size() + " match(es) from " + fileName
+        System.out.println("Loaded " + arr.size() + " match(es) from " + path
                 + (skipped > 0 ? " (" + skipped + " line(s) skipped)" : ""));
     } catch (IOException e) {
         System.out.println("Error reading file: " + e.getMessage());
@@ -277,6 +298,25 @@ public class MatchList {
         }
     }
     System.out.println("Match not found");
+   }
+
+   // ================= LIEN KET VOI PLAYER =================
+
+   //hien thi tong so ban thang cua 1 Player, lay du lieu qua PlayerProvider (giong pattern cua TrainingSession)
+   public void viewPlayerGoals(String playerId){
+    if(playerProvider == null){
+        System.out.println("Player Management is not connected. Cannot look up player goals.");
+        return;
+    }
+
+    Player player = playerProvider.getPlayerById(playerId);
+    if(player == null){
+        System.out.println("Player not found!");
+        return;
+    }
+
+    System.out.println("Player: " + player.getName() + " (ID: " + player.getId() + ")");
+    System.out.println("Goals Scored: " + player.getGoalsScored());
    }
 
 }
