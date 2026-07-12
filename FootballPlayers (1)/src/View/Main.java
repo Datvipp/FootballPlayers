@@ -213,7 +213,7 @@ public class Main {
 
     private void matchMenu() {
         int choice;
-    
+
         do {
             System.out.println("\n-- MATCH MANAGEMENT --");
             System.out.println("1. Create Match");
@@ -221,11 +221,15 @@ public class Main {
             System.out.println("3. View History");
             System.out.println("4. Search Match");
             System.out.println("5. Delete Match");
+            System.out.println("6. Save Matches to File");
+            System.out.println("7. Load Matches from File");
+            System.out.println("8. Sort Matches by ID");
+            System.out.println("9. Fast Search by ID (Binary Search)");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
-    
+
             choice = readIntChoice();
-    
+
             switch (choice) {
                 case 1:
                     matchManager.addMatch();
@@ -248,13 +252,29 @@ public class Main {
                     int deleteID = readIntChoice();
                     matchManager.deleteMatch(deleteID);
                     break;
+                case 6:
+                    System.out.print("Enter file name to save (e.g. matches.txt): ");
+                    matchManager.saveToFile(scanner.nextLine());
+                    break;
+                case 7:
+                    System.out.print("Enter file name to load (e.g. matches.txt): ");
+                    matchManager.loadFromFile(scanner.nextLine());
+                    break;
+                case 8:
+                    matchManager.sortMatchesByID();
+                    break;
+                case 9:
+                    System.out.print("Input Match ID (list must be sorted first): ");
+                    int fastSearchID = readIntChoice();
+                    matchManager.binarySearchByID(fastSearchID);
+                    break;
                 case 0:
                     System.out.println("Back to main menu");
                     break;
                 default:
                     System.out.println("Invalid choice!");
             }
-    
+
         } while (choice != 0);
     }
     private void salaryMenu() {
