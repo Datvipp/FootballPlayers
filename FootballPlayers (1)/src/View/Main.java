@@ -225,6 +225,7 @@ public class Main {
             System.out.println("7. Load Matches from File");
             System.out.println("8. Sort Matches by ID");
             System.out.println("9. Fast Search by ID (Binary Search)");
+            System.out.println("10. View Player Goals");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
@@ -267,6 +268,11 @@ public class Main {
                     System.out.print("Input Match ID (list must be sorted first): ");
                     int fastSearchID = readIntChoice();
                     matchManager.binarySearchByID(fastSearchID);
+                    break;
+                case 10:
+                    System.out.print("Enter Player ID to view goals: ");
+                    String goalPlayerId = scanner.nextLine();
+                    matchManager.viewPlayerGoals(goalPlayerId);
                     break;
                 case 0:
                     System.out.println("Back to main menu");
