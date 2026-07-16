@@ -98,7 +98,6 @@ public class Main {
                     break;
                 case 0:
                     System.out.println("Exiting program...");
-                    trainingManager.saveToFile();
                     break;
                 default:
                     System.out.println("Invalid choice!");

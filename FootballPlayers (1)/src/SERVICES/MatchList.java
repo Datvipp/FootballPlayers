@@ -196,26 +196,24 @@ public class MatchList {
 
     //delete file
     public void deleteFile(String fileName){
-            if(MatchIO.deleteFile(fileName)){
-                arr.clear();
-                System.out.println("File deleted successfully.");
-            }
-            else{
-                System.out.println("File does not exist.");
-            }
+    if (MatchIO.deleteFile(fileName)) {
+        arr.clear();
+        System.out.println("File deleted successfully.");
+    } else {
+        System.out.println("File does not exist.");
     }
 }
-    
-   // ================= LIEN KET VOI PLAYER =================
 
-   //hien thi tong so ban thang cua 1 Player, lay du lieu qua PlayerProvider (giong pattern cua TrainingSession)
-   public void viewPlayerGoals(String playerId){
+// ================= LIEN KET VOI PLAYER =================
+
+public void viewPlayerGoals(String playerId){
     if(playerProvider == null){
         System.out.println("Player Management is not connected. Cannot look up player goals.");
         return;
     }
 
     Player player = playerProvider.getPlayerById(playerId);
+
     if(player == null){
         System.out.println("Player not found!");
         return;
@@ -223,6 +221,5 @@ public class MatchList {
 
     System.out.println("Player: " + player.getName() + " (ID: " + player.getId() + ")");
     System.out.println("Goals Scored: " + player.getGoalsScored());
-   }
-
+}
 }
