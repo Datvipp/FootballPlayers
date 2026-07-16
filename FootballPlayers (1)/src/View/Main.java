@@ -239,64 +239,69 @@ public class Main {
             System.out.println("5. Delete Match");
             System.out.println("6. Save Matches to File");
             System.out.println("7. Load Matches from File");
-            System.out.println("8. Sort Matches by ID");
-            System.out.println("9. Fast Search by ID (Binary Search)");
-            System.out.println("10. View Player Goals");
+            System.out.println("8. Delete Match File");
+            System.out.println("9. View Player Goals");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
-
+        
             choice = readIntChoice();
-
+        
             switch (choice) {
                 case 1:
                     matchManager.addMatch();
                     break;
+        
                 case 2:
                     System.out.print("Input Match ID to update: ");
                     int updateID = readIntChoice();
                     matchManager.updateMatch(updateID);
                     break;
+        
                 case 3:
                     matchManager.displayMatchList();
                     break;
+        
                 case 4:
                     System.out.print("Input Match ID to search: ");
                     int searchID = readIntChoice();
                     matchManager.searchMatchByID(searchID);
                     break;
+        
                 case 5:
                     System.out.print("Input Match ID to delete: ");
                     int deleteID = readIntChoice();
                     matchManager.deleteMatch(deleteID);
                     break;
+        
                 case 6:
                     System.out.print("Enter file name to save (e.g. matches.txt): ");
                     matchManager.saveToFile(scanner.nextLine());
                     break;
+        
                 case 7:
                     System.out.print("Enter file name to load (e.g. matches.txt): ");
                     matchManager.loadFromFile(scanner.nextLine());
                     break;
+        
                 case 8:
-                    matchManager.sortMatchesByID();
+                    System.out.print("Enter file name to delete (e.g. matches.txt): ");
+                    matchManager.deleteFile(scanner.nextLine());
                     break;
+        
                 case 9:
-                    System.out.print("Input Match ID (list must be sorted first): ");
-                    int fastSearchID = readIntChoice();
-                    matchManager.binarySearchByID(fastSearchID);
-                    break;
-                case 10:
                     System.out.print("Enter Player ID to view goals: ");
                     String goalPlayerId = scanner.nextLine();
                     matchManager.viewPlayerGoals(goalPlayerId);
                     break;
+        
                 case 0:
                     System.out.println("Back to main menu");
                     break;
+        
                 default:
                     System.out.println("Invalid choice!");
             }
-
+        
         } while (choice != 0);
     }
     private void salaryMenu() {
