@@ -95,11 +95,27 @@ public class Match {
     }
 
     public void inputMatch(Scanner sc) {
-        System.out.print("Input Match ID: ");
-        this.matchID = sc.nextInt();
-        sc.nextLine();
+        while (true) {
+            System.out.print("Input Match ID: ");
+            String input = sc.nextLine().trim();
+    
+            try {
+                int id = Integer.parseInt(input);
+    
+                if (id <= 0) {
+                    System.out.println("Match ID must be greater than 0.");
+                    continue;
+                }
+    
+                this.matchID = id;
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Match ID! Please enter a positive integer (Example: 1, 2, 100).");
+            }
+        }
+    
         this.date = readDateInput(sc);
-        System.out.print("Input opponent team: ");
+            System.out.print("Input opponent team: ");
         this.opponentTeam = sc.nextLine();
         System.out.print("Input stadium: ");
         this.stadium = sc.nextLine();
