@@ -351,7 +351,6 @@ public class TrainingManager {
         if (deleted) {
             // Also remove from current array if exists
             deleteSession(sessionId);
-            System.out.println("Training session deleted successfully!");
         } else {
             System.out.println("Training session not found in file.");
         }

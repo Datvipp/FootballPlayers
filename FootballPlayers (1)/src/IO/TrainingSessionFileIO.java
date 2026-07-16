@@ -123,10 +123,15 @@ public class TrainingSessionFileIO {
 
         if (found) {
 
-            FileIOhelper.writeLines(fileName + ".txt", updatedLines);
-
-            System.out.println("Training session deleted.");
-        }
+    // Nếu sau khi xóa không còn session nào thì xóa luôn file
+    if (updatedLines.isEmpty()) {
+        FileIOhelper.deleteFile(fileName + ".txt");
+        System.out.println("Training session deleted. File removed because it is empty.");
+    } else {
+        FileIOhelper.writeLines(fileName + ".txt", updatedLines);
+        System.out.println("Training session deleted.");
+    }
+    }
 
         return found;
 

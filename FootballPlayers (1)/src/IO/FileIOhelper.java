@@ -63,9 +63,14 @@ public class FileIOhelper {
     public static boolean fileExists(String fileName) {
     File file = new File(resolvePath(fileName));
     return file.exists();
-}
-public static boolean deleteFile(String fileName) {
-    File file = new File(resolvePath(fileName));
-    return file.exists() && file.delete();
-}
+    }
+    public static boolean deleteFile(String fileName) {
+        File file = new File(resolvePath(fileName));
+
+        if (!file.exists()) {
+            return false;
+        }
+
+        return file.delete();
+    }
 }
