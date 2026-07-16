@@ -196,16 +196,13 @@ public class MatchList {
 
     //delete file
     public void deleteFile(String fileName){
-        try{
             if(MatchIO.deleteFile(fileName)){
                 arr.clear();
                 System.out.println("File deleted successfully.");
-            }else{
+            }
+            else{
                 System.out.println("File does not exist.");
             }
-        }catch(IOException e){
-            System.out.println("Error deleting file: " + e.getMessage());
-        }
     }
     
    // ================= LIEN KET VOI PLAYER =================
