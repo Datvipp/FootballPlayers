@@ -9,17 +9,21 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Helper riêng cho phần MatchList, dùng để lưu/đọc dữ liệu trận đấu.
  */
 public class MatchIO {
     private static final String DATA_FOLDER = "data";
     private MatchIO() {
-        // utility class
+        // Utility class
     }
+
     public static String resolvePath(String fileName) {
         File folder = new File(DATA_FOLDER);
         if (!folder.exists()) {
@@ -27,20 +31,28 @@ public class MatchIO {
         }
         return DATA_FOLDER + File.separator + fileName;
     }
+
+    // Save match list
     public static void saveMatches(List<Match> matches, String fileName) throws IOException {
-        String path = resolvePath(fileName);
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(resolvePath(fileName)))) {
             for (Match match : matches) {
                 bw.write(match.toFileLine());
                 bw.newLine();
             }
         }
     }
+
+    // Load match list
     public static List<Match> loadMatches(String fileName) throws IOException {
         String path = resolvePath(fileName);
         List<Match> matches = new ArrayList<>();
+        File file = new File(path);
+        // Nếu file chưa tồn tại thì trả về danh sách rỗng
+        if (!file.exists()) {
+            return matches;
+        }
         int lineNumber = 0;
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 lineNumber++;
@@ -50,18 +62,29 @@ public class MatchIO {
                 try {
                     matches.add(parseMatchLine(line));
                 } catch (Exception e) {
-                    // NumberFormatException, DateTimeParseException, IllegalArgumentException...
-                    // chi skip dong loi, khong lam mat cac dong hop le con lai
-                    System.out.println("Line " + lineNumber + ": invalid data (" + e.getMessage() + "), skipped.");
+                    System.out.println("Line " + lineNumber + " is invalid, skipped.");
                 }
             }
         }
         return matches;
     }
+
+    // Delete file
+    public static boolean deleteFile(String fileName) {
+        try {
+            return Files.deleteIfExists(Paths.get(resolvePath(fileName)));
+        } catch (IOException e) {
+            System.out.println("Delete file failed: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Parse one line from file
     private static Match parseMatchLine(String line) {
         String[] p = line.split("\\|", -1);
+
         if (p.length < 5) {
-            throw new IllegalArgumentException("not enough fields");
+            throw new IllegalArgumentException("Not enough fields");
         }
         String type = p[0];
         int id = Integer.parseInt(p[1]);
@@ -92,7 +115,7 @@ public class MatchIO {
                 match = cm;
                 break;
             default:
-                throw new IllegalArgumentException("unknown match type: " + type);
+                throw new IllegalArgumentException("Unknown match type: " + type);
         }
         match.setMatchType(type);
         match.setMatchID(id);
@@ -101,5 +124,4 @@ public class MatchIO {
         match.setStadium(stadium);
         return match;
     }
-    
 }
