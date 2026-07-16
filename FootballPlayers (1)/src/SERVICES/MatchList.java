@@ -6,8 +6,6 @@ import MODEL.CupMatch;
 import MODEL.Player;
 import IO.MatchIO;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
@@ -196,39 +194,20 @@ public class MatchList {
             + (skipped > 0 ? " (" + skipped + " duplicate(s) skipped)" : ""));
    }
 
-   // ================= ALGORITHM OPTIMIZATION =================
-
-   //sap xep danh sach match theo matchID tang dan
-   public void sortMatchesByID(){
-    Collections.sort(arr, Comparator.comparingInt(Match::getMatchID));
-    System.out.println("Sorted " + arr.size() + " match(es) by ID.");
-   }
-
-   //tim kiem nhi phan theo matchID - yeu cau danh sach da duoc sap xep truoc (goi sortMatchesByID())
-   //do phuc tap O(log n) thay vi O(n) cua searchMatchByID
-   public void binarySearchByID(int id){
-    if(arr.isEmpty()){
-        System.out.println("Match list is empty");
-        return;
-    }
-
-    int low = 0, high = arr.size() - 1;
-    while(low <= high){
-        int mid = low + (high - low) / 2;
-        int midID = arr.get(mid).getMatchID();
-
-        if(midID == id){
-            arr.get(mid).outputMatch();
-            return;
-        } else if(midID < id){
-            low = mid + 1;
-        } else {
-            high = mid - 1;
+    //delete file
+    public void deleteFile(String fileName){
+        try{
+            if(MatchIO.deleteFile(fileName)){
+                arr.clear();
+                System.out.println("File deleted successfully.");
+            }else{
+                System.out.println("File does not exist.");
+            }
+        }catch(IOException e){
+            System.out.println("Error deleting file: " + e.getMessage());
         }
     }
-    System.out.println("Match not found");
-   }
-
+    
    // ================= LIEN KET VOI PLAYER =================
 
    //hien thi tong so ban thang cua 1 Player, lay du lieu qua PlayerProvider (giong pattern cua TrainingSession)
