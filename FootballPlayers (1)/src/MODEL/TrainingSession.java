@@ -218,4 +218,13 @@ public class TrainingSession {
         displayAttendance();
         displayAttendanceSummary();
     }
+        public String toFileString() {
+        return "GENERAL|" +
+            getSessionId() + "|" +
+            getTitle() + "|" +
+            getDate() + "|" +
+            getTime() + "|" +
+            getLocation() + "|" +
+            getCoachName();
+}
 }

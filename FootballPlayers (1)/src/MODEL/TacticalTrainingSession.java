@@ -61,4 +61,16 @@ public class TacticalTrainingSession extends TrainingSession {
         System.out.print("Enter new tactic focus: ");
         setTacticFocus(scanner.nextLine());
     }
+    @Override
+    public String toFileString() {
+    return "TACTICAL|" +
+            getSessionId() + "|" +
+            getTitle() + "|" +
+            getDate() + "|" +
+            getTime() + "|" +
+            getLocation() + "|" +
+            getCoachName() + "|" +
+            getFormation() + "|" +
+            getTacticFocus();
+}
 }

@@ -74,4 +74,16 @@ public class RecoveryTrainingSession extends TrainingSession {
             }
         }
     }
+    @Override
+    public String toFileString() {
+    return "RECOVERY|" +
+            getSessionId() + "|" +
+            getTitle() + "|" +
+            getDate() + "|" +
+            getTime() + "|" +
+            getLocation() + "|" +
+            getCoachName() + "|" +
+            getRecoveryMethod() + "|" +
+            getDurationMinutes();
+}
 }

@@ -1,9 +1,9 @@
 package View;
 
-import SERVICES.TrainingManager;
 import SERVICES.ClubManager;
 import SERVICES.MatchList;
 import SERVICES.SalaryManager;
+import SERVICES.TrainingManager;
 import java.util.Scanner;
 
 public class Main {
@@ -21,8 +21,6 @@ public class Main {
         matchManager = new MatchList(scanner);
         salaryManager = new SalaryManager(clubManager);
         
-        // Load training data on startup
-        trainingManager.loadFromFile();
     }
 
     public ClubManager getClubManager() {

@@ -60,4 +60,12 @@ public class FileIOhelper {
         }
         return lines;
     }
+    public static boolean fileExists(String fileName) {
+    File file = new File(resolvePath(fileName));
+    return file.exists();
+}
+public static boolean deleteFile(String fileName) {
+    File file = new File(resolvePath(fileName));
+    return file.exists() && file.delete();
+}
 }

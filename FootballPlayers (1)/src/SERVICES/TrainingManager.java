@@ -1,11 +1,12 @@
 package SERVICES;
 
+import IO.FileIOhelper;
+import IO.TrainingSessionFileIO;
 import MODEL.FitnessTrainingSession;
 import MODEL.Player;
 import MODEL.RecoveryTrainingSession;
 import MODEL.TacticalTrainingSession;
 import MODEL.TrainingSession;
-import IO.TrainingSessionFileIO;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -260,20 +261,52 @@ public class TrainingManager {
      * Saves all training sessions to file.
      */
     public void saveToFile() {
-        try {
-            TrainingSessionFileIO.saveTrainingSessions(trainingSessions, sessionCount);
-        } catch (IOException e) {
-            System.out.println("Error saving training sessions: " + e.getMessage());
+
+    System.out.print("Enter file name: ");
+    String fileName = scanner.nextLine().trim();
+
+    if (fileName.isEmpty()) {
+        System.out.println("File name cannot be empty!");
+        return;
+    }
+
+    if (!fileName.endsWith(".txt")) {
+        fileName += ".txt";
+    }
+
+    if (FileIOhelper.fileExists(fileName)) {
+        System.out.print("File already exists. Overwrite? (Y/N): ");
+        String choice = scanner.nextLine().trim();
+
+        if (!choice.equalsIgnoreCase("Y")) {
+            System.out.println("Save cancelled.");
+            return;
         }
     }
 
+    try {
+        TrainingSessionFileIO.saveTrainingSessions(
+                trainingSessions,
+                sessionCount,
+                fileName.replace(".txt", "")
+        );
+
+        System.out.println("Training sessions saved successfully.");
+
+    } catch (IOException e) {
+        System.out.println("Error saving training sessions: " + e.getMessage());
+    }
+}
     /**
      * Loads training sessions from file.
      */
     public void loadFromFile() {
         try {
-            TrainingSession[] loadedSessions = TrainingSessionFileIO.loadTrainingSessions();
-            int loadedCount = TrainingSessionFileIO.getLoadedSessionCount();
+            System.out.print("Enter file name: ");
+            String fileName = scanner.nextLine().trim();
+            TrainingSession[] loadedSessions = TrainingSessionFileIO.loadTrainingSessions(fileName);
+
+            int loadedCount =TrainingSessionFileIO.getLoadedSessionCount(fileName);
 
             // Copy loaded sessions to current array
             for (int i = 0; i < loadedCount && i < 100; i++) {
@@ -294,19 +327,39 @@ public class TrainingManager {
      * Deletes a training session by ID from file.
      */
     public void deleteFromFile() {
-        System.out.print("Enter session ID to delete from file: ");
-        String sessionId = scanner.nextLine().trim();
-        
-        try {
-            boolean deleted = TrainingSessionFileIO.deleteTrainingSessionFromFile(sessionId);
-            if (deleted) {
-                // Also remove from current array if exists
-                deleteSession(sessionId);
-            }
-        } catch (IOException e) {
-            System.out.println("Error deleting training session: " + e.getMessage());
-        }
+
+    System.out.print("Enter file name: ");
+    String fileName = scanner.nextLine().trim();
+
+    if (fileName.isEmpty()) {
+        System.out.println("File name cannot be empty!");
+        return;
     }
+
+    System.out.print("Enter session ID to delete from file: ");
+    String sessionId = scanner.nextLine().trim();
+
+    if (sessionId.isEmpty()) {
+        System.out.println("Session ID cannot be empty!");
+        return;
+    }
+
+    try {
+
+        boolean deleted = TrainingSessionFileIO.deleteTrainingSessionFromFile(fileName, sessionId);
+
+        if (deleted) {
+            // Also remove from current array if exists
+            deleteSession(sessionId);
+            System.out.println("Training session deleted successfully!");
+        } else {
+            System.out.println("Training session not found in file.");
+        }
+
+    } catch (IOException e) {
+        System.out.println("Error deleting training session: " + e.getMessage());
+    }
+}
 
     /**
      * Helper method to delete a session by ID from current array

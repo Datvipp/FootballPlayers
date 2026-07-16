@@ -1,14 +1,14 @@
 package SERVICES;
-import MODEL.Match;
+import IO.MatchIO;
+import MODEL.CupMatch;
 import MODEL.FriendlyMatch;
 import MODEL.LeagueMatch;
-import MODEL.CupMatch;
+import MODEL.Match;
 import MODEL.Player;
-import IO.MatchIO;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.IOException;
 
 public class MatchList {
     private List<Match> arr;
@@ -195,18 +195,15 @@ public class MatchList {
    }
 
     //delete file
-    public void deleteFile(String fileName){
-        try{
-            if(MatchIO.deleteFile(fileName)){
-                arr.clear();
-                System.out.println("File deleted successfully.");
-            }else{
-                System.out.println("File does not exist.");
-            }
-        }catch(IOException e){
-            System.out.println("Error deleting file: " + e.getMessage());
-        }
+    public void deleteFile(String fileName) {
+
+    if (MatchIO.deleteFile(fileName)) {
+        arr.clear();
+        System.out.println("File deleted successfully.");
+    } else {
+        System.out.println("File does not exist or could not be deleted.");
     }
+}
     
    // ================= LIEN KET VOI PLAYER =================
 

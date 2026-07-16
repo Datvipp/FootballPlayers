@@ -61,4 +61,16 @@ public class FitnessTrainingSession extends TrainingSession {
         System.out.print("Enter new fitness goal: ");
         setFitnessGoal(scanner.nextLine());
     }
+    @Override
+    public String toFileString() {
+    return "FITNESS|" +
+            getSessionId() + "|" +
+            getTitle() + "|" +
+            getDate() + "|" +
+            getTime() + "|" +
+            getLocation() + "|" +
+            getCoachName() + "|" +
+            getIntensityLevel() + "|" +
+            getFitnessGoal();
+}
 }
