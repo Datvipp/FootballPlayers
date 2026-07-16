@@ -195,13 +195,14 @@ public class MatchList {
    }
 
     //delete file
-    public void deleteFile(String fileName) {
-
-    if (MatchIO.deleteFile(fileName)) {
-        arr.clear();
-        System.out.println("File deleted successfully.");
-    } else {
-        System.out.println("File does not exist or could not be deleted.");
+    public void deleteFile(String fileName){
+            if(MatchIO.deleteFile(fileName)){
+                arr.clear();
+                System.out.println("File deleted successfully.");
+            }
+            else{
+                System.out.println("File does not exist.");
+            }
     }
 }
     
