@@ -4,7 +4,6 @@ import MODEL.CupMatch;
 import MODEL.FriendlyMatch;
 import MODEL.LeagueMatch;
 import MODEL.Match;
-import MODEL.Player;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.Scanner;
 public class MatchList {
     private List<Match> arr;
     private Scanner sc;
-    private PlayerProvider playerProvider;
 
     public MatchList() {
         this(new Scanner(System.in));
@@ -24,8 +22,6 @@ public class MatchList {
         this.sc = sc;
     }
 
-    public void setPlayerProvider(PlayerProvider playerProvider) {
-        this.playerProvider = playerProvider;
     }
     //kiem tra trung ID
    private boolean isDuplicateID(int id){
@@ -202,24 +198,5 @@ public class MatchList {
     } else {
         System.out.println("File does not exist.");
     }
-}
-
-// ================= LIEN KET VOI PLAYER =================
-
-public void viewPlayerGoals(String playerId){
-    if(playerProvider == null){
-        System.out.println("Player Management is not connected. Cannot look up player goals.");
-        return;
-    }
-
-    Player player = playerProvider.getPlayerById(playerId);
-
-    if(player == null){
-        System.out.println("Player not found!");
-        return;
-    }
-
-    System.out.println("Player: " + player.getName() + " (ID: " + player.getId() + ")");
-    System.out.println("Goals Scored: " + player.getGoalsScored());
 }
 }
