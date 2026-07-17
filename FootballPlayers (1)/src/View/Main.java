@@ -4,7 +4,7 @@ import SERVICES.ClubManager;
 import SERVICES.MatchList;
 import SERVICES.SalaryManager;
 import SERVICES.TrainingManager;
-import SERVICES.SalaryIO;
+import IO.SalaryIO;
 import MODEL.Player;
 import java.util.Scanner;
 
