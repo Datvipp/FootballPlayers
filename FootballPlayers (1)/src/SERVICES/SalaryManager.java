@@ -110,4 +110,8 @@ public class SalaryManager {
             System.out.println("Player ID not found! Cannot export payslip.");
         }
     }
+
+    public SalaryCalculator getCalculator() {
+        return this.calculator;
+    }
 }
