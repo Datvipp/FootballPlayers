@@ -91,4 +91,23 @@ public class SalaryManager {
         }
         System.out.println("Validation complete!");
     }
+    
+    //Xuất toàn bộ báo cáo lương ra CSV
+    public void exportSalaryReport() {
+        SalaryIO io = new SalaryIO();
+        // Dùng luôn clubManager và calculator đã được khai báo ở đầu file SalaryManager
+        io.exportSalaryReportToCSV(this.clubManager, this.calculator, "SalaryReport_ThangNay.csv");
+    }
+
+    //Xuất biên lai riêng cho 1 cầu thủ ra TXT
+    public void exportPlayerPayslip(String id) {
+        Player p = clubManager.getPlayerById(id);
+        if (p != null) {
+            SalaryIO io = new SalaryIO();
+            // Dùng dấu "." để lưu file ở ngay thư mục gốc của project
+            io.exportPlayerPayslipToTXT(p, this.calculator, "."); 
+        } else {
+            System.out.println("Player ID not found! Cannot export payslip.");
+        }
+    }
 }
