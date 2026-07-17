@@ -17,6 +17,7 @@ public class Main {
     public Main() {
         scanner = new Scanner(System.in);
         clubManager = new ClubManager(scanner);
+        clubManager.loadFromFile("players.txt");
         trainingManager = new TrainingManager(scanner, clubManager);
         matchManager = new MatchList(scanner);
         salaryManager = new SalaryManager(clubManager);
@@ -158,6 +159,7 @@ public class Main {
                     clubManager.updatePlayerStats();
                     break;
                 case 0:
+                    clubManager.saveToFile("players.txt");
                     System.out.println("Back to main menu...");
                     break;
                 default:
