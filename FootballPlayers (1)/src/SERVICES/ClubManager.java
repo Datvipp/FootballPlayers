@@ -5,7 +5,6 @@ import MODEL.RegularPlayer;
 import MODEL.StarPlayer;
 import java.util.Scanner;
 import IO.PlayerFileManager;
-import IO.SalaryIO;
 
 public class ClubManager implements PlayerProvider {
     Player[] arr = new Player[100];
