@@ -1,11 +1,11 @@
 package View;
 
+import MODEL.Player;
 import SERVICES.ClubManager;
 import SERVICES.MatchList;
 import SERVICES.SalaryManager;
 import SERVICES.TrainingManager;
-import IO.SalaryIO;
-import MODEL.Player;
+import IO.SalaryIO; // Đã import chính xác file SalaryIO từ thư mục IO
 import java.util.Scanner;
 
 public class Main {
@@ -64,7 +64,7 @@ public class Main {
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
     }
-    
+
     public static void main(String[] args) {
         Main app = new Main();
         app.start();
@@ -119,7 +119,7 @@ public class Main {
             System.out.println("4. View All");
             System.out.println("5. Search");
             System.out.println("6. View Player Details");
-            System.out.println("7. Update Player Stats (Goals & Absences)");
+            System.out.println("7. Update Player Stats (Goals & Absences)"); 
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
@@ -332,7 +332,7 @@ public class Main {
                 case 5:
                     System.out.println("Exporting Salary Report...");
                     SalaryIO csvIO = new SalaryIO();
-                    // Đổi đường dẫn thành thư mục ExportData/Salary_Reports
+                    // Đã đưa vào thư mục ExportData
                     csvIO.exportSalary(clubManager, salaryManager.getCalculator(), "ExportData/Salary_Reports/SalaryReport.csv");
                     break;
                 case 6:
@@ -342,7 +342,7 @@ public class Main {
                     
                     if (p != null) {
                         SalaryIO txtIO = new SalaryIO();
-                        // Đổi đường dẫn thành thư mục ExportData/Player_Payslips
+                        // Đã đưa vào thư mục ExportData
                         txtIO.exportPlayerPayslipToTXT(p, salaryManager.getCalculator(), "ExportData/Player_Payslips");
                     } else {
                         System.out.println("Player ID not found! Cannot export payslip.");
