@@ -4,12 +4,6 @@ import MODEL.Player;
 import MODEL.RegularPlayer;
 import MODEL.StarPlayer;
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import IO.PlayerFileManager;
 
 public class ClubManager implements PlayerProvider {
     Player[] arr = new Player[100];
@@ -232,28 +226,39 @@ public class ClubManager implements PlayerProvider {
         return null;
     }
 
-    public void updatePlayerStats() {
-        System.out.print("Enter Player ID to update stats: ");
-        String searchId = this.sc.nextLine();
+   public void updatePlayerStats() {
+    System.out.print("Enter Player ID to update stats: ");
+    String searchId = this.sc.nextLine();
 
-        Player p = getPlayerById(searchId);
+    Player p = getPlayerById(searchId);
 
-        if (p != null) {
-            System.out.println("Updating stats for player: " + p.getName());
+    if (p != null) {
+        System.out.println("Updating stats for player: " + p.getName());
 
+        int goals;
+        do {
             System.out.print("Input goals scored this month: ");
-            p.setGoalsScored(this.sc.nextInt());
-            this.sc.nextLine();
+            while (!sc.hasNextInt()) { System.out.println("Invalid input! Please enter a number."); sc.next(); }
+            goals = sc.nextInt();
+            if (goals < 0) System.out.println("Goals cannot be negative!");
+        } while (goals < 0);
+        p.setGoalsScored(goals);
 
-            System.out.print("Input absent days this month: ");
-            p.setAbsentDays(this.sc.nextInt());
-            this.sc.nextLine();
+        int absentDays;
+        do {
+            System.out.print("Input absent days this month (0-31): ");
+            while (!sc.hasNextInt()) { System.out.println("Invalid input! Please enter a number."); sc.next(); }
+            absentDays = sc.nextInt();
+            if (absentDays < 0 || absentDays > 31) System.out.println("Absent days must be between 0 and 31!");
+        } while (absentDays < 0 || absentDays > 31);
+        p.setAbsentDays(absentDays);
 
-            System.out.println("-> Stats updated successfully!");
-        } else {
-            System.out.println("Player not found!");
-        }
+        this.sc.nextLine();
+        System.out.println("-> Stats updated successfully!");
+    } else {
+        System.out.println("Player not found!");
     }
+}
 
     public int getCount() {
         return this.count;
