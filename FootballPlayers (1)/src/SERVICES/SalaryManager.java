@@ -96,7 +96,7 @@ public class SalaryManager {
     public void exportSalaryReport() {
         SalaryIO io = new SalaryIO();
         // Dùng luôn clubManager và calculator đã được khai báo ở đầu file SalaryManager
-        io.exportSalaryReportToCSV(this.clubManager, this.calculator, "SalaryReport_ThangNay.csv");
+        io.exportSalaryReport(this.clubManager, this.calculator, "SalaryReport_ThangNay.csv");
     }
 
     //Xuất biên lai riêng cho 1 cầu thủ ra TXT
