@@ -4,6 +4,7 @@ import MODEL.Player;
 import SERVICES.ClubManager;
 import SERVICES.SalaryCalculator;
 import java.io.BufferedWriter;
+import java.io.File; // Thư viện bắt buộc để xử lý Folder
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -11,7 +12,13 @@ public class SalaryIO {
     
     // 1. Xuất báo cáo lương tổng hợp của toàn bộ cầu thủ ra file CSV
     public void exportSalaryReport(ClubManager clubManager, SalaryCalculator calculator, String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        // TỰ ĐỘNG TẠO FOLDER NẾU CHƯA CÓ
+        File file = new File(filePath);
+        if (file.getParentFile() != null && !file.getParentFile().exists()) {
+            file.getParentFile().mkdirs(); 
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             // Viết tiêu đề cột (Header)
             writer.write("ID,Name,Base Salary,Absent Days,Final Salary,Base Bonus,Goals Scored,Total Bonus,Total Payout,Status\n");
             
@@ -50,6 +57,12 @@ public class SalaryIO {
         if (p == null) {
             System.out.println("Không thể xuất biên lai: Cầu thủ không tồn tại.");
             return;
+        }
+        
+        // TỰ ĐỘNG TẠO FOLDER NẾU CHƯA CÓ
+        File dir = new File(directoryPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
         }
         
         // Tên file dựa trên ID của cầu thủ
