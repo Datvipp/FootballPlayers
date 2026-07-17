@@ -22,7 +22,6 @@ public class Main {
         clubManager.loadFromFile("data/players.txt");
         trainingManager = new TrainingManager(scanner, clubManager);
         matchManager = new MatchList(scanner);
-        matchManager.setPlayerProvider(clubManager); 
         salaryManager = new SalaryManager(clubManager);
     }
 
@@ -240,7 +239,6 @@ public class Main {
             System.out.println("6. Save Matches to File");
             System.out.println("7. Load Matches from File");
             System.out.println("8. Delete Match File");
-            System.out.println("9. View Player Goals");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
         
@@ -279,11 +277,6 @@ public class Main {
                 case 8:
                     System.out.print("Enter file name to delete (e.g. matches.txt): ");
                     matchManager.deleteFile(scanner.nextLine());
-                    break;
-                case 9:
-                    System.out.print("Enter Player ID to view goals: ");
-                    String goalPlayerId = scanner.nextLine();
-                    matchManager.viewPlayerGoals(goalPlayerId);
                     break;
                 case 0:
                     System.out.println("Back to main menu");
