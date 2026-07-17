@@ -1,11 +1,11 @@
 package View;
 
+import IO.SalaryIO;
 import MODEL.Player;
 import SERVICES.ClubManager;
 import SERVICES.MatchList;
 import SERVICES.SalaryManager;
-import SERVICES.TrainingManager;
-import IO.SalaryIO; // Đã import chính xác file SalaryIO từ thư mục IO
+import SERVICES.TrainingManager; // Đã import chính xác file SalaryIO từ thư mục IO
 import java.util.Scanner;
 
 public class Main {

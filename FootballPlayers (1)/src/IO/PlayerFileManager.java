@@ -5,6 +5,7 @@ import MODEL.RegularPlayer;
 import MODEL.StarPlayer;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,15 +14,36 @@ public class PlayerFileManager {
 
     // Ghi mảng player ra file, trả về không cần gì vì chỉ đọc dữ liệu có sẵn
     public void saveToFile(String fileName, Player[] arr, int count) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
-            for (int i = 0; i < count; i++) {
-                bw.write(arr[i].toFileLine());
-                bw.newLine();
-            }
-            System.out.println("Saved " + count + " player(s) to " + fileName);
-        } catch (IOException e) {
-            System.out.println("Error writing file: " + e.getMessage());
+
+    File file = new File(fileName);
+
+    try {
+        // Tạo thư mục cha nếu chưa có
+        File parent = file.getParentFile();
+        if (parent != null && !parent.exists()) {
+            parent.mkdirs();
         }
+
+        // Tạo file nếu chưa có
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+
+            for (int i = 0; i < count; i++) {
+                if (arr[i] != null) {
+                    bw.write(arr[i].toFileLine());
+                    bw.newLine();
+                }
+            }
+        }
+
+        System.out.println("Saved " + count + " player(s) to " + file.getPath());
+
+    } catch (IOException e) {
+        System.out.println("Error writing file: " + e.getMessage());
+    }
     }
 
     // Đọc file, nạp trực tiếp vào mảng arr được truyền vào, trả về số lượng player đọc được (count mới)
