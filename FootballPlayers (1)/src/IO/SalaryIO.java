@@ -8,7 +8,7 @@ import java.io.IOException;
 public class SalaryIO {
     
     // 1. Xuất báo cáo lương tổng hợp của toàn bộ cầu thủ ra file CSV
-    public void exportSalaryReportToCSV(ClubManager clubManager, SalaryCalculator calculator, String filePath) {
+    public void exportSalaryReport(ClubManager clubManager, SalaryCalculator calculator, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             // Viết tiêu đề cột (Header)
             writer.write("ID,Name,Base Salary,Absent Days,Final Salary,Base Bonus,Goals Scored,Total Bonus,Total Payout,Status\n");
