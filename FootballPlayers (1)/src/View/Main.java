@@ -98,6 +98,7 @@ public class Main {
                     salaryMenu();
                     break;
                 case 0:
+                    clubManager.saveToFile("players.txt");
                     System.out.println("Exiting program...");
                     break;
                 default:
@@ -159,7 +160,6 @@ public class Main {
                     clubManager.updatePlayerStats();
                     break;
                 case 0:
-                    clubManager.saveToFile("players.txt");
                     System.out.println("Back to main menu...");
                     break;
                 default:
