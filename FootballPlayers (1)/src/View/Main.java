@@ -228,7 +228,7 @@ public class Main {
 
     private void matchMenu() {
         int choice;
-
+    
         do {
             System.out.println("\n-- MATCH MANAGEMENT --");
             System.out.println("1. Create Match");
@@ -241,9 +241,9 @@ public class Main {
             System.out.println("8. Delete Match File");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
-        
+    
             choice = readIntChoice();
-        
+    
             switch (choice) {
                 case 1:
                     matchManager.addMatch();
@@ -284,10 +284,10 @@ public class Main {
                 default:
                     System.out.println("Invalid choice!");
             }
-        
+    
         } while (choice != 0);
     }
-
+    
     private void salaryMenu() {
         int choice;
 
