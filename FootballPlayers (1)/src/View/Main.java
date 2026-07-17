@@ -332,8 +332,8 @@ public class Main {
                 case 5:
                     System.out.println("Exporting Salary Report...");
                     SalaryIO csvIO = new SalaryIO();
-                    // Lưu mặc định thành file SalaryReport.csv ở thư mục gốc project
-                    csvIO.exportSalaryReport(clubManager, salaryManager.getCalculator(), "SalaryReport.csv");
+                    // Đổi đường dẫn thành thư mục ExportData/Salary_Reports
+                    csvIO.exportSalary(clubManager, salaryManager.getCalculator(), "ExportData/Salary_Reports/SalaryReport.csv");
                     break;
                 case 6:
                     System.out.print("Enter player ID to export payslip: ");
@@ -342,8 +342,8 @@ public class Main {
                     
                     if (p != null) {
                         SalaryIO txtIO = new SalaryIO();
-                        // Dấu "." đại diện cho lưu ở thư mục gốc project
-                        txtIO.exportPlayerPayslipToTXT(p, salaryManager.getCalculator(), ".");
+                        // Đổi đường dẫn thành thư mục ExportData/Player_Payslips
+                        txtIO.exportPlayerPayslipToTXT(p, salaryManager.getCalculator(), "ExportData/Player_Payslips");
                     } else {
                         System.out.println("Player ID not found! Cannot export payslip.");
                     }
