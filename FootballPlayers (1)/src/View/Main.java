@@ -4,6 +4,8 @@ import SERVICES.ClubManager;
 import SERVICES.MatchList;
 import SERVICES.SalaryManager;
 import SERVICES.TrainingManager;
+import SERVICES.SalaryIO;
+import MODEL.Player;
 import java.util.Scanner;
 
 public class Main {
@@ -21,7 +23,6 @@ public class Main {
         trainingManager = new TrainingManager(scanner, clubManager);
         matchManager = new MatchList(scanner);
         salaryManager = new SalaryManager(clubManager);
-        
     }
 
     public ClubManager getClubManager() {
@@ -64,7 +65,6 @@ public class Main {
         this.scanner = scanner;
     }
     
-
     public static void main(String[] args) {
         Main app = new Main();
         app.start();
@@ -119,7 +119,7 @@ public class Main {
             System.out.println("4. View All");
             System.out.println("5. Search");
             System.out.println("6. View Player Details");
-            System.out.println("7. Update Player Stats (Goals & Absences)"); // Q thêm vào đó
+            System.out.println("7. Update Player Stats (Goals & Absences)");
             System.out.println("0. Back");
             System.out.print("Enter your choice: ");
 
@@ -155,7 +155,7 @@ public class Main {
                     String viewId = scanner.nextLine();
                     clubManager.viewPlayerDetails(viewId);
                     break;
-                case 7: // Q thêm vào đóa
+                case 7: 
                     System.out.println("=== Update Player Stats (Goals & Absences for the month) ===");
                     clubManager.updatePlayerStats();
                     break;
@@ -249,60 +249,51 @@ public class Main {
                 case 1:
                     matchManager.addMatch();
                     break;
-        
                 case 2:
                     System.out.print("Input Match ID to update: ");
                     int updateID = readIntChoice();
                     matchManager.updateMatch(updateID);
                     break;
-        
                 case 3:
                     matchManager.displayMatchList();
                     break;
-        
                 case 4:
                     System.out.print("Input Match ID to search: ");
                     int searchID = readIntChoice();
                     matchManager.searchMatchByID(searchID);
                     break;
-        
                 case 5:
                     System.out.print("Input Match ID to delete: ");
                     int deleteID = readIntChoice();
                     matchManager.deleteMatch(deleteID);
                     break;
-        
                 case 6:
                     System.out.print("Enter file name to save (e.g. matches.txt): ");
                     matchManager.saveToFile(scanner.nextLine());
                     break;
-        
                 case 7:
                     System.out.print("Enter file name to load (e.g. matches.txt): ");
                     matchManager.loadFromFile(scanner.nextLine());
                     break;
-        
                 case 8:
                     System.out.print("Enter file name to delete (e.g. matches.txt): ");
                     matchManager.deleteFile(scanner.nextLine());
                     break;
-        
                 case 9:
                     System.out.print("Enter Player ID to view goals: ");
                     String goalPlayerId = scanner.nextLine();
                     matchManager.viewPlayerGoals(goalPlayerId);
                     break;
-        
                 case 0:
                     System.out.println("Back to main menu");
                     break;
-        
                 default:
                     System.out.println("Invalid choice!");
             }
         
         } while (choice != 0);
     }
+
     private void salaryMenu() {
         int choice;
 
@@ -312,6 +303,8 @@ public class Main {
             System.out.println("2. Calculate Bonus");
             System.out.println("3. View Total Income (Salary + Bonus)");
             System.out.println("4. Validate Rules");
+            System.out.println("5. Export Salary Report (CSV)");
+            System.out.println("6. Export Player Payslip (TXT)");
             System.out.println("0. Back");
             System.out.print("Your Choice: ");
 
@@ -335,6 +328,25 @@ public class Main {
                     break;
                 case 4:
                     salaryManager.validateContractRules();
+                    break;
+                case 5:
+                    System.out.println("Exporting Salary Report...");
+                    SalaryIO csvIO = new SalaryIO();
+                    // Lưu mặc định thành file SalaryReport.csv ở thư mục gốc project
+                    csvIO.exportSalaryReportToCSV(clubManager, salaryManager.getCalculator(), "SalaryReport.csv");
+                    break;
+                case 6:
+                    System.out.print("Enter player ID to export payslip: ");
+                    String payslipId = scanner.nextLine();
+                    Player p = clubManager.getPlayerById(payslipId);
+                    
+                    if (p != null) {
+                        SalaryIO txtIO = new SalaryIO();
+                        // Dấu "." đại diện cho lưu ở thư mục gốc project
+                        txtIO.exportPlayerPayslipToTXT(p, salaryManager.getCalculator(), ".");
+                    } else {
+                        System.out.println("Player ID not found! Cannot export payslip.");
+                    }
                     break;
                 case 0:
                     System.out.println("Back to main menu");
