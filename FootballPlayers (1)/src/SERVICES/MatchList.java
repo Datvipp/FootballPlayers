@@ -22,7 +22,6 @@ public class MatchList {
         this.sc = sc;
     }
 
-    }
     //kiem tra trung ID
    private boolean isDuplicateID(int id){
     for(Match match : arr){
@@ -198,5 +197,4 @@ public class MatchList {
     } else {
         System.out.println("File does not exist.");
     }
-}
 }
