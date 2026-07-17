@@ -19,7 +19,7 @@ public class Main {
     public Main() {
         scanner = new Scanner(System.in);
         clubManager = new ClubManager(scanner);
-        clubManager.loadFromFile("players.txt");
+        clubManager.loadFromFile("data/players.txt");
         trainingManager = new TrainingManager(scanner, clubManager);
         matchManager = new MatchList(scanner);
         salaryManager = new SalaryManager(clubManager);
@@ -98,7 +98,7 @@ public class Main {
                     salaryMenu();
                     break;
                 case 0:
-                    clubManager.saveToFile("players.txt");
+                    clubManager.saveToFile("data/players.txt");
                     System.out.println("Exiting program...");
                     break;
                 default:
