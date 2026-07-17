@@ -333,7 +333,7 @@ public class Main {
                     System.out.println("Exporting Salary Report...");
                     SalaryIO csvIO = new SalaryIO();
                     // Đã đưa vào thư mục ExportData
-                    csvIO.exportSalary(clubManager, salaryManager.getCalculator(), "ExportData/Salary_Reports/SalaryReport.csv");
+                    csvIO.exportSalaryReport(clubManager, salaryManager.getCalculator(), "ExportData/Salary_Reports/SalaryReport.csv");
                     break;
                 case 6:
                     System.out.print("Enter player ID to export payslip: ");
