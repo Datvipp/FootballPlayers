@@ -22,6 +22,7 @@ public class Main {
         clubManager.loadFromFile("data/players.txt");
         trainingManager = new TrainingManager(scanner, clubManager);
         matchManager = new MatchList(scanner);
+        matchManager.setPlayerProvider(clubManager); 
         salaryManager = new SalaryManager(clubManager);
     }
 
