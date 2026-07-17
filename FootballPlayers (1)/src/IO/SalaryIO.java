@@ -1,4 +1,4 @@
-package ;
+package IO;
 
 import MODEL.Player;
 import java.io.BufferedWriter;
