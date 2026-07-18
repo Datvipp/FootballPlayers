@@ -189,13 +189,13 @@ public class MatchList {
             + (skipped > 0 ? " (" + skipped + " duplicate(s) skipped)" : ""));
    }
 
-    //delete file
-    public void deleteFile(String fileName){
-        if (MatchIO.deleteFile(fileName)) {
-            arr.clear();
-            System.out.println("File deleted successfully.");
-        } else {
-            System.out.println("File does not exist.");
-        }
-    }
+   public void deleteFile(String fileName) {
+       boolean deleted = MatchIO.deleteFile(fileName);
+       if (deleted) {
+           System.out.println("Deleted match file: " + MatchIO.resolvePath(fileName));
+       } else {
+           System.out.println("Match file does not exist or could not be deleted.");
+       }
+   }
 }
+
